@@ -77,11 +77,7 @@ module.exports = grammar({
       'USVString',
     ),
 
-    identifier_list: $ => seq(
-      $.identifier,
-      repeat(seq(',', $.identifier)),
-      optional(','),
-    ),
+    identifier_list: $ => sepByComma($.identifier),
 
     // terminal symbols
     integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
@@ -93,3 +89,15 @@ module.exports = grammar({
     comment: $ => /\/\/.*|\/\*(.|\n)*?\*\//,
   }
 });
+
+/**
+ * @param {RuleOrLiteral} rule
+ * @returns SeqRule
+ */
+function sepByComma(rule) {
+  return seq(
+    rule,
+    repeat(seq(',', rule)),
+    optional(','),
+  )
+}

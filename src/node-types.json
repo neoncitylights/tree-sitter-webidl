@@ -6,7 +6,13 @@
     "fields": {}
   },
   {
-    "type": "hello",
-    "named": false
+    "type": "comment",
+    "named": true,
+    "extra": true
+  },
+  {
+    "type": "whitespace",
+    "named": true,
+    "extra": true
   }
 ]

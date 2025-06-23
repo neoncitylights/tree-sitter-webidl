@@ -10,13 +10,24 @@
 module.exports = grammar({
   name: "webidl",
   extras: $ => [
-    $.whitespace,
+    $._whitespace,
     $.comment,
   ],
 
   rules: {
     // TODO: add the actual grammar rules
-    source_file: $ => seq(),
+    source_file: $ => repeat($._definition),
+
+    _definition: $ => choice(
+      $.includes_statement,
+    ),
+
+    includes_statement: $ => seq(
+      field('includer', $.identifier),
+      'includes',
+      field('includee', $.identifier),
+      ';'
+    ),
 
     // const statements
     const_statement: $ => seq(
@@ -50,6 +61,15 @@ module.exports = grammar({
     ),
 
     // types
+    type: $ => choice(
+      $.single_type,
+    ),
+
+    single_type: $ => choice(
+      $.distinguishable_type,
+      'any',
+    ),
+
     distinguishable_type: $ => seq(
       choice(
         $.primitive_type,
@@ -117,7 +137,7 @@ module.exports = grammar({
     identifier: $ => /[_-]?[A-Za-z][0-9A-Z_a-z-]*/,
     string: $ => /"[^"]*"/,
     other: $ => /[^\t\n\r 0-9A-Za-z]/,
-    whitespace: $ => /[\t\n\r ]+/,
+    _whitespace: $ => /[\t\n\r ]+/,
     comment: $ => /\/\/.*|\/\*(.|\n)*?\*\//,
   }
 });

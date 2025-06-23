@@ -3,8 +3,49 @@
   "name": "webidl",
   "rules": {
     "source_file": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_definition"
+      }
+    },
+    "_definition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "includes_statement"
+        }
+      ]
+    },
+    "includes_statement": {
       "type": "SEQ",
-      "members": []
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "includer",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "includes"
+        },
+        {
+          "type": "FIELD",
+          "name": "includee",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
     },
     "const_statement": {
       "type": "SEQ",
@@ -112,6 +153,28 @@
         {
           "type": "STRING",
           "value": "NaN"
+        }
+      ]
+    },
+    "type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "single_type"
+        }
+      ]
+    },
+    "single_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "distinguishable_type"
+        },
+        {
+          "type": "STRING",
+          "value": "any"
         }
       ]
     },
@@ -410,7 +473,7 @@
       "type": "PATTERN",
       "value": "[^\\t\\n\\r 0-9A-Za-z]"
     },
-    "whitespace": {
+    "_whitespace": {
       "type": "PATTERN",
       "value": "[\\t\\n\\r ]+"
     },
@@ -422,7 +485,7 @@
   "extras": [
     {
       "type": "SYMBOL",
-      "name": "whitespace"
+      "name": "_whitespace"
     },
     {
       "type": "SYMBOL",

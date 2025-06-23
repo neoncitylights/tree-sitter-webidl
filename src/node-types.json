@@ -1,9 +1,49 @@
 [
   {
+    "type": "includes_statement",
+    "named": true,
+    "fields": {
+      "includee": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "includer": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "includes_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": ";",
+    "named": false
   },
   {
     "type": "comment",
@@ -11,8 +51,11 @@
     "extra": true
   },
   {
-    "type": "whitespace",
-    "named": true,
-    "extra": true
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "includes",
+    "named": false
   }
 ]

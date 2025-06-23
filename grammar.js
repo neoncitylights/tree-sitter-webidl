@@ -18,6 +18,38 @@ module.exports = grammar({
     // TODO: add the actual grammar rules
     source_file: $ => seq(),
 
+    // const statements
+    const_statement: $ => seq(
+      'const',
+      field('type', $.const_type),
+      field('name', $.identifier),
+      '=',
+      field('value', $.const_value),
+      ';',
+    ),
+
+    const_type: $ => choice(
+      $.primitive_type,
+      $.identifier,
+    ),
+
+    const_value: $ => choice(
+      $.boolean_literal,
+      $.float_literal,
+      $.integer_literal,
+    ),
+
+    // literals
+    integer_literal: $ => $._integer,
+    boolean_literal: $ => choice('true', 'false'),
+    float_literal: $ => choice(
+      $._decimal,
+      '-Infinity',
+      'Infinity',
+      'NaN',
+    ),
+
+    // types
     distinguishable_type: $ => seq(
       choice(
         $.primitive_type,
@@ -80,8 +112,8 @@ module.exports = grammar({
     identifier_list: $ => sepByComma($.identifier),
 
     // terminal symbols
-    integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
-    decimal: $ => /-?(([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([Ee][+-]?[0-9]+)?|[0-9]+[Ee][+-]?[0-9]+)/,
+    _integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
+    _decimal: $ => /-?(([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([Ee][+-]?[0-9]+)?|[0-9]+[Ee][+-]?[0-9]+)/,
     identifier: $ => /[_-]?[A-Za-z][0-9A-Z_a-z-]*/,
     string: $ => /"[^"]*"/,
     other: $ => /[^\t\n\r 0-9A-Za-z]/,

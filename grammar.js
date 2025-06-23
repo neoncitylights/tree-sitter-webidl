@@ -18,6 +18,65 @@ module.exports = grammar({
     // TODO: add the actual grammar rules
     source_file: $ => seq(),
 
+    distinguishable_type: $ => seq(
+      choice(
+        $.primitive_type,
+        $.string_type,
+        $.identifier,
+        'object',
+        'symbol',
+        $.buffer_related_type,
+        'undefined',
+      ),
+      optional('?'),
+    ),
+
+    buffer_related_type: $ => choice(
+      'ArrayBuffer',
+      'SharedArrayBuffer',
+      'DataView',
+      'Int8Array',
+      'Int16Array',
+      'Int32Array',
+      'Uint8Array',
+      'Uint16Array',
+      'Uint32Array',
+      'Uint8ClampedArray',
+      'BigInt64Array',
+      'BigUint64Array',
+      'Float16Array',
+      'Float32Array',
+      'Float64Array',
+    ),
+
+    primitive_type: $ => seq(
+      $.integer_type,
+      $.float_type,
+      'boolean',
+      'byte',
+      'octet',
+      'bigint',
+    ),
+
+    integer_type: $ => seq(
+      optional('unsigned'),
+      choice(
+        'short',
+        seq('long', optional('long')),
+      ),
+    ),
+
+    float_type: $ => seq(
+      optional('restricted'),
+      choice('float', 'double'),
+    ),
+
+    string_type: $ => choice(
+      'ByteString',
+      'DOMString',
+      'USVString',
+    ),
+
     identifier_list: $ => seq(
       $.identifier,
       repeat(seq(',', $.identifier)),

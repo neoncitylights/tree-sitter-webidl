@@ -6,6 +6,244 @@
       "type": "SEQ",
       "members": []
     },
+    "distinguishable_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "primitive_type"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "string_type"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "object"
+            },
+            {
+              "type": "STRING",
+              "value": "symbol"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "buffer_related_type"
+            },
+            {
+              "type": "STRING",
+              "value": "undefined"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "?"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "buffer_related_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ArrayBuffer"
+        },
+        {
+          "type": "STRING",
+          "value": "SharedArrayBuffer"
+        },
+        {
+          "type": "STRING",
+          "value": "DataView"
+        },
+        {
+          "type": "STRING",
+          "value": "Int8Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Int16Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Int32Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Uint8Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Uint16Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Uint32Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Uint8ClampedArray"
+        },
+        {
+          "type": "STRING",
+          "value": "BigInt64Array"
+        },
+        {
+          "type": "STRING",
+          "value": "BigUint64Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Float16Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Float32Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Float64Array"
+        }
+      ]
+    },
+    "primitive_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "integer_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "float_type"
+        },
+        {
+          "type": "STRING",
+          "value": "boolean"
+        },
+        {
+          "type": "STRING",
+          "value": "byte"
+        },
+        {
+          "type": "STRING",
+          "value": "octet"
+        },
+        {
+          "type": "STRING",
+          "value": "bigint"
+        }
+      ]
+    },
+    "integer_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "unsigned"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "short"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "long"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "long"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "float_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "restricted"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "float"
+            },
+            {
+              "type": "STRING",
+              "value": "double"
+            }
+          ]
+        }
+      ]
+    },
+    "string_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ByteString"
+        },
+        {
+          "type": "STRING",
+          "value": "DOMString"
+        },
+        {
+          "type": "STRING",
+          "value": "USVString"
+        }
+      ]
+    },
     "identifier_list": {
       "type": "SEQ",
       "members": [

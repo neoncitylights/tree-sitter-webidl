@@ -63,11 +63,30 @@ module.exports = grammar({
     // types
     type: $ => choice(
       $.single_type,
+      $.union_type,
     ),
 
     single_type: $ => choice(
       $.distinguishable_type,
       'any',
+      // $.promise_type,
+    ),
+
+    union_type: $ => seq(
+      '(',
+      $.union_or_expression,
+      ')'
+    ),
+
+    union_or_expression: $ => prec.left(seq(
+      field('left', $.union_member_type),
+      'or',
+      field('right', choice($.union_or_expression, $.union_member_type))
+    )),
+
+    union_member_type: $ => choice(
+      $.distinguishable_type,
+      $.union_type,
     ),
 
     distinguishable_type: $ => seq(

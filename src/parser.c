@@ -7,7 +7,7 @@
 #endif
 
 #define LANGUAGE_VERSION 15
-#define STATE_COUNT 9
+#define STATE_COUNT 10
 #define LARGE_STATE_COUNT 4
 #define SYMBOL_COUNT 10
 #define ALIAS_COUNT 0
@@ -17,7 +17,7 @@
 #define MAX_ALIAS_SEQUENCE_LENGTH 4
 #define MAX_RESERVED_WORD_SET_SIZE 0
 #define PRODUCTION_ID_COUNT 2
-#define SUPERTYPE_COUNT 0
+#define SUPERTYPE_COUNT 1
 
 enum ts_symbol_identifiers {
   anon_sym_includes = 1,
@@ -89,6 +89,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   [sym__definition] = {
     .visible = false,
     .named = true,
+    .supertype = true,
   },
   [sym_includes_statement] = {
     .visible = true,
@@ -139,6 +140,20 @@ static const TSStateId ts_primary_state_ids[STATE_COUNT] = {
   [6] = 6,
   [7] = 7,
   [8] = 8,
+  [9] = 9,
+};
+
+static const TSSymbol ts_supertype_symbols[SUPERTYPE_COUNT] = {
+  sym__definition,
+};
+
+static const TSMapSlice ts_supertype_map_slices[] = {
+  [sym__definition] = {.index = 0, .length = 1},
+};
+
+static const TSSymbol ts_supertype_map_entries[] = {
+  [0] =
+    sym_includes_statement,
 };
 
 static bool ts_lex(TSLexer *lexer, TSStateId state) {
@@ -250,10 +265,11 @@ static const TSLexerMode ts_lex_modes[STATE_COUNT] = {
   [2] = {.lex_state = 12},
   [3] = {.lex_state = 12},
   [4] = {.lex_state = 12},
-  [5] = {.lex_state = 0},
+  [5] = {.lex_state = 12},
   [6] = {.lex_state = 0},
-  [7] = {.lex_state = 12},
-  [8] = {.lex_state = 0},
+  [7] = {.lex_state = 0},
+  [8] = {.lex_state = 12},
+  [9] = {.lex_state = 0},
 };
 
 static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
@@ -265,9 +281,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_comment] = ACTIONS(3),
   },
   [STATE(1)] = {
-    [sym_source_file] = STATE(6),
+    [sym_source_file] = STATE(7),
     [sym__definition] = STATE(2),
-    [sym_includes_statement] = STATE(2),
+    [sym_includes_statement] = STATE(4),
     [aux_sym_source_file_repeat1] = STATE(2),
     [ts_builtin_sym_end] = ACTIONS(5),
     [sym_identifier] = ACTIONS(7),
@@ -276,7 +292,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
   },
   [STATE(2)] = {
     [sym__definition] = STATE(3),
-    [sym_includes_statement] = STATE(3),
+    [sym_includes_statement] = STATE(4),
     [aux_sym_source_file_repeat1] = STATE(3),
     [ts_builtin_sym_end] = ACTIONS(9),
     [sym_identifier] = ACTIONS(7),
@@ -285,7 +301,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
   },
   [STATE(3)] = {
     [sym__definition] = STATE(3),
-    [sym_includes_statement] = STATE(3),
+    [sym_includes_statement] = STATE(4),
     [aux_sym_source_file_repeat1] = STATE(3),
     [ts_builtin_sym_end] = ACTIONS(11),
     [sym_identifier] = ACTIONS(13),
@@ -303,25 +319,32 @@ static const uint16_t ts_small_parse_table[] = {
       ts_builtin_sym_end,
       sym_identifier,
   [9] = 2,
-    ACTIONS(18), 1,
+    ACTIONS(3), 2,
+      sym__whitespace,
+      sym_comment,
+    ACTIONS(18), 2,
+      ts_builtin_sym_end,
+      sym_identifier,
+  [18] = 2,
+    ACTIONS(20), 1,
       anon_sym_includes,
     ACTIONS(3), 2,
       sym__whitespace,
       sym_comment,
-  [17] = 2,
-    ACTIONS(20), 1,
+  [26] = 2,
+    ACTIONS(22), 1,
       ts_builtin_sym_end,
     ACTIONS(3), 2,
       sym__whitespace,
       sym_comment,
-  [25] = 2,
-    ACTIONS(22), 1,
+  [34] = 2,
+    ACTIONS(24), 1,
       sym_identifier,
     ACTIONS(3), 2,
       sym__whitespace,
       sym_comment,
-  [33] = 2,
-    ACTIONS(24), 1,
+  [42] = 2,
+    ACTIONS(26), 1,
       anon_sym_SEMI,
     ACTIONS(3), 2,
       sym__whitespace,
@@ -331,9 +354,10 @@ static const uint16_t ts_small_parse_table[] = {
 static const uint32_t ts_small_parse_table_map[] = {
   [SMALL_STATE(4)] = 0,
   [SMALL_STATE(5)] = 9,
-  [SMALL_STATE(6)] = 17,
-  [SMALL_STATE(7)] = 25,
-  [SMALL_STATE(8)] = 33,
+  [SMALL_STATE(6)] = 18,
+  [SMALL_STATE(7)] = 26,
+  [SMALL_STATE(8)] = 34,
+  [SMALL_STATE(9)] = 42,
 };
 
 static const TSParseActionEntry ts_parse_actions[] = {
@@ -341,15 +365,16 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [1] = {.entry = {.count = 1, .reusable = false}}, RECOVER(),
   [3] = {.entry = {.count = 1, .reusable = true}}, SHIFT_EXTRA(),
   [5] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_source_file, 0, 0, 0),
-  [7] = {.entry = {.count = 1, .reusable = true}}, SHIFT(5),
+  [7] = {.entry = {.count = 1, .reusable = true}}, SHIFT(6),
   [9] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_source_file, 1, 0, 0),
   [11] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_source_file_repeat1, 2, 0, 0),
-  [13] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_source_file_repeat1, 2, 0, 0), SHIFT_REPEAT(5),
-  [16] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_includes_statement, 4, 0, 1),
-  [18] = {.entry = {.count = 1, .reusable = true}}, SHIFT(7),
-  [20] = {.entry = {.count = 1, .reusable = true}},  ACCEPT_INPUT(),
-  [22] = {.entry = {.count = 1, .reusable = true}}, SHIFT(8),
-  [24] = {.entry = {.count = 1, .reusable = true}}, SHIFT(4),
+  [13] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_source_file_repeat1, 2, 0, 0), SHIFT_REPEAT(6),
+  [16] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym__definition, 1, 0, 0),
+  [18] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_includes_statement, 4, 0, 1),
+  [20] = {.entry = {.count = 1, .reusable = true}}, SHIFT(8),
+  [22] = {.entry = {.count = 1, .reusable = true}},  ACCEPT_INPUT(),
+  [24] = {.entry = {.count = 1, .reusable = true}}, SHIFT(9),
+  [26] = {.entry = {.count = 1, .reusable = true}}, SHIFT(5),
 };
 
 #ifdef __cplusplus
@@ -384,6 +409,9 @@ TS_PUBLIC const TSLanguage *tree_sitter_webidl(void) {
     .field_names = ts_field_names,
     .field_map_slices = ts_field_map_slices,
     .field_map_entries = ts_field_map_entries,
+    .supertype_map_slices = ts_supertype_map_slices,
+    .supertype_map_entries = ts_supertype_map_entries,
+    .supertype_symbols = ts_supertype_symbols,
     .symbol_metadata = ts_symbol_metadata,
     .public_symbol_map = ts_symbol_map,
     .alias_map = ts_non_terminal_alias_map,

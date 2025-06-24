@@ -18,6 +18,200 @@
         }
       ]
     },
+    "argument_name_keyword": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "async"
+        },
+        {
+          "type": "STRING",
+          "value": "attribute"
+        },
+        {
+          "type": "STRING",
+          "value": "callback"
+        },
+        {
+          "type": "STRING",
+          "value": "const"
+        },
+        {
+          "type": "STRING",
+          "value": "constructor"
+        },
+        {
+          "type": "STRING",
+          "value": "deleter"
+        },
+        {
+          "type": "STRING",
+          "value": "dictionary"
+        },
+        {
+          "type": "STRING",
+          "value": "enum"
+        },
+        {
+          "type": "STRING",
+          "value": "getter"
+        },
+        {
+          "type": "STRING",
+          "value": "includes"
+        },
+        {
+          "type": "STRING",
+          "value": "inherit"
+        },
+        {
+          "type": "STRING",
+          "value": "interface"
+        },
+        {
+          "type": "STRING",
+          "value": "iterable"
+        },
+        {
+          "type": "STRING",
+          "value": "maplike"
+        },
+        {
+          "type": "STRING",
+          "value": "mixin"
+        },
+        {
+          "type": "STRING",
+          "value": "namespace"
+        },
+        {
+          "type": "STRING",
+          "value": "partial"
+        },
+        {
+          "type": "STRING",
+          "value": "readonly"
+        },
+        {
+          "type": "STRING",
+          "value": "required"
+        },
+        {
+          "type": "STRING",
+          "value": "setlike"
+        },
+        {
+          "type": "STRING",
+          "value": "setter"
+        },
+        {
+          "type": "STRING",
+          "value": "static"
+        },
+        {
+          "type": "STRING",
+          "value": "stringifier"
+        },
+        {
+          "type": "STRING",
+          "value": "typedef"
+        },
+        {
+          "type": "STRING",
+          "value": "unrestricted"
+        }
+      ]
+    },
+    "argument_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "argument"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "argument"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "argument": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "optional"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "argument_name"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "default"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "ellipsis"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "argument_name"
+            }
+          ]
+        }
+      ]
+    },
+    "argument_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "argument_name_keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "ellipsis": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "..."
+        },
+        {
+          "type": "BLANK"
+        }
+      ]
+    },
     "includes_statement": {
       "type": "SEQ",
       "members": [
@@ -118,6 +312,66 @@
         }
       ]
     },
+    "default": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "default_value"
+        }
+      ]
+    },
+    "default_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ConstValue"
+        },
+        {
+          "type": "STRING",
+          "value": "string"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "["
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "{"
+            },
+            {
+              "type": "STRING",
+              "value": "}"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "null"
+        },
+        {
+          "type": "STRING",
+          "value": "undefined"
+        }
+      ]
+    },
     "integer_literal": {
       "type": "SYMBOL",
       "name": "_integer"
@@ -196,6 +450,10 @@
         {
           "type": "STRING",
           "value": "any"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "promise_type"
         }
       ]
     },
@@ -298,6 +556,10 @@
               "name": "buffer_related_type"
             },
             {
+              "type": "SYMBOL",
+              "name": "record_type"
+            },
+            {
               "type": "STRING",
               "value": "undefined"
             }
@@ -314,71 +576,6 @@
               "type": "BLANK"
             }
           ]
-        }
-      ]
-    },
-    "buffer_related_type": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "ArrayBuffer"
-        },
-        {
-          "type": "STRING",
-          "value": "SharedArrayBuffer"
-        },
-        {
-          "type": "STRING",
-          "value": "DataView"
-        },
-        {
-          "type": "STRING",
-          "value": "Int8Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Int16Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Int32Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Uint8Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Uint16Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Uint32Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Uint8ClampedArray"
-        },
-        {
-          "type": "STRING",
-          "value": "BigInt64Array"
-        },
-        {
-          "type": "STRING",
-          "value": "BigUint64Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Float16Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Float32Array"
-        },
-        {
-          "type": "STRING",
-          "value": "Float64Array"
         }
       ]
     },
@@ -505,6 +702,117 @@
         }
       ]
     },
+    "promise_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "promise"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "record_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "record"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "buffer_related_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ArrayBuffer"
+        },
+        {
+          "type": "STRING",
+          "value": "SharedArrayBuffer"
+        },
+        {
+          "type": "STRING",
+          "value": "DataView"
+        },
+        {
+          "type": "STRING",
+          "value": "Int8Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Int16Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Int32Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Uint8Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Uint16Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Uint32Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Uint8ClampedArray"
+        },
+        {
+          "type": "STRING",
+          "value": "BigInt64Array"
+        },
+        {
+          "type": "STRING",
+          "value": "BigUint64Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Float16Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Float32Array"
+        },
+        {
+          "type": "STRING",
+          "value": "Float64Array"
+        }
+      ]
+    },
     "identifier_list": {
       "type": "SEQ",
       "members": [
@@ -527,18 +835,6 @@
               }
             ]
           }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": ","
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         }
       ]
     },
@@ -585,6 +881,8 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": [],
+  "supertypes": [
+    "_definition"
+  ],
   "reserved": {}
 }

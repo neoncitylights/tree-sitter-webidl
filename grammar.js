@@ -19,7 +19,6 @@ module.exports = grammar({
   ],
 
   rules: {
-    // TODO: add the actual grammar rules
     source_file: $ => repeat($._definition),
 
     _definition: $ => choice(

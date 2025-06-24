@@ -2,15 +2,20 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches:
+      - main
     paths:
+      - .github/workflows/ci.yml
       - grammar.js
       - src/**
       - test/**
       - bindings/**
       - binding.gyp
   pull_request:
+    branches:
+      - main
     paths:
+      - .github/workflows/ci.yml
       - grammar.js
       - src/**
       - test/**

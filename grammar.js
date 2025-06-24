@@ -14,14 +14,70 @@ module.exports = grammar({
     $.comment,
   ],
 
+  supertypes: $ => [
+    $._definition,
+  ],
+
   rules: {
-    // TODO: add the actual grammar rules
     source_file: $ => repeat($._definition),
 
     _definition: $ => choice(
       $.includes_statement,
     ),
 
+    // arguments
+    argument_name_keyword: $ => choice(
+      'async',
+      'attribute',
+      'callback',
+      'const',
+      'constructor',
+      'deleter',
+      'dictionary',
+      'enum',
+      'getter',
+      'includes',
+      'inherit',
+      'interface',
+      'iterable',
+      'maplike',
+      'mixin',
+      'namespace',
+      'partial',
+      'readonly',
+      'required',
+      'setlike',
+      'setter',
+      'static',
+      'stringifier',
+      'typedef',
+      'unrestricted',
+    ),
+
+    argument_list: $ => sepByComma1NoTrailing($.argument),
+
+    argument: $ => choice(
+      seq(
+        'optional',
+        field('type', $.type), // todo: type_with_extended_attributes
+        field('name', $.argument_name),
+        $.default,
+      ),
+      seq(
+        field('type', $.type),
+        $.ellipsis,
+        field('name', $.argument_name),
+      ),
+    ),
+
+    argument_name: $ => choice(
+      $.argument_name_keyword,
+      $.identifier,
+    ),
+
+    ellipsis: $ => optional('...'),
+
+    // includes statement
     includes_statement: $ => seq(
       field('includer', $.identifier),
       'includes',
@@ -29,7 +85,7 @@ module.exports = grammar({
       ';'
     ),
 
-    // const statements
+    // const statement
     const_statement: $ => seq(
       'const',
       field('type', $.const_type),
@@ -48,6 +104,17 @@ module.exports = grammar({
       $.boolean_literal,
       $.float_literal,
       $.integer_literal,
+    ),
+
+    // default values
+    default: $ => seq('=', $.default_value),
+    default_value: $ => choice(
+      'ConstValue',
+      'string',
+      seq('[', ']'),
+      seq('{', '}'),
+      'null',
+      'undefined',
     ),
 
     // literals
@@ -69,7 +136,7 @@ module.exports = grammar({
     single_type: $ => choice(
       $.distinguishable_type,
       'any',
-      // $.promise_type,
+      $.promise_type,
     ),
 
     union_type: $ => seq(
@@ -89,6 +156,7 @@ module.exports = grammar({
       $.union_type,
     ),
 
+    // builtin types
     distinguishable_type: $ => seq(
       choice(
         $.primitive_type,
@@ -97,27 +165,10 @@ module.exports = grammar({
         'object',
         'symbol',
         $.buffer_related_type,
+        $.record_type,
         'undefined',
       ),
       optional('?'),
-    ),
-
-    buffer_related_type: $ => choice(
-      'ArrayBuffer',
-      'SharedArrayBuffer',
-      'DataView',
-      'Int8Array',
-      'Int16Array',
-      'Int32Array',
-      'Uint8Array',
-      'Uint16Array',
-      'Uint32Array',
-      'Uint8ClampedArray',
-      'BigInt64Array',
-      'BigUint64Array',
-      'Float16Array',
-      'Float32Array',
-      'Float64Array',
     ),
 
     primitive_type: $ => seq(
@@ -148,7 +199,30 @@ module.exports = grammar({
       'USVString',
     ),
 
-    identifier_list: $ => sepByComma1($.identifier),
+    promise_type: $ => seq('promise', '<', $.type, '>'),
+
+    // todo: make second generic type a type_with_extended_attributes
+    record_type: $ => seq('record', '<', $.string_type, $.type, '>'),
+
+    buffer_related_type: $ => choice(
+      'ArrayBuffer',
+      'SharedArrayBuffer',
+      'DataView',
+      'Int8Array',
+      'Int16Array',
+      'Int32Array',
+      'Uint8Array',
+      'Uint16Array',
+      'Uint32Array',
+      'Uint8ClampedArray',
+      'BigInt64Array',
+      'BigUint64Array',
+      'Float16Array',
+      'Float32Array',
+      'Float64Array',
+    ),
+
+    identifier_list: $ => sepByComma1NoTrailing($.identifier),
 
     // terminal symbols
     _integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
@@ -165,10 +239,9 @@ module.exports = grammar({
  * @param {RuleOrLiteral} rule
  * @returns SeqRule
  */
-function sepByComma1(rule) {
+function sepByComma1NoTrailing(rule) {
   return seq(
     rule,
     repeat(seq(',', rule)),
-    optional(','),
   )
 }

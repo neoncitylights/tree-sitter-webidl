@@ -1,5 +1,15 @@
 [
   {
+    "type": "_definition",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "includes_statement",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "includes_statement",
     "named": true,
     "fields": {
@@ -35,7 +45,7 @@
       "required": false,
       "types": [
         {
-          "type": "includes_statement",
+          "type": "_definition",
           "named": true
         }
       ]

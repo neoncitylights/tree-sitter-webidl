@@ -28,7 +28,11 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.language == 'swift' && 'macos-latest' || 'ubuntu-latest' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [rust, node, python, go, swift]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,8 +41,8 @@ jobs:
       - name: Run tests
         uses: tree-sitter/parser-test-action@v2
         with:
-          test-rust: true
-          test-node: true
-          test-python: true
-          test-go: true
-          test-swift: true
+          test-rust: ${{ matrix.language == 'rust' }}
+          test-node: ${{ matrix.language == 'node' }}
+          test-python: ${{ matrix.language == 'python' }}
+          test-go: ${{ matrix.language == 'go' }}
+          test-swift: ${{ matrix.language == 'swift' }}

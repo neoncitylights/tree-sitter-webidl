@@ -59,13 +59,14 @@ module.exports = grammar({
     argument: $ => choice(
       seq(
         'optional',
-        $.argument_name,
+        field('type', $.type), // todo: type_with_extended_attributes
+        field('name', $.argument_name),
         $.default,
       ),
       seq(
-        $.type,
+        field('type', $.type),
         $.ellipsis,
-        $.argument_name,
+        field('name', $.argument_name),
       ),
     ),
 

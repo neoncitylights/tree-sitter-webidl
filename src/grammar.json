@@ -159,8 +159,20 @@
               "value": "optional"
             },
             {
-              "type": "SYMBOL",
-              "name": "argument_name"
+              "type": "FIELD",
+              "name": "type",
+              "content": {
+                "type": "SYMBOL",
+                "name": "type"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "argument_name"
+              }
             },
             {
               "type": "SYMBOL",
@@ -172,16 +184,24 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "type"
+              "type": "FIELD",
+              "name": "type",
+              "content": {
+                "type": "SYMBOL",
+                "name": "type"
+              }
             },
             {
               "type": "SYMBOL",
               "name": "ellipsis"
             },
             {
-              "type": "SYMBOL",
-              "name": "argument_name"
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "argument_name"
+              }
             }
           ]
         }

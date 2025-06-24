@@ -63,7 +63,7 @@ module.exports = grammar({
     // types
     type: $ => choice(
       $.single_type,
-      $.union_type,
+      seq($.union_type, optional('?')),
     ),
 
     single_type: $ => choice(
@@ -148,7 +148,7 @@ module.exports = grammar({
       'USVString',
     ),
 
-    identifier_list: $ => sepByComma($.identifier),
+    identifier_list: $ => sepByComma1($.identifier),
 
     // terminal symbols
     _integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
@@ -165,7 +165,7 @@ module.exports = grammar({
  * @param {RuleOrLiteral} rule
  * @returns SeqRule
  */
-function sepByComma(rule) {
+function sepByComma1(rule) {
   return seq(
     rule,
     repeat(seq(',', rule)),

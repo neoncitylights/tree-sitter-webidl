@@ -1,5 +1,4 @@
 # tree-sitter-webidl
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 WebIDL grammar for tree-sitter.
@@ -14,7 +13,6 @@ WebIDL grammar for tree-sitter.
 1. [Write parser tests](https://tree-sitter.github.io/tree-sitter/creating-parsers/5-writing-tests.html) in the path `test/corpus`, either in existing files or new files.
 1. Run `tree-sitter test`; ensure parser tests pass.
 1. Repeat steps 3-6 as needed.
-
 
 ## License
 This software is licensed under the MIT license ([`LICENSE`](./LICENSE) or <https://opensource.org/license/mit/>).

@@ -11,10 +11,10 @@ if FileManager.default.fileExists(atPath: "src/scanner.c") {
 let package = Package(
     name: "TreeSitterWebidl",
     products: [
-        .library(name: "TreeSitterWebidl", targets: ["TreeSitterWebidl"]),
+        .library(name: "TreeSitterWebidl", targets: ["TreeSitterWebidl"])
     ],
     dependencies: [
-        .package(url: "https://github.com/tree-sitter/swift-tree-sitter", from: "0.8.0"),
+        .package(url: "https://github.com/tree-sitter/swift-tree-sitter", from: "0.8.0")
     ],
     targets: [
         .target(
@@ -23,7 +23,7 @@ let package = Package(
             path: ".",
             sources: sources,
             resources: [
-                .copy("queries")
+                // .copy("queries")
             ],
             publicHeadersPath: "bindings/swift",
             cSettings: [.headerSearchPath("src")]
@@ -31,11 +31,11 @@ let package = Package(
         .testTarget(
             name: "TreeSitterWebidlTests",
             dependencies: [
-                "SwiftTreeSitter",
+                .product(name: "SwiftTreeSitter", package: "swift-tree-sitter"),
                 "TreeSitterWebidl",
             ],
             path: "bindings/swift/TreeSitterWebidlTests"
-        )
+        ),
     ],
     cLanguageStandard: .c11
 )

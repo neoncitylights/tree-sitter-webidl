@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/ci.yml
+      - grammar.js
+      - src/**
+      - test/**
+      - bindings/**
+      - binding.gyp
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/ci.yml
+      - grammar.js
+      - src/**
+      - test/**
+      - bindings/**
+      - binding.gyp
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v2
+      - name: Generate parser
+        run: tree-sitter generate
+      - name: Run tests
+        uses: tree-sitter/parser-test-action@v2

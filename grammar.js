@@ -31,11 +31,155 @@ export default grammar({
 		source_file: $ => repeat($._definition),
 
 		_definition: $ => choice(
+			$.callback,
+			$.interface_or_mixin,
 			$.namespace_statement,
 			$.dictionary_statement,
 			$.enum_statement,
 			$.typedef_statement,
 			$.includes_statement,
+		),
+
+		// inheritance
+		inheritance: $ => seq(':', field('inheriting', $.identifier)),
+
+		// callback
+		callback: $ => seq('callback', $.callback_rest_or_interface),
+
+		// interface and partial interface
+		interface_or_mixin: $ => seq('interface', choice(
+			$.interface_rest,
+			$.mixin_rest,
+		)),
+
+		interface_rest: $ => seq(
+			$.identifier,
+			optional($.inheritance),
+			'{',
+			repeat($.interface_member),
+			'}',
+			';',
+		),
+
+		partial_interface: $ => seq(
+			'partial',
+			'interface',
+			choice(
+				$.partial_interface_rest,
+				$.mixin_rest,
+			)
+		),
+
+		partial_interface_rest: $ => seq(
+			$.identifier,
+			'{',
+			repeat($.partial_interface_member),
+			'}',
+			';',
+		),
+
+		interface_member: $ => seq(
+			choice(
+				$.partial_interface_member,
+				$.constructor,
+			),
+		),
+
+		partial_interface_member: $ => seq(
+			optional($.extended_attribute_list),
+			choice(
+				$.const_statement,
+				$._operation,
+				$.stringifier,
+				$.static_member,
+				$.iterable,
+				$.async_iterable,
+				$.readonly_member,
+				$.read_write_attribute,
+				$.read_write_maplike,
+				$.read_write_setlike,
+				$.inherit_attribute,
+			),
+		),
+
+		// interface mixin
+		mixin_rest: $ => seq(
+			'mixin',
+			field('name', $.identifier),
+			'{',
+			repeat($.mixin_member),
+			'}',
+			';',
+		),
+
+		mixin_member: $ => seq(
+			optional($.extended_attribute_list),
+			choice(
+				$.const_statement,
+				$.regular_operation,
+				$.stringifier,
+				seq('readonly', $.attribute_rest),
+			),
+		),
+
+		// callback + callback interface
+		callback_rest_or_interface: $ => choice(
+			$._callback_rest,
+			$.callback_interface,
+		),
+
+		callback_interface: $ => seq(
+			'interface',
+			field('name', $.identifier),
+			'{',
+			repeat($._callback_interface_member),
+			'}',
+			';'
+		),
+
+		_callback_interface_member: $ => seq(
+			optional($.extended_attribute_list),
+			choice(
+				$.const_statement,
+				$.regular_operation,
+			)
+		),
+
+		_callback_rest: $ => seq(
+			field('name', $.identifier),
+			'=',
+			$.type,
+			$._parenthesized_argument_list,
+			';'
+		),
+
+		// readonly members and attributes
+		readonly_member: $ => seq(
+			'readonly',
+			choice(
+				$.attribute_rest,
+				$.maplike_rest,
+				$.setlike_rest,
+			)
+		),
+
+		read_write_attribute: $ => alias($.attribute_rest, $.read_write_attribute),
+		inherit_attribute: $ => seq('inherit', $.attribute_rest),
+		attribute_rest: $ => seq(
+			'attribute',
+			field('type', $.type_with_extended_attributes),
+			field('name', $._attribute_name),
+			';',
+		),
+
+		_attribute_name: $ => seq(
+			$.attribute_name_keyword,
+			$.identifier,
+		),
+
+		attribute_name_keyword: $ => choice(
+			'async',
+			'required',
 		),
 
 		// operations
@@ -62,9 +206,7 @@ export default grammar({
 
 		operation_rest: $ => seq(
 			optional($._operation_name),
-			'(',
-			$.argument_list,
-			')',
+			$._parenthesized_argument_list,
 			';'
 		),
 
@@ -104,7 +246,9 @@ export default grammar({
 			'unrestricted',
 		),
 
+		// arguments, constructor, stringifier
 		argument_list: $ => sepByComma1($.argument),
+		_parenthesized_argument_list: $ => seq('(', $.argument_list, ')'),
 
 		argument: $ => choice(
 			seq(
@@ -126,6 +270,71 @@ export default grammar({
 		),
 
 		ellipsis: $ => '...',
+
+		constructor: $ => seq(
+			'constructor',
+			$._parenthesized_argument_list,
+			';',
+		),
+
+		stringifier: $ => seq(
+			'stringifier',
+			choice(
+				seq(optional('readonly'), $.attribute_rest),
+				';',
+			),
+		),
+
+		// static member
+		static_member: $ => seq('static', $._static_member_rest),
+		_static_member_rest: $ => choice(
+			seq('optional', $.attribute_rest),
+			$.regular_operation,
+		),
+
+		// iterables
+		iterable: $ => seq(
+			'iterable',
+			'<',
+			$.type_with_extended_attributes,
+			optional($._optional_type),
+			'>',
+			';',
+		),
+
+		async_iterable: $ => seq(
+			'async',
+			'iterable',
+			'<',
+			$.type_with_extended_attributes,
+			optional($._optional_type),
+			'>',
+			optional($._parenthesized_argument_list),
+			';',
+		),
+
+		_optional_type: $ => seq(',', $.type_with_extended_attributes),
+
+		// setlike and maplike
+		read_write_setlike: $ => $.setlike_rest,
+		setlike_rest: $ => seq(
+			'setlike',
+			'<',
+			field('type', $.type_with_extended_attributes),
+			'>',
+			':',
+		),
+
+		read_write_maplike: $ => $.maplike_rest,
+		maplike_rest: $ => seq(
+			'maplike',
+			'<',
+			field('key_type', $.type_with_extended_attributes),
+			',',
+			field('value_type', $.type_with_extended_attributes),
+			'>',
+			';'
+		),
 
 		// namespace statement
 		namespace_statement: $ => seq(
@@ -187,9 +396,6 @@ export default grammar({
 				';',
 			),
 		),
-
-		// inheritance
-		inheritance: $ => seq(':', field('inheriting', $.identifier)),
 
 		// enum statement
 		enum_statement: $ => seq(
@@ -397,7 +603,7 @@ export default grammar({
 			field('lhs', $.identifier),
 			'=',
 			field('rhs', $.identifier),
-			'(', $.argument_list, ')',
+			$._parenthesized_argument_list,
 		),
 
 		extended_attribute_ident: $ => seq(

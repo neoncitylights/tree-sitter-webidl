@@ -24,7 +24,8 @@ namespace CSS {
 						(argument
 							(type
 								(distinguishable_type
-									(identifier)))
+									(primitive_type
+										(float_type))))
 							(argument_name
 								(identifier)))))))
 		(namespace_member
@@ -39,7 +40,8 @@ namespace CSS {
 						(argument
 							(type
 								(distinguishable_type
-									(identifier)))
+									(primitive_type
+										(float_type))))
 							(argument_name
 								(identifier)))))))))
 

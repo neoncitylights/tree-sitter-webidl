@@ -32,13 +32,11 @@ typedef (DOMString or unsigned long) StringOrNumber;
 			(type
 				(union_type
 					(union_or_expression
-						(union_member_type
-							(distinguishable_type
-								(string_type)))
-						(union_member_type
-							(distinguishable_type
-								(primitive_type
-									(integer_type))))))))
+						(distinguishable_type
+							(string_type))
+						(distinguishable_type
+							(primitive_type
+								(integer_type)))))))
 		(identifier)
 	)
 )

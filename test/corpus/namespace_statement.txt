@@ -12,34 +12,32 @@ namespace CSS {
 (source_file
 	(namespace_statement
 		(identifier)
-		(namespace_member
-			(regular_operation
-				(type
-					(distinguishable_type
-						(identifier)))
-				(operation_rest
-					(identifier)
-					(argument_list
-						(argument
-							(type
-								(distinguishable_type
-									(primitive_type
-										(float_type))))
-							(identifier))))))
-		(namespace_member
-			(regular_operation
-				(type
-					(distinguishable_type
-						(identifier)))
-				(operation_rest
-					(identifier)
-					(argument_list
-						(argument
-							(type
-								(distinguishable_type
-									(primitive_type
-										(float_type))))
-							(identifier))))))
+		(regular_operation
+			(type
+				(distinguishable_type
+					(identifier)))
+			(operation_rest
+				(identifier)
+				(argument_list
+					(argument
+						(type
+							(distinguishable_type
+								(primitive_type
+									(float_type))))
+						(identifier)))))
+		(regular_operation
+			(type
+				(distinguishable_type
+					(identifier)))
+			(operation_rest
+				(identifier)
+				(argument_list
+					(argument
+						(type
+							(distinguishable_type
+								(primitive_type
+									(float_type))))
+						(identifier)))))
 	)
 )
 

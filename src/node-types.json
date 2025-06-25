@@ -184,12 +184,33 @@
   {
     "type": "default_value",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "dictionary_member",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -199,7 +220,7 @@
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "extended_attribute_list",
           "named": true
         },
         {
@@ -524,7 +545,7 @@
     "type": "inheritance",
     "named": true,
     "fields": {
-      "inheritee": {
+      "inheriting": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1182,10 +1203,6 @@
   },
   {
     "type": "static",
-    "named": false
-  },
-  {
-    "type": "string",
     "named": false
   },
   {

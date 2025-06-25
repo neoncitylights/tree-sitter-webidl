@@ -11,7 +11,6 @@ import {
   sepBy1,
   sepByComma1,
   sepByComma1Trailing,
-  sepBySemicolon1,
 } from './grammar.utils.js'
 
 export default grammar({
@@ -109,7 +108,7 @@ export default grammar({
         'optional',
         field('type', $.type_with_extended_attributes),
         field('name', $.argument_name),
-        $.default,
+        optional($.default),
       ),
       seq(
         field('type', $.type),
@@ -154,23 +153,25 @@ export default grammar({
       ';'
     ),
 
-    _dictionary_members: $ => sepBySemicolon1($.dictionary_member),
+    _dictionary_members: $ => repeat1($.dictionary_member),
 
     dictionary_member: $ => seq(
-      $.type_with_extended_attributes,
-      choice(
-        seq(
-          'required',
-          $.type_with_extended_attributes,
-          $.identifier,
-          ';',
-        ),
-        seq(
-          $.type,
-          $.identifier,
-          $.default,
-          ';',
-        ),
+      optional($.extended_attribute_list),
+      $._dictionary_member_rest,
+    ),
+
+    _dictionary_member_rest: $ => choice(
+      seq(
+        'required',
+        $.type_with_extended_attributes,
+        field('name', $.identifier),
+        ';',
+      ),
+      seq(
+        $.type,
+        field('name', $.identifier),
+        optional($.default),
+        ';',
       ),
     ),
 
@@ -184,7 +185,7 @@ export default grammar({
     ),
 
     // inheritance
-    inheritance: $ => seq(':', field('inheritee', $.identifier)),
+    inheritance: $ => seq(':', field('inheriting', $.identifier)),
 
     // enum statement
     enum_statement: $ => seq(
@@ -231,7 +232,7 @@ export default grammar({
     default: $ => seq('=', $.default_value),
     default_value: $ => choice(
       'ConstValue',
-      'string',
+      $.string,
       seq('[', ']'),
       seq('{', '}'),
       'null',

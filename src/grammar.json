@@ -297,8 +297,16 @@
               }
             },
             {
-              "type": "SYMBOL",
-              "name": "default"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "default"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
         },
@@ -469,81 +477,91 @@
       ]
     },
     "_dictionary_members": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "dictionary_member"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ","
-              },
-              {
-                "type": "SYMBOL",
-                "name": "dictionary_member"
-              }
-            ]
-          }
-        }
-      ]
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "dictionary_member"
+      }
     },
     "dictionary_member": {
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "type_with_extended_attributes"
-        },
-        {
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "required"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "type_with_extended_attributes"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                },
-                {
-                  "type": "STRING",
-                  "value": ";"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "extended_attribute_list"
             },
             {
-              "type": "SEQ",
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dictionary_member_rest"
+        }
+      ]
+    },
+    "_dictionary_member_rest": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "required"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "type_with_extended_attributes"
+            },
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ";"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type"
+            },
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "CHOICE",
               "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "type"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                },
                 {
                   "type": "SYMBOL",
                   "name": "default"
                 },
                 {
-                  "type": "STRING",
-                  "value": ";"
+                  "type": "BLANK"
                 }
               ]
+            },
+            {
+              "type": "STRING",
+              "value": ";"
             }
           ]
         }
@@ -599,7 +617,7 @@
         },
         {
           "type": "FIELD",
-          "name": "inheritee",
+          "name": "inheriting",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -803,8 +821,8 @@
           "value": "ConstValue"
         },
         {
-          "type": "STRING",
-          "value": "string"
+          "type": "SYMBOL",
+          "name": "string"
         },
         {
           "type": "SEQ",

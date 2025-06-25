@@ -20,7 +20,11 @@ export default grammar({
 	],
 
 	supertypes: $ => [
+		$._extended_attribute,
 		$._definition,
+		$._namespace_member,
+		$._operation,
+		$._union_member_type,
 	],
 
 	rules: {
@@ -35,7 +39,7 @@ export default grammar({
 		),
 
 		// operations
-		operation: $ => choice(
+		_operation: $ => choice(
 			$.regular_operation,
 			$.special_operation,
 		),
@@ -134,9 +138,9 @@ export default grammar({
 			';'
 		),
 
-		_namespace_members: $ => repeat1($.namespace_member),
+		_namespace_members: $ => repeat1($._namespace_member),
 
-		namespace_member: $ => choice(
+		_namespace_member: $ => choice(
 			$.regular_operation,
 			// seq('readonly', $.attribute_rest),
 			$.const_statement,
@@ -280,12 +284,12 @@ export default grammar({
 		),
 
 		union_or_expression: $ => prec.left(seq(
-			field('left', $.union_member_type),
+			field('left', $._union_member_type),
 			'or',
-			field('right', choice($.union_or_expression, $.union_member_type))
+			field('right', choice($.union_or_expression, $._union_member_type))
 		)),
 
-		union_member_type: $ => choice(
+		_union_member_type: $ => choice(
 			$.distinguishable_type,
 			$.union_type,
 		),
@@ -369,11 +373,11 @@ export default grammar({
 		// attributes
 		extended_attribute_list: $ => seq(
 			'[',
-			sepByComma1($.extended_attribute),
+			sepByComma1($._extended_attribute),
 			']'
 		),
 
-		extended_attribute: $ => choice(
+		_extended_attribute: $ => choice(
 			$.extended_attribute_no_args,
 			$.extended_attribute_named_arg_list,
 			$.extended_attribute_ident,

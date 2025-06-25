@@ -26,6 +26,60 @@
     ]
   },
   {
+    "type": "_extended_attribute",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "extended_attribute_ident",
+        "named": true
+      },
+      {
+        "type": "extended_attribute_ident_list",
+        "named": true
+      },
+      {
+        "type": "extended_attribute_named_arg_list",
+        "named": true
+      },
+      {
+        "type": "extended_attribute_no_args",
+        "named": true
+      },
+      {
+        "type": "extended_attribute_wildcard",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_namespace_member",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "const_statement",
+        "named": true
+      },
+      {
+        "type": "regular_operation",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_union_member_type",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "distinguishable_type",
+        "named": true
+      },
+      {
+        "type": "union_type",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "argument",
     "named": true,
     "fields": {
@@ -323,37 +377,6 @@
     }
   },
   {
-    "type": "extended_attribute",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "extended_attribute_ident",
-          "named": true
-        },
-        {
-          "type": "extended_attribute_ident_list",
-          "named": true
-        },
-        {
-          "type": "extended_attribute_named_arg_list",
-          "named": true
-        },
-        {
-          "type": "extended_attribute_no_args",
-          "named": true
-        },
-        {
-          "type": "extended_attribute_wildcard",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "extended_attribute_ident",
     "named": true,
     "fields": {
@@ -414,7 +437,7 @@
       "required": true,
       "types": [
         {
-          "type": "extended_attribute",
+          "type": "_extended_attribute",
           "named": true
         }
       ]
@@ -565,25 +588,6 @@
     "fields": {}
   },
   {
-    "type": "namespace_member",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "const_statement",
-          "named": true
-        },
-        {
-          "type": "regular_operation",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "namespace_statement",
     "named": true,
     "fields": {
@@ -603,7 +607,7 @@
       "required": false,
       "types": [
         {
-          "type": "namespace_member",
+          "type": "_namespace_member",
           "named": true
         }
       ]
@@ -792,25 +796,6 @@
     }
   },
   {
-    "type": "union_member_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "distinguishable_type",
-          "named": true
-        },
-        {
-          "type": "union_type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "union_or_expression",
     "named": true,
     "fields": {
@@ -819,7 +804,7 @@
         "required": true,
         "types": [
           {
-            "type": "union_member_type",
+            "type": "_union_member_type",
             "named": true
           }
         ]
@@ -829,7 +814,7 @@
         "required": true,
         "types": [
           {
-            "type": "union_member_type",
+            "type": "_union_member_type",
             "named": true
           },
           {

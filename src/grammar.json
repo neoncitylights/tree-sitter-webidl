@@ -34,7 +34,7 @@
         }
       ]
     },
-    "operation": {
+    "_operation": {
       "type": "CHOICE",
       "members": [
         {
@@ -419,10 +419,10 @@
       "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
-        "name": "namespace_member"
+        "name": "_namespace_member"
       }
     },
-    "namespace_member": {
+    "_namespace_member": {
       "type": "CHOICE",
       "members": [
         {
@@ -1017,7 +1017,7 @@
             "name": "left",
             "content": {
               "type": "SYMBOL",
-              "name": "union_member_type"
+              "name": "_union_member_type"
             }
           },
           {
@@ -1036,7 +1036,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "union_member_type"
+                  "name": "_union_member_type"
                 }
               ]
             }
@@ -1044,7 +1044,7 @@
         ]
       }
     },
-    "union_member_type": {
+    "_union_member_type": {
       "type": "CHOICE",
       "members": [
         {
@@ -1449,7 +1449,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "extended_attribute"
+              "name": "_extended_attribute"
             },
             {
               "type": "REPEAT",
@@ -1462,7 +1462,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "extended_attribute"
+                    "name": "_extended_attribute"
                   }
                 ]
               }
@@ -1475,7 +1475,7 @@
         }
       ]
     },
-    "extended_attribute": {
+    "_extended_attribute": {
       "type": "CHOICE",
       "members": [
         {
@@ -1686,7 +1686,11 @@
   "externals": [],
   "inline": [],
   "supertypes": [
-    "_definition"
+    "_extended_attribute",
+    "_definition",
+    "_namespace_member",
+    "_operation",
+    "_union_member_type"
   ],
   "reserved": {}
 }

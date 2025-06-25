@@ -25,6 +25,43 @@ export default grammar({
       $.includes_statement,
     ),
 
+    // operations
+    operation: $ => choice(
+      $.regular_operation,
+      $.special_operation,
+    ),
+
+    regular_operation: $ => seq(
+      $.type,
+      $.operation_rest,
+    ),
+
+    special_operation: $ => seq(
+      $.special,
+      $.regular_operation,
+    ),
+
+    special: $ => choice(
+      'getter',
+      'setter',
+      'deleter',
+    ),
+
+    operation_rest: $ => seq(
+      optional($.operation_name),
+      '(',
+      $.argument_list,
+      ')',
+      ';'
+    ),
+
+    operation_name: $ => choice(
+      $.operation_name_keyword,
+      $.identifier,
+    ),
+
+    operation_name_keyword: $ => 'includes',
+
     // arguments
     argument_name_keyword: $ => choice(
       'async',
@@ -59,7 +96,7 @@ export default grammar({
     argument: $ => choice(
       seq(
         'optional',
-        field('type', $.type), // todo: type_with_extended_attributes
+        field('type', $.type_with_extended_attributes),
         field('name', $.argument_name),
         $.default,
       ),
@@ -128,9 +165,21 @@ export default grammar({
     ),
 
     // types
+    typedef: $ => seq(
+      'typedef',
+      $.type_with_extended_attributes,
+      $.identifier,
+      ';'
+    ),
+
     type: $ => choice(
       $.single_type,
       seq($.union_type, optional('?')),
+    ),
+
+    type_with_extended_attributes: $ => seq(
+      $.extended_attribute_list,
+      $.type,
     ),
 
     single_type: $ => choice(
@@ -162,9 +211,13 @@ export default grammar({
         $.primitive_type,
         $.string_type,
         $.identifier,
+        seq('sequence', '<', $.type_with_extended_attributes, ')'),
+        seq('async', 'iterable', '<', $.type_with_extended_attributes, ')'),
         'object',
         'symbol',
         $.buffer_related_type,
+        seq('FrozenArray', '<', $.type_with_extended_attributes, ')'),
+        seq('ObservableArray', '<', $.type_with_extended_attributes, ')'),
         $.record_type,
         'undefined',
       ),
@@ -201,13 +254,12 @@ export default grammar({
 
     promise_type: $ => seq('promise', '<', $.type, '>'),
 
-    // todo: make second generic type a type_with_extended_attributes
     record_type: $ => seq(
       'record',
       '<',
       $.string_type,
       ',',
-      $.attributed_type,
+      $.type_with_extended_attributes,
       '>'
     ),
 
@@ -230,11 +282,6 @@ export default grammar({
     ),
 
     // attributes
-    attributed_type: $ => seq(
-      $.extended_attribute_list,
-      $.type,
-    ),
-
     extended_attribute_list: $ => optional(seq(
       '[',
       sepByComma1($.extended_attribute),

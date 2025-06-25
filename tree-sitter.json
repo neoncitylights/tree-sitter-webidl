@@ -3,14 +3,14 @@
   "grammars": [
     {
       "name": "webidl",
-      "camelcase": "WebIdl",
+      "camelcase": "WebIDL",
       "title": "WebIDL",
       "scope": "source.webidl",
       "file-types": [
         "webidl"
       ],
       "injection-regex": "^webidl$",
-      "class-name": "TreeSitterWebidl"
+      "class-name": "TreeSitterWebIDL"
     }
   ],
   "metadata": {

@@ -211,25 +211,18 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "default_value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "default_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
       "required": false,
       "types": [
         {
           "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "empty_array",
+          "named": true
+        },
+        {
+          "type": "empty_object",
           "named": true
         },
         {
@@ -349,6 +342,16 @@
         }
       ]
     }
+  },
+  {
+    "type": "empty_array",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "empty_object",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "enum_statement",

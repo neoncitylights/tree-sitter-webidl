@@ -233,15 +233,18 @@ export default grammar({
 		),
 
 		// default values
-		default: $ => seq('=', $.default_value),
-		default_value: $ => choice(
+		default: $ => seq('=', $._default_value),
+		_default_value: $ => choice(
 			$._const_value,
 			$.string,
-			seq('[', ']'),
-			seq('{', '}'),
+			$.empty_array,
+			$.empty_object,
 			'null',
 			'undefined',
 		),
+
+		empty_array: $ => seq('[', ']'),
+		empty_object: $ => seq('{', '}'),
 
 		// literals
 		integer_literal: $ => $._integer,

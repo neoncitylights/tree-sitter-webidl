@@ -9,6 +9,7 @@
     "email": "contact@samanthanguyen.me",
     "url": "https://samanthanguyen.me/"
   },
+  "type": "module",
   "main": "bindings/node",
   "types": "bindings/node",
   "keywords": [

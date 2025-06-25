@@ -833,6 +833,211 @@
         }
       ]
     },
+    "attributed_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "extended_attribute_list"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type"
+        }
+      ]
+    },
+    "extended_attribute_list": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "["
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "extended_attribute"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "extended_attribute"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            }
+          ]
+        },
+        {
+          "type": "BLANK"
+        }
+      ]
+    },
+    "extended_attribute": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "extended_attribute_no_args"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "extended_attribute_named_arg_list"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "extended_attribute_ident"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "extended_attribute_ident_list"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "extended_attribute_wildcard"
+        }
+      ]
+    },
+    "extended_attribute_no_args": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "identifier"
+      },
+      "named": true,
+      "value": "extended_attribute_no_args"
+    },
+    "extended_attribute_named_arg_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "lhs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "rhs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "argument_list"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "extended_attribute_ident": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "lhs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "rhs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "extended_attribute_ident_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "lhs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier_list"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "extended_attribute_wildcard": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "lhs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "STRING",
+          "value": "*"
+        }
+      ]
+    },
     "identifier_list": {
       "type": "SEQ",
       "members": [

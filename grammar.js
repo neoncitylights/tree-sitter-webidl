@@ -54,7 +54,7 @@ export default grammar({
       'unrestricted',
     ),
 
-    argument_list: $ => sepByComma1NoTrailing($.argument),
+    argument_list: $ => sepByComma1($.argument),
 
     argument: $ => choice(
       seq(
@@ -202,7 +202,14 @@ export default grammar({
     promise_type: $ => seq('promise', '<', $.type, '>'),
 
     // todo: make second generic type a type_with_extended_attributes
-    record_type: $ => seq('record', '<', $.string_type, $.type, '>'),
+    record_type: $ => seq(
+      'record',
+      '<',
+      $.string_type,
+      ',',
+      $.attributed_type,
+      '>'
+    ),
 
     buffer_related_type: $ => choice(
       'ArrayBuffer',
@@ -222,7 +229,60 @@ export default grammar({
       'Float64Array',
     ),
 
-    identifier_list: $ => sepByComma1NoTrailing($.identifier),
+    // attributes
+    attributed_type: $ => seq(
+      $.extended_attribute_list,
+      $.type,
+    ),
+
+    extended_attribute_list: $ => optional(seq(
+      '[',
+      sepByComma1($.extended_attribute),
+      ']'
+    )),
+
+    extended_attribute: $ => choice(
+      $.extended_attribute_no_args,
+      $.extended_attribute_named_arg_list,
+      $.extended_attribute_ident,
+      $.extended_attribute_ident_list,
+      $.extended_attribute_wildcard,
+    ),
+
+    extended_attribute_no_args: $ => alias(
+      $.identifier,
+      $.extended_attribute_no_args,
+    ),
+
+    extended_attribute_named_arg_list: $ => seq(
+      field('lhs', $.identifier),
+      '=',
+      field('rhs', $.identifier),
+      '(', $.argument_list, ')',
+    ),
+
+    extended_attribute_ident: $ => seq(
+      field('lhs', $.identifier),
+      '=',
+      field('rhs', $.identifier),
+    ),
+
+    extended_attribute_ident_list: $ => seq(
+      field('lhs', $.identifier),
+      '=',
+      '(',
+      $.identifier_list,
+      ')',
+    ),
+
+    extended_attribute_wildcard: $ => seq(
+      field('lhs', $.identifier),
+      '=',
+      '*'
+    ),
+
+    // identifier list
+    identifier_list: $ => sepByComma1($.identifier),
 
     // terminal symbols
     _integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
@@ -239,7 +299,15 @@ export default grammar({
  * @param {RuleOrLiteral} rule
  * @returns SeqRule
  */
-function sepByComma1NoTrailing(rule) {
+function sepByComma(rule) {
+  return optional(sepByComma(rule))
+}
+
+/**
+ * @param {RuleOrLiteral} rule
+ * @returns SeqRule
+ */
+function sepByComma1(rule) {
   return seq(
     rule,
     repeat(seq(',', rule)),

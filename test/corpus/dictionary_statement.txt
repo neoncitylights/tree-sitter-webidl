@@ -64,3 +64,16 @@ dictionary PaintOptions {
 		)
 	)
 )
+
+============================================
+Partial dictionary statement
+============================================
+
+partial dictionary SomeDictionary {};
+
+----
+(source_file
+	(dictionary_statement
+		(identifier)
+	)
+)

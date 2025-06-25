@@ -125,6 +125,7 @@ export default grammar({
 
 		// namespace statement
 		namespace_statement: $ => seq(
+			optional('partial'),
 			'namespace',
 			field('name', $.identifier),
 			'{',
@@ -143,9 +144,18 @@ export default grammar({
 
 		// dictionary statement
 		dictionary_statement: $ => seq(
-			'dictionary',
-			field('name', $.identifier),
-			optional($.inheritance),
+			choice(
+				seq(
+					'dictionary',
+					field('name', $.identifier),
+					optional($.inheritance),
+				),
+				seq(
+					'partial',
+					'dictionary',
+					field('name', $.identifier),
+				),
+			),
 			'{',
 			optional($._dictionary_members),
 			'}',
@@ -172,15 +182,6 @@ export default grammar({
 				optional($.default),
 				';',
 			),
-		),
-
-		partial_dictionary_statement: $ => seq(
-			'dictionary',
-			field('name', $.identifier),
-			'{',
-			optional($._dictionary_members),
-			'}',
-			';'
 		),
 
 		// inheritance

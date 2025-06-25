@@ -15,34 +15,30 @@ namespace CSS {
 		(namespace_member
 			(regular_operation
 				(type
-					(single_type
-						(distinguishable_type
-							(identifier))))
+					(distinguishable_type
+						(identifier)))
 				(operation_rest
 					(operation_name
 						(identifier))
 					(argument_list
 						(argument
 							(type
-								(single_type
-									(distinguishable_type
-										(identifier))))
+								(distinguishable_type
+									(identifier)))
 							(argument_name
 								(identifier)))))))
 		(namespace_member
 			(regular_operation
 				(type
-					(single_type
-						(distinguishable_type
-							(identifier))))
+					(distinguishable_type
+						(identifier)))
 				(operation_rest
 					(operation_name
 						(identifier))
 					(argument_list
 						(argument
 							(type
-								(single_type
-									(distinguishable_type
-										(identifier))))
+								(distinguishable_type
+									(identifier)))
 							(argument_name
 								(identifier)))))))))

@@ -924,7 +924,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "single_type"
+          "name": "_single_type"
         },
         {
           "type": "SEQ",
@@ -970,7 +970,7 @@
         }
       ]
     },
-    "single_type": {
+    "_single_type": {
       "type": "CHOICE",
       "members": [
         {

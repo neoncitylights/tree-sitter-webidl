@@ -49,16 +49,21 @@ dictionary PaintOptions {
 			(identifier)
 			(default
 				(default_value
-					(string))))
+					(string)))
+		)
 		(dictionary_member
 			(type
 				(single_type
 					(distinguishable_type
 						(string_type))))
-			(identifier))
+			(identifier)
+		)
 		(dictionary_member
 			(type
 				(single_type
 					(distinguishable_type
 						(identifier))))
-			(identifier))))
+			(identifier)
+		)
+	)
+)

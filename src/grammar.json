@@ -1200,7 +1200,7 @@
       ]
     },
     "primitive_type": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",

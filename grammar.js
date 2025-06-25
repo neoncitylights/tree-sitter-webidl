@@ -309,7 +309,7 @@ export default grammar({
 			optional('?'),
 		),
 
-		primitive_type: $ => seq(
+		primitive_type: $ => choice(
 			$.integer_type,
 			$.float_type,
 			'boolean',

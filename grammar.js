@@ -156,7 +156,6 @@ export default grammar({
 					field('name', $.identifier),
 				),
 			),
-			field('name', $.identifier),
 			'{',
 			optional($._dictionary_members),
 			'}',

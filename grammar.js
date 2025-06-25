@@ -258,7 +258,7 @@ export default grammar({
     ),
 
     type: $ => choice(
-      $.single_type,
+      $._single_type,
       seq($.union_type, optional('?')),
     ),
 
@@ -267,7 +267,7 @@ export default grammar({
       $.type,
     ),
 
-    single_type: $ => choice(
+    _single_type: $ => choice(
       $.distinguishable_type,
       'any',
       $.promise_type,

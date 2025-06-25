@@ -43,9 +43,8 @@ dictionary PaintOptions {
 		(identifier)
 		(dictionary_member
 			(type
-				(single_type
-					(distinguishable_type
-						(string_type))))
+				(distinguishable_type
+					(string_type)))
 			(identifier)
 			(default
 				(default_value
@@ -53,16 +52,14 @@ dictionary PaintOptions {
 		)
 		(dictionary_member
 			(type
-				(single_type
-					(distinguishable_type
-						(string_type))))
+				(distinguishable_type
+					(string_type)))
 			(identifier)
 		)
 		(dictionary_member
 			(type
-				(single_type
-					(distinguishable_type
-						(identifier))))
+				(distinguishable_type
+					(identifier)))
 			(identifier)
 		)
 	)

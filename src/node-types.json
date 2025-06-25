@@ -728,25 +728,6 @@
     }
   },
   {
-    "type": "single_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "distinguishable_type",
-          "named": true
-        },
-        {
-          "type": "promise_type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -773,10 +754,14 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "single_type",
+          "type": "distinguishable_type",
+          "named": true
+        },
+        {
+          "type": "promise_type",
           "named": true
         },
         {

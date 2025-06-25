@@ -1,0 +1,19 @@
+============================================
+Typedef statement
+============================================
+
+typedef DOMString foo;
+
+----
+(source_file
+	(typedef_statement
+		(type_with_extended_attributes
+			(type
+				(distinguishable_type
+					(string_type)
+				)
+			)
+		)
+		(identifier)
+	)
+)

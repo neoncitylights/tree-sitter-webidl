@@ -57,14 +57,14 @@ export default grammar({
 		),
 
 		operation_rest: $ => seq(
-			optional($.operation_name),
+			optional($._operation_name),
 			'(',
 			$.argument_list,
 			')',
 			';'
 		),
 
-		operation_name: $ => choice(
+		_operation_name: $ => choice(
 			$.operation_name_keyword,
 			$.identifier,
 		),
@@ -106,17 +106,17 @@ export default grammar({
 			seq(
 				'optional',
 				field('type', $.type_with_extended_attributes),
-				field('name', $.argument_name),
+				field('name', $._argument_name),
 				optional($.default),
 			),
 			seq(
 				field('type', $.type),
 				optional($.ellipsis),
-				field('name', $.argument_name),
+				field('name', $._argument_name),
 			),
 		),
 
-		argument_name: $ => choice(
+		_argument_name: $ => choice(
 			$.argument_name_keyword,
 			$.identifier,
 		),
@@ -231,7 +231,7 @@ export default grammar({
 		// default values
 		default: $ => seq('=', $.default_value),
 		default_value: $ => choice(
-			'ConstValue',
+			$._const_value,
 			$.string,
 			seq('[', ']'),
 			seq('{', '}'),

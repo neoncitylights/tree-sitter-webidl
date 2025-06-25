@@ -3,8 +3,8 @@ Namespace statement with operations
 ============================================
 
 namespace CSS {
-    CSSUnitValue number(double value);
-    CSSUnitValue percent(double value);
+	CSSUnitValue number(double value);
+	CSSUnitValue percent(double value);
 };
 
 ----
@@ -18,32 +18,30 @@ namespace CSS {
 					(distinguishable_type
 						(identifier)))
 				(operation_rest
-					(operation_name
-						(identifier))
+					(identifier)
 					(argument_list
 						(argument
 							(type
 								(distinguishable_type
 									(primitive_type
 										(float_type))))
-							(argument_name
-								(identifier)))))))
+							(identifier))))))
 		(namespace_member
 			(regular_operation
 				(type
 					(distinguishable_type
 						(identifier)))
 				(operation_rest
-					(operation_name
-						(identifier))
+					(identifier)
 					(argument_list
 						(argument
 							(type
 								(distinguishable_type
 									(primitive_type
 										(float_type))))
-							(argument_name
-								(identifier)))))))))
+							(identifier))))))
+	)
+)
 
 ============================================
 Partial namespace statement

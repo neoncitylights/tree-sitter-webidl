@@ -98,7 +98,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "operation_name"
+              "name": "_operation_name"
             },
             {
               "type": "BLANK"
@@ -123,7 +123,7 @@
         }
       ]
     },
-    "operation_name": {
+    "_operation_name": {
       "type": "CHOICE",
       "members": [
         {
@@ -293,7 +293,7 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
-                "name": "argument_name"
+                "name": "_argument_name"
               }
             },
             {
@@ -338,14 +338,14 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
-                "name": "argument_name"
+                "name": "_argument_name"
               }
             }
           ]
         }
       ]
     },
-    "argument_name": {
+    "_argument_name": {
       "type": "CHOICE",
       "members": [
         {
@@ -819,8 +819,8 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "ConstValue"
+          "type": "SYMBOL",
+          "name": "_const_value"
         },
         {
           "type": "SYMBOL",

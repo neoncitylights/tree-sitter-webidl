@@ -1,0 +1,35 @@
+============================================
+Enum statement
+============================================
+
+enum HardwareAcceleration {
+  "no-preference",
+  "prefer-hardware",
+  "prefer-software",
+};
+
+----
+
+(source_file
+	(enum_statement
+		name: (identifier)
+		(string)
+		(string)
+		(string)
+	)
+)
+
+============================================
+Enum statement on a single line
+============================================
+
+enum SomeEnum { "test" };
+
+----
+
+(source_file
+	(enum_statement
+		name: (identifier)
+		(string)
+	)
+)

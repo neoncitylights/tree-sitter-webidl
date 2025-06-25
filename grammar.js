@@ -7,6 +7,13 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+import {
+  sepBy1,
+  sepByComma1,
+  sepByComma1Trailing,
+  sepBySemicolon1,
+} from './grammar.utils.js'
+
 export default grammar({
   name: "webidl",
   extras: $ => [
@@ -22,6 +29,10 @@ export default grammar({
     source_file: $ => repeat($._definition),
 
     _definition: $ => choice(
+      $.namespace_statement,
+      $.dictionary_statement,
+      $.enum_statement,
+      $.typedef_statement,
       $.includes_statement,
     ),
 
@@ -102,7 +113,7 @@ export default grammar({
       ),
       seq(
         field('type', $.type),
-        $.ellipsis,
+        optional($.ellipsis),
         field('name', $.argument_name),
       ),
     ),
@@ -112,32 +123,105 @@ export default grammar({
       $.identifier,
     ),
 
-    ellipsis: $ => optional('...'),
+    ellipsis: $ => '...',
+
+    // namespace statement
+    namespace_statement: $ => seq(
+      'namespace',
+      field('name', $.identifier),
+      '{',
+      optional($._namespace_members),
+      '}',
+      ';'
+    ),
+
+    _namespace_members: $ => repeat1($.namespace_member),
+
+    namespace_member: $ => choice(
+      $.regular_operation,
+      // seq('readonly', $.attribute_rest),
+      $.const_statement,
+    ),
+
+    // dictionary statement
+    dictionary_statement: $ => seq(
+      'dictionary',
+      field('name', $.identifier),
+      optional($.inheritance),
+      '{',
+      optional($._dictionary_members),
+      '}',
+      ';'
+    ),
+
+    _dictionary_members: $ => sepBySemicolon1($.dictionary_member),
+
+    dictionary_member: $ => seq(
+      $.type_with_extended_attributes,
+      choice(
+        seq(
+          'required',
+          $.type_with_extended_attributes,
+          $.identifier,
+          ';',
+        ),
+        seq(
+          $.type,
+          $.identifier,
+          $.default,
+          ';',
+        ),
+      ),
+    ),
+
+    partial_dictionary_statement: $ => seq(
+      'dictionary',
+      field('name', $.identifier),
+      '{',
+      optional($._dictionary_members),
+      '}',
+      ';'
+    ),
+
+    // inheritance
+    inheritance: $ => seq(':', field('inheritee', $.identifier)),
+
+    // enum statement
+    enum_statement: $ => seq(
+      'enum',
+      field('name', $.identifier),
+      '{',
+      $._enum_value_list,
+      '}',
+      ';'
+    ),
+
+    _enum_value_list: $ => sepByComma1Trailing($.string),
 
     // includes statement
     includes_statement: $ => seq(
-      field('includer', $.identifier),
+      field('lhs', $.identifier),
       'includes',
-      field('includee', $.identifier),
+      field('rhs', $.identifier),
       ';'
     ),
 
     // const statement
     const_statement: $ => seq(
       'const',
-      field('type', $.const_type),
+      field('type', $._const_type),
       field('name', $.identifier),
       '=',
-      field('value', $.const_value),
+      field('value', $._const_value),
       ';',
     ),
 
-    const_type: $ => choice(
+    _const_type: $ => choice(
       $.primitive_type,
       $.identifier,
     ),
 
-    const_value: $ => choice(
+    _const_value: $ => choice(
       $.boolean_literal,
       $.float_literal,
       $.integer_literal,
@@ -165,7 +249,7 @@ export default grammar({
     ),
 
     // types
-    typedef: $ => seq(
+    typedef_statement: $ => seq(
       'typedef',
       $.type_with_extended_attributes,
       $.identifier,
@@ -178,7 +262,7 @@ export default grammar({
     ),
 
     type_with_extended_attributes: $ => seq(
-      $.extended_attribute_list,
+      optional($.extended_attribute_list),
       $.type,
     ),
 
@@ -282,11 +366,11 @@ export default grammar({
     ),
 
     // attributes
-    extended_attribute_list: $ => optional(seq(
+    extended_attribute_list: $ => seq(
       '[',
       sepByComma1($.extended_attribute),
       ']'
-    )),
+    ),
 
     extended_attribute: $ => choice(
       $.extended_attribute_no_args,
@@ -336,27 +420,7 @@ export default grammar({
     _decimal: $ => /-?(([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([Ee][+-]?[0-9]+)?|[0-9]+[Ee][+-]?[0-9]+)/,
     identifier: $ => /[_-]?[A-Za-z][0-9A-Z_a-z-]*/,
     string: $ => /"[^"]*"/,
-    other: $ => /[^\t\n\r 0-9A-Za-z]/,
     _whitespace: $ => /[\t\n\r ]+/,
     comment: $ => /\/\/.*|\/\*(.|\n)*?\*\//,
   }
 });
-
-/**
- * @param {RuleOrLiteral} rule
- * @returns SeqRule
- */
-function sepByComma(rule) {
-  return optional(sepByComma(rule))
-}
-
-/**
- * @param {RuleOrLiteral} rule
- * @returns SeqRule
- */
-function sepByComma1(rule) {
-  return seq(
-    rule,
-    repeat(seq(',', rule)),
-  )
-}

@@ -5,13 +5,6 @@ WebIDL grammar for tree-sitter.
 
 - [WebIDL Living Standard](https://webidl.spec.whatwg.org) (webidl.spec.whatwg.org)
 
-## Notable changes
-Tree-sitter does not support syntactic rules that match the empty string
-unless they are used only as the grammar's start rule.
-
-The following rules are not defined as optional, and instead marked optional where they are used:
-- TypeWithExtendedAttributes
-
 ## Developing
 1. Install the `tree-sitter` CLI. ([Instructions available](https://tree-sitter.github.io/tree-sitter/creating-parsers/1-getting-started.html#installation))
 1. Run `npm install`.

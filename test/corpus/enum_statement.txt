@@ -3,9 +3,9 @@ Enum statement
 ============================================
 
 enum HardwareAcceleration {
-  "no-preference",
-  "prefer-hardware",
-  "prefer-software",
+	"no-preference",
+	"prefer-hardware",
+	"prefer-software",
 };
 
 ----

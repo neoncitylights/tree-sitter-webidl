@@ -4,11 +4,11 @@ Includes statement
 
 Foo includes Bar;
 
----
+----
 
 (source_file
 	(includes_statement
-		(identifier)
-		(identifier)
+		lhs: (identifier)
+		rhs: (identifier)
 	)
 )

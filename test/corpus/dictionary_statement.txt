@@ -1,0 +1,69 @@
+============================================
+Dictionary statement with inheritance
+============================================
+
+dictionary Foo: Bar {};
+
+----
+(source_file
+	(dictionary_statement
+		name: (identifier)
+		(inheritance
+			inheriting: (identifier)
+		)
+	)
+)
+
+============================================
+Dictionary statement with zero members
+============================================
+
+dictionary AudioEncoderInit {};
+
+----
+(source_file
+	(dictionary_statement
+		(identifier)
+	)
+)
+
+============================================
+Dictionary statement with members
+============================================
+
+dictionary PaintOptions {
+	DOMString fillPattern = "black";
+	DOMString strokePattern;
+	Point position;
+};
+
+----
+(source_file
+	(dictionary_statement
+		(identifier)
+		(dictionary_member
+			(type
+				(single_type
+					(distinguishable_type
+						(string_type))))
+			(identifier)
+			(default
+				(default_value
+					(string)))
+		)
+		(dictionary_member
+			(type
+				(single_type
+					(distinguishable_type
+						(string_type))))
+			(identifier)
+		)
+		(dictionary_member
+			(type
+				(single_type
+					(distinguishable_type
+						(identifier))))
+			(identifier)
+		)
+	)
+)

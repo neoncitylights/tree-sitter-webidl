@@ -7,6 +7,12 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+import {
+  sepBy1,
+  sepByComma1,
+  sepByComma1Trailing,
+} from './grammar.utils.js'
+
 export default grammar({
   name: "webidl",
   extras: $ => [
@@ -22,8 +28,49 @@ export default grammar({
     source_file: $ => repeat($._definition),
 
     _definition: $ => choice(
+      $.namespace_statement,
+      $.dictionary_statement,
+      $.enum_statement,
+      $.typedef_statement,
       $.includes_statement,
     ),
+
+    // operations
+    operation: $ => choice(
+      $.regular_operation,
+      $.special_operation,
+    ),
+
+    regular_operation: $ => seq(
+      $.type,
+      $.operation_rest,
+    ),
+
+    special_operation: $ => seq(
+      $.special,
+      $.regular_operation,
+    ),
+
+    special: $ => choice(
+      'getter',
+      'setter',
+      'deleter',
+    ),
+
+    operation_rest: $ => seq(
+      optional($.operation_name),
+      '(',
+      $.argument_list,
+      ')',
+      ';'
+    ),
+
+    operation_name: $ => choice(
+      $.operation_name_keyword,
+      $.identifier,
+    ),
+
+    operation_name_keyword: $ => 'includes',
 
     // arguments
     argument_name_keyword: $ => choice(
@@ -54,18 +101,18 @@ export default grammar({
       'unrestricted',
     ),
 
-    argument_list: $ => sepByComma1NoTrailing($.argument),
+    argument_list: $ => sepByComma1($.argument),
 
     argument: $ => choice(
       seq(
         'optional',
-        field('type', $.type), // todo: type_with_extended_attributes
+        field('type', $.type_with_extended_attributes),
         field('name', $.argument_name),
-        $.default,
+        optional($.default),
       ),
       seq(
         field('type', $.type),
-        $.ellipsis,
+        optional($.ellipsis),
         field('name', $.argument_name),
       ),
     ),
@@ -75,32 +122,107 @@ export default grammar({
       $.identifier,
     ),
 
-    ellipsis: $ => optional('...'),
+    ellipsis: $ => '...',
+
+    // namespace statement
+    namespace_statement: $ => seq(
+      'namespace',
+      field('name', $.identifier),
+      '{',
+      optional($._namespace_members),
+      '}',
+      ';'
+    ),
+
+    _namespace_members: $ => repeat1($.namespace_member),
+
+    namespace_member: $ => choice(
+      $.regular_operation,
+      // seq('readonly', $.attribute_rest),
+      $.const_statement,
+    ),
+
+    // dictionary statement
+    dictionary_statement: $ => seq(
+      'dictionary',
+      field('name', $.identifier),
+      optional($.inheritance),
+      '{',
+      optional($._dictionary_members),
+      '}',
+      ';'
+    ),
+
+    _dictionary_members: $ => repeat1($.dictionary_member),
+
+    dictionary_member: $ => seq(
+      optional($.extended_attribute_list),
+      $._dictionary_member_rest,
+    ),
+
+    _dictionary_member_rest: $ => choice(
+      seq(
+        'required',
+        $.type_with_extended_attributes,
+        field('name', $.identifier),
+        ';',
+      ),
+      seq(
+        $.type,
+        field('name', $.identifier),
+        optional($.default),
+        ';',
+      ),
+    ),
+
+    partial_dictionary_statement: $ => seq(
+      'dictionary',
+      field('name', $.identifier),
+      '{',
+      optional($._dictionary_members),
+      '}',
+      ';'
+    ),
+
+    // inheritance
+    inheritance: $ => seq(':', field('inheriting', $.identifier)),
+
+    // enum statement
+    enum_statement: $ => seq(
+      'enum',
+      field('name', $.identifier),
+      '{',
+      $._enum_value_list,
+      '}',
+      ';'
+    ),
+
+    _enum_value_list: $ => sepByComma1Trailing($.string),
 
     // includes statement
     includes_statement: $ => seq(
-      field('includer', $.identifier),
+      field('lhs', $.identifier),
       'includes',
-      field('includee', $.identifier),
+      field('rhs', $.identifier),
       ';'
     ),
 
     // const statement
     const_statement: $ => seq(
       'const',
-      field('type', $.const_type),
+      field('type', $._const_type),
       field('name', $.identifier),
       '=',
-      field('value', $.const_value),
+      field('value', $._const_value),
       ';',
     ),
 
-    const_type: $ => choice(
+    _const_type: $ => choice(
       $.primitive_type,
       $.identifier,
     ),
 
-    const_value: $ => choice(
+    _const_value: $ => choice(
       $.boolean_literal,
       $.float_literal,
       $.integer_literal,
@@ -110,7 +232,7 @@ export default grammar({
     default: $ => seq('=', $.default_value),
     default_value: $ => choice(
       'ConstValue',
-      'string',
+      $.string,
       seq('[', ']'),
       seq('{', '}'),
       'null',
@@ -128,9 +250,21 @@ export default grammar({
     ),
 
     // types
+    typedef_statement: $ => seq(
+      'typedef',
+      $.type_with_extended_attributes,
+      $.identifier,
+      ';'
+    ),
+
     type: $ => choice(
       $.single_type,
       seq($.union_type, optional('?')),
+    ),
+
+    type_with_extended_attributes: $ => seq(
+      optional($.extended_attribute_list),
+      $.type,
     ),
 
     single_type: $ => choice(
@@ -162,9 +296,13 @@ export default grammar({
         $.primitive_type,
         $.string_type,
         $.identifier,
+        seq('sequence', '<', $.type_with_extended_attributes, ')'),
+        seq('async', 'iterable', '<', $.type_with_extended_attributes, ')'),
         'object',
         'symbol',
         $.buffer_related_type,
+        seq('FrozenArray', '<', $.type_with_extended_attributes, ')'),
+        seq('ObservableArray', '<', $.type_with_extended_attributes, ')'),
         $.record_type,
         'undefined',
       ),
@@ -201,8 +339,14 @@ export default grammar({
 
     promise_type: $ => seq('promise', '<', $.type, '>'),
 
-    // todo: make second generic type a type_with_extended_attributes
-    record_type: $ => seq('record', '<', $.string_type, $.type, '>'),
+    record_type: $ => seq(
+      'record',
+      '<',
+      $.string_type,
+      ',',
+      $.type_with_extended_attributes,
+      '>'
+    ),
 
     buffer_related_type: $ => choice(
       'ArrayBuffer',
@@ -222,26 +366,62 @@ export default grammar({
       'Float64Array',
     ),
 
-    identifier_list: $ => sepByComma1NoTrailing($.identifier),
+    // attributes
+    extended_attribute_list: $ => seq(
+      '[',
+      sepByComma1($.extended_attribute),
+      ']'
+    ),
+
+    extended_attribute: $ => choice(
+      $.extended_attribute_no_args,
+      $.extended_attribute_named_arg_list,
+      $.extended_attribute_ident,
+      $.extended_attribute_ident_list,
+      $.extended_attribute_wildcard,
+    ),
+
+    extended_attribute_no_args: $ => alias(
+      $.identifier,
+      $.extended_attribute_no_args,
+    ),
+
+    extended_attribute_named_arg_list: $ => seq(
+      field('lhs', $.identifier),
+      '=',
+      field('rhs', $.identifier),
+      '(', $.argument_list, ')',
+    ),
+
+    extended_attribute_ident: $ => seq(
+      field('lhs', $.identifier),
+      '=',
+      field('rhs', $.identifier),
+    ),
+
+    extended_attribute_ident_list: $ => seq(
+      field('lhs', $.identifier),
+      '=',
+      '(',
+      $.identifier_list,
+      ')',
+    ),
+
+    extended_attribute_wildcard: $ => seq(
+      field('lhs', $.identifier),
+      '=',
+      '*'
+    ),
+
+    // identifier list
+    identifier_list: $ => sepByComma1($.identifier),
 
     // terminal symbols
     _integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
     _decimal: $ => /-?(([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([Ee][+-]?[0-9]+)?|[0-9]+[Ee][+-]?[0-9]+)/,
     identifier: $ => /[_-]?[A-Za-z][0-9A-Z_a-z-]*/,
     string: $ => /"[^"]*"/,
-    other: $ => /[^\t\n\r 0-9A-Za-z]/,
     _whitespace: $ => /[\t\n\r ]+/,
     comment: $ => /\/\/.*|\/\*(.|\n)*?\*\//,
   }
 });
-
-/**
- * @param {RuleOrLiteral} rule
- * @returns SeqRule
- */
-function sepByComma1NoTrailing(rule) {
-  return seq(
-    rule,
-    repeat(seq(',', rule)),
-  )
-}

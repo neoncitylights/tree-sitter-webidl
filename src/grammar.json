@@ -306,6 +306,19 @@
           }
         },
         {
+          "type": "SYMBOL",
+          "name": "_mixin_body"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "_mixin_body": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "STRING",
           "value": "{"
         },
@@ -319,10 +332,6 @@
         {
           "type": "STRING",
           "value": "}"
-        },
-        {
-          "type": "STRING",
-          "value": ";"
         }
       ]
     },

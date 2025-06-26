@@ -114,10 +114,14 @@ export default grammar({
 		mixin_rest: $ => seq(
 			'mixin',
 			field('name', $.identifier),
+			$._mixin_body,
+			';',
+		),
+
+		_mixin_body: $ => seq(
 			'{',
 			repeat($.mixin_member),
 			'}',
-			';',
 		),
 
 		mixin_member: $ => seq(

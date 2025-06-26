@@ -36,7 +36,11 @@ export default grammar({
 
 		_definition: $ => choice(
 			$.callback,
-			$.interface_or_mixin,
+			$.callback_interface,
+			$.interface,
+			$.interface_mixin,
+			$.partial_interface,
+			$.partial_interface_mixin,
 			$.namespace_statement,
 			$.dictionary_statement,
 			$.enum_statement,
@@ -48,16 +52,17 @@ export default grammar({
 		inheritance: $ => seq(':', field('inheriting', $.identifier)),
 
 		// callback
-		callback: $ => seq('callback', $._callback_rest_or_interface),
+		callback: $ => seq('callback', $._callback_rest),
+		callback_interface: $ => seq('callback', 'interface', $._callback_interface_rest),
 
 		// interface and partial interface
-		interface_or_mixin: $ => seq('interface', choice(
-			$.interface_rest,
-			$.mixin_rest,
-		)),
+		interface: $ => seq('interface', $._interface_rest),
+		interface_mixin: $ => seq('interface', 'mixin', $._mixin_rest),
+		partial_interface: $ => seq('partial', 'interface', $._partial_interface_rest),
+		partial_interface_mixin: $ => seq('partial', 'interface', 'mixin', $._partial_interface_rest),
 
-		interface_rest: $ => seq(
-			$.identifier,
+		_interface_rest: $ => seq(
+			field('name', $.identifier),
 			optional($.inheritance),
 			$._interface_body,
 			';',
@@ -69,16 +74,7 @@ export default grammar({
 			'}',
 		),
 
-		partial_interface: $ => seq(
-			'partial',
-			'interface',
-			choice(
-				$.partial_interface_rest,
-				$.mixin_rest,
-			)
-		),
-
-		partial_interface_rest: $ => seq(
+		_partial_interface_rest: $ => seq(
 			field('name', $.identifier),
 			$._partial_interface_body,
 			';',
@@ -115,8 +111,7 @@ export default grammar({
 		),
 
 		// interface mixin
-		mixin_rest: $ => seq(
-			'mixin',
+		_mixin_rest: $ => seq(
 			field('name', $.identifier),
 			$._mixin_body,
 			';',
@@ -141,13 +136,7 @@ export default grammar({
 		mixin_readonly_attribute: $ => seq(optional('readonly'), $.attribute_rest),
 
 		// callback + callback interface
-		_callback_rest_or_interface: $ => choice(
-			$._callback_rest,
-			$.callback_interface,
-		),
-
-		callback_interface: $ => seq(
-			'interface',
+		_callback_interface_rest: $ => seq(
 			field('name', $.identifier),
 			$._callback_interface_body,
 			';'
@@ -348,7 +337,7 @@ export default grammar({
 			'<',
 			field('type', $.type_with_extended_attributes),
 			'>',
-			':',
+			';',
 		),
 
 		read_write_maplike: $ => $.maplike_rest,

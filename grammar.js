@@ -55,10 +55,14 @@ export default grammar({
 		interface_rest: $ => seq(
 			$.identifier,
 			optional($.inheritance),
+			$._interface_body,
+			';',
+		),
+
+		_interface_body: $ => seq(
 			'{',
 			repeat($.interface_member),
 			'}',
-			';',
 		),
 
 		partial_interface: $ => seq(
@@ -72,10 +76,14 @@ export default grammar({
 
 		partial_interface_rest: $ => seq(
 			$.identifier,
+			$._partial_interface_body,
+			';',
+		),
+
+		_partial_interface_body: $ => seq(
 			'{',
 			repeat($.partial_interface_member),
 			'}',
-			';',
 		),
 
 		interface_member: $ => seq(

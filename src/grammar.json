@@ -114,6 +114,19 @@
           ]
         },
         {
+          "type": "SYMBOL",
+          "name": "_interface_body"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "_interface_body": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "STRING",
           "value": "{"
         },
@@ -127,10 +140,6 @@
         {
           "type": "STRING",
           "value": "}"
-        },
-        {
-          "type": "STRING",
-          "value": ";"
         }
       ]
     },
@@ -168,6 +177,19 @@
           "name": "identifier"
         },
         {
+          "type": "SYMBOL",
+          "name": "_partial_interface_body"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "_partial_interface_body": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "STRING",
           "value": "{"
         },
@@ -181,10 +203,6 @@
         {
           "type": "STRING",
           "value": "}"
-        },
-        {
-          "type": "STRING",
-          "value": ";"
         }
       ]
     },

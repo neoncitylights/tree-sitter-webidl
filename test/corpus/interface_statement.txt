@@ -28,15 +28,13 @@ interface AudioSinkInfo {
 	(interface_or_mixin
 		(interface_rest
 			(identifier)
-			(interface_member
-				(partial_interface_member
-					(readonly_member
-						(attribute_rest
-							type: (type_with_extended_attributes
-								(type
-									(distinguishable_type
-										(identifier))))
-							name: (identifier)))))
+			(readonly_member
+				(attribute_rest
+					type: (type_with_extended_attributes
+						(type
+							(distinguishable_type
+								(identifier))))
+					name: (identifier)))
 		)
 	)
 )

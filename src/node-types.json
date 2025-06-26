@@ -1,5 +1,19 @@
 [
   {
+    "type": "_callback_interface_member",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "const_statement",
+        "named": true
+      },
+      {
+        "type": "regular_operation",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_definition",
     "named": true,
     "subtypes": [
@@ -60,6 +74,42 @@
     ]
   },
   {
+    "type": "_interface_member",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "_partial_interface_member",
+        "named": true
+      },
+      {
+        "type": "constructor",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_mixin_member",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "const_statement",
+        "named": true
+      },
+      {
+        "type": "mixin_readonly_attribute",
+        "named": true
+      },
+      {
+        "type": "regular_operation",
+        "named": true
+      },
+      {
+        "type": "stringifier",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_namespace_member",
     "named": true,
     "subtypes": [
@@ -87,6 +137,56 @@
       },
       {
         "type": "special_operation",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_partial_interface_member",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "_operation",
+        "named": true
+      },
+      {
+        "type": "async_iterable",
+        "named": true
+      },
+      {
+        "type": "const_statement",
+        "named": true
+      },
+      {
+        "type": "inherit_attribute",
+        "named": true
+      },
+      {
+        "type": "iterable",
+        "named": true
+      },
+      {
+        "type": "read_write_attribute",
+        "named": true
+      },
+      {
+        "type": "read_write_maplike",
+        "named": true
+      },
+      {
+        "type": "read_write_setlike",
+        "named": true
+      },
+      {
+        "type": "readonly_member",
+        "named": true
+      },
+      {
+        "type": "static_member",
+        "named": true
+      },
+      {
+        "type": "stringifier",
         "named": true
       }
     ]
@@ -240,55 +340,6 @@
   {
     "type": "callback",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "callback_rest_or_interface",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "callback_interface",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "const_statement",
-          "named": true
-        },
-        {
-          "type": "extended_attribute_list",
-          "named": true
-        },
-        {
-          "type": "regular_operation",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "callback_rest_or_interface",
-    "named": true,
     "fields": {
       "name": {
         "multiple": false,
@@ -315,6 +366,36 @@
         },
         {
           "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "callback_interface",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_callback_interface_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
           "named": true
         }
       ]
@@ -784,25 +865,6 @@
     "fields": {}
   },
   {
-    "type": "interface_member",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "constructor",
-          "named": true
-        },
-        {
-          "type": "partial_interface_member",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "interface_or_mixin",
     "named": true,
     "fields": {},
@@ -830,15 +892,15 @@
       "required": true,
       "types": [
         {
+          "type": "_interface_member",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "inheritance",
-          "named": true
-        },
-        {
-          "type": "interface_member",
           "named": true
         }
       ]
@@ -886,31 +948,15 @@
     }
   },
   {
-    "type": "mixin_member",
+    "type": "mixin_readonly_attribute",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "attribute_rest",
-          "named": true
-        },
-        {
-          "type": "const_statement",
-          "named": true
-        },
-        {
-          "type": "extended_attribute_list",
-          "named": true
-        },
-        {
-          "type": "regular_operation",
-          "named": true
-        },
-        {
-          "type": "stringifier",
           "named": true
         }
       ]
@@ -936,7 +982,11 @@
       "required": false,
       "types": [
         {
-          "type": "mixin_member",
+          "type": "_mixin_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
           "named": true
         }
       ]
@@ -991,65 +1041,6 @@
         },
         {
           "type": "operation_name_keyword",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "partial_interface_member",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_operation",
-          "named": true
-        },
-        {
-          "type": "async_iterable",
-          "named": true
-        },
-        {
-          "type": "const_statement",
-          "named": true
-        },
-        {
-          "type": "extended_attribute_list",
-          "named": true
-        },
-        {
-          "type": "inherit_attribute",
-          "named": true
-        },
-        {
-          "type": "iterable",
-          "named": true
-        },
-        {
-          "type": "read_write_attribute",
-          "named": true
-        },
-        {
-          "type": "read_write_maplike",
-          "named": true
-        },
-        {
-          "type": "read_write_setlike",
-          "named": true
-        },
-        {
-          "type": "readonly_member",
-          "named": true
-        },
-        {
-          "type": "static_member",
-          "named": true
-        },
-        {
-          "type": "stringifier",
           "named": true
         }
       ]

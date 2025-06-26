@@ -21,7 +21,11 @@ export default grammar({
 
 	supertypes: $ => [
 		$._extended_attribute,
+		$._callback_interface_member,
 		$._definition,
+		$._interface_member,
+		$._partial_interface_member,
+		$._mixin_member,
 		$._namespace_member,
 		$._operation,
 		$._union_member_type,
@@ -44,7 +48,7 @@ export default grammar({
 		inheritance: $ => seq(':', field('inheriting', $.identifier)),
 
 		// callback
-		callback: $ => seq('callback', $.callback_rest_or_interface),
+		callback: $ => seq('callback', $._callback_rest_or_interface),
 
 		// interface and partial interface
 		interface_or_mixin: $ => seq('interface', choice(
@@ -61,7 +65,7 @@ export default grammar({
 
 		_interface_body: $ => seq(
 			'{',
-			repeat($.interface_member),
+			repeat($._interface_member),
 			'}',
 		),
 
@@ -82,30 +86,32 @@ export default grammar({
 
 		_partial_interface_body: $ => seq(
 			'{',
-			repeat($.partial_interface_member),
+			repeat(
+				seq(
+					optional($.extended_attribute_list),
+					$._partial_interface_member,
+				)
+			),
 			'}',
 		),
 
-		interface_member: $ => choice(
-			$.partial_interface_member,
+		_interface_member: $ => choice(
+			$._partial_interface_member,
 			$.constructor,
 		),
 
-		partial_interface_member: $ => seq(
-			optional($.extended_attribute_list),
-			choice(
-				$.const_statement,
-				$._operation,
-				$.stringifier,
-				$.static_member,
-				$.iterable,
-				$.async_iterable,
-				$.readonly_member,
-				$.read_write_attribute,
-				$.read_write_maplike,
-				$.read_write_setlike,
-				$.inherit_attribute,
-			),
+		_partial_interface_member: $ => choice(
+			$.const_statement,
+			$._operation,
+			$.stringifier,
+			$.static_member,
+			$.iterable,
+			$.async_iterable,
+			$.readonly_member,
+			$.read_write_attribute,
+			$.read_write_maplike,
+			$.read_write_setlike,
+			$.inherit_attribute,
 		),
 
 		// interface mixin
@@ -118,22 +124,24 @@ export default grammar({
 
 		_mixin_body: $ => seq(
 			'{',
-			repeat($.mixin_member),
+			repeat(seq(
+				optional($.extended_attribute_list),
+				$._mixin_member
+			)),
 			'}',
 		),
 
-		mixin_member: $ => seq(
-			optional($.extended_attribute_list),
-			choice(
-				$.const_statement,
-				$.regular_operation,
-				$.stringifier,
-				seq(optional('readonly'), $.attribute_rest),
-			),
+		_mixin_member: $ => choice(
+			$.const_statement,
+			$.regular_operation,
+			$.stringifier,
+			$.mixin_readonly_attribute,
 		),
 
+		mixin_readonly_attribute: $ => seq(optional('readonly'), $.attribute_rest),
+
 		// callback + callback interface
-		callback_rest_or_interface: $ => choice(
+		_callback_rest_or_interface: $ => choice(
 			$._callback_rest,
 			$.callback_interface,
 		),
@@ -147,16 +155,16 @@ export default grammar({
 
 		_callback_interface_body: $ => seq(
 			'{',
-			repeat($._callback_interface_member),
+			repeat(seq(
+				optional($.extended_attribute_list),
+				$._callback_interface_member
+			)),
 			'}',
 		),
 
-		_callback_interface_member: $ => seq(
-			optional($.extended_attribute_list),
-			choice(
-				$.const_statement,
-				$.regular_operation,
-			)
+		_callback_interface_member: $ => choice(
+			$.const_statement,
+			$.regular_operation,
 		),
 
 		_callback_rest: $ => seq(
@@ -176,6 +184,8 @@ export default grammar({
 				$.setlike_rest,
 			)
 		),
+
+		readonly_attribute: $ => seq('readonly', $.attribute_rest),
 
 		read_write_attribute: $ => alias($.attribute_rest, $.read_write_attribute),
 		inherit_attribute: $ => seq('inherit', $.attribute_rest),
@@ -373,7 +383,7 @@ export default grammar({
 			$.const_statement,
 		),
 
-		readonly_attribute: $ => seq('readonly', $.attribute_rest),
+
 
 		// dictionary statement
 		dictionary_statement: $ => seq(

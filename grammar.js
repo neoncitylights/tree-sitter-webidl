@@ -20,19 +20,32 @@ export default grammar({
 	],
 
 	supertypes: $ => [
-		$._extended_attribute,
-		$._callback_interface_member,
 		$._definition,
+
+		// members
+		$._callback_interface_member,
 		$._interface_member,
-		$._partial_interface_member,
 		$._mixin_member,
 		$._namespace_member,
-		$._operation,
+		$._partial_interface_member,
+
+		// types
 		$._union_member_type,
+		$._primitive_type,
+
+		// value
+		$._default_value,
+
+		// other
+		$._extended_attribute,
+		$._operation,
 	],
 
 	rules: {
-		source_file: $ => repeat($._definition),
+		source_file: $ => repeat(seq(
+			optional($.extended_attribute_list),
+			$._definition
+		)),
 
 		_definition: $ => choice(
 			$.callback,
@@ -64,7 +77,7 @@ export default grammar({
 		_interface_rest: $ => seq(
 			field('name', $.identifier),
 			optional($.inheritance),
-			$._interface_body,
+			field('body', $._interface_body),
 			';',
 		),
 
@@ -76,7 +89,7 @@ export default grammar({
 
 		_partial_interface_rest: $ => seq(
 			field('name', $.identifier),
-			$._partial_interface_body,
+			field('body', $._partial_interface_body),
 			';',
 		),
 
@@ -113,7 +126,7 @@ export default grammar({
 		// interface mixin
 		_mixin_rest: $ => seq(
 			field('name', $.identifier),
-			$._mixin_body,
+			field('body', $._mixin_body),
 			';',
 		),
 
@@ -138,7 +151,7 @@ export default grammar({
 		// callback + callback interface
 		_callback_interface_rest: $ => seq(
 			field('name', $.identifier),
-			$._callback_interface_body,
+			field('body', $._callback_interface_body),
 			';'
 		),
 
@@ -159,7 +172,7 @@ export default grammar({
 		_callback_rest: $ => seq(
 			field('name', $.identifier),
 			'=',
-			$.type,
+			field('type', $.type),
 			$._parenthesized_argument_list,
 			';'
 		),
@@ -218,7 +231,7 @@ export default grammar({
 		),
 
 		operation_rest: $ => seq(
-			optional($._operation_name),
+			optional(field('name', $._operation_name)),
 			$._parenthesized_argument_list,
 			';'
 		),
@@ -311,8 +324,8 @@ export default grammar({
 		iterable: $ => seq(
 			'iterable',
 			'<',
-			$.type_with_extended_attributes,
-			optional($._optional_type),
+			field('lhs_type', $.type_with_extended_attributes),
+			field('rhs_type', optional($._optional_type)),
 			'>',
 			';',
 		),
@@ -321,8 +334,8 @@ export default grammar({
 			'async',
 			'iterable',
 			'<',
-			$.type_with_extended_attributes,
-			optional($._optional_type),
+			field('lhs_type', $.type_with_extended_attributes),
+			field('rhs_type', optional($._optional_type)),
 			'>',
 			optional($._parenthesized_argument_list),
 			';',
@@ -356,7 +369,7 @@ export default grammar({
 			optional('partial'),
 			'namespace',
 			field('name', $.identifier),
-			$._namespace_body,
+			field('body', $._namespace_body),
 			';'
 		),
 
@@ -372,8 +385,6 @@ export default grammar({
 			$.const_statement,
 		),
 
-
-
 		// dictionary statement
 		dictionary_statement: $ => seq(
 			choice(
@@ -388,7 +399,7 @@ export default grammar({
 					field('name', $.identifier),
 				),
 			),
-			$._dictionary_body,
+			field('body', $._dictionary_body),
 			';'
 		),
 
@@ -422,7 +433,7 @@ export default grammar({
 		enum_statement: $ => seq(
 			'enum',
 			field('name', $.identifier),
-			$._enum_body,
+			field('body', $._enum_body),
 			';'
 		),
 
@@ -451,7 +462,7 @@ export default grammar({
 		),
 
 		_const_type: $ => choice(
-			$.primitive_type,
+			$._primitive_type,
 			$.identifier,
 		),
 
@@ -462,7 +473,7 @@ export default grammar({
 		),
 
 		// default values
-		default: $ => seq('=', $._default_value),
+		default: $ => seq('=', field('value', $._default_value)),
 		_default_value: $ => choice(
 			$._const_value,
 			$.string,
@@ -488,8 +499,8 @@ export default grammar({
 		// types
 		typedef_statement: $ => seq(
 			'typedef',
-			$.type_with_extended_attributes,
-			$.identifier,
+			field('type', $.type_with_extended_attributes),
+			field('name', $.identifier),
 			';'
 		),
 
@@ -529,7 +540,7 @@ export default grammar({
 		// builtin types
 		distinguishable_type: $ => seq(
 			choice(
-				$.primitive_type,
+				$._primitive_type,
 				$.string_type,
 				$.identifier,
 				seq('sequence', '<', $.type_with_extended_attributes, '>'),
@@ -544,7 +555,7 @@ export default grammar({
 			optional('?'),
 		),
 
-		primitive_type: $ => choice(
+		_primitive_type: $ => choice(
 			$.integer_type,
 			$.float_type,
 			'boolean',
@@ -616,10 +627,7 @@ export default grammar({
 			$.extended_attribute_wildcard,
 		),
 
-		extended_attribute_no_args: $ => alias(
-			$.identifier,
-			$.extended_attribute_no_args,
-		),
+		extended_attribute_no_args: $ => field('lhs', $.identifier),
 
 		extended_attribute_named_arg_list: $ => seq(
 			field('lhs', $.identifier),

@@ -143,10 +143,14 @@ export default grammar({
 		callback_interface: $ => seq(
 			'interface',
 			field('name', $.identifier),
+			$._callback_interface_body,
+			';'
+		),
+
+		_callback_interface_body: $ => seq(
 			'{',
 			repeat($._callback_interface_member),
 			'}',
-			';'
 		),
 
 		_callback_interface_member: $ => seq(

@@ -341,13 +341,15 @@ export default grammar({
 			optional('partial'),
 			'namespace',
 			field('name', $.identifier),
-			'{',
-			optional($._namespace_members),
-			'}',
+			$._namespace_body,
 			';'
 		),
 
-		_namespace_members: $ => repeat1($._namespace_member),
+		_namespace_body: $ => seq(
+			'{',
+			repeat($._namespace_member),
+			'}',
+		),
 
 		_namespace_member: $ => choice(
 			$.regular_operation,
@@ -369,13 +371,15 @@ export default grammar({
 					field('name', $.identifier),
 				),
 			),
-			'{',
-			optional($._dictionary_members),
-			'}',
+			$._dictionary_body,
 			';'
 		),
 
-		_dictionary_members: $ => repeat1($.dictionary_member),
+		_dictionary_body: $ => seq(
+			'{',
+			repeat($.dictionary_member),
+			'}',
+		),
 
 		dictionary_member: $ => seq(
 			optional($.extended_attribute_list),
@@ -401,13 +405,15 @@ export default grammar({
 		enum_statement: $ => seq(
 			'enum',
 			field('name', $.identifier),
-			'{',
-			$._enum_value_list,
-			'}',
+			$._enum_body,
 			';'
 		),
 
-		_enum_value_list: $ => sepByComma1Trailing($.string),
+		_enum_body: $ => seq(
+			'{',
+			sepByComma1Trailing($.string),
+			'}',
+		),
 
 		// includes statement
 		includes_statement: $ => seq(

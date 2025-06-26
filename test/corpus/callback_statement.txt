@@ -1,0 +1,21 @@
+============================================
+Callback statement
+============================================
+
+callback DecodeErrorCallback = undefined (DOMException error);
+
+----
+(source_file
+	(callback
+		(callback_rest_or_interface
+			(identifier)
+			(type (distinguishable_type))
+			(argument_list
+				(argument
+					(type (distinguishable_type (identifier)))
+					(identifier)
+				)
+			)
+		)
+	)
+)

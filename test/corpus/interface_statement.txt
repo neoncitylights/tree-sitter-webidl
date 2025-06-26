@@ -1,0 +1,15 @@
+============================================
+Interface statement with zero members
+============================================
+
+interface AudioSinkInfo {};
+
+----
+
+(source_file
+	(interface_or_mixin
+		(interface_rest
+			(identifier)
+		)
+	)
+)

@@ -75,7 +75,7 @@ export default grammar({
 		),
 
 		partial_interface_rest: $ => seq(
-			$.identifier,
+			field('name', $.identifier),
 			$._partial_interface_body,
 			';',
 		),
@@ -130,7 +130,7 @@ export default grammar({
 				$.const_statement,
 				$.regular_operation,
 				$.stringifier,
-				seq('readonly', $.attribute_rest),
+				seq(optional('readonly'), $.attribute_rest),
 			),
 		),
 
@@ -369,9 +369,11 @@ export default grammar({
 
 		_namespace_member: $ => choice(
 			$.regular_operation,
-			// seq('readonly', $.attribute_rest),
+			$.readonly_attribute,
 			$.const_statement,
 		),
+
+		readonly_attribute: $ => seq('readonly', $.attribute_rest),
 
 		// dictionary statement
 		dictionary_statement: $ => seq(

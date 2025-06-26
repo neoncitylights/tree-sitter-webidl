@@ -68,6 +68,10 @@
         "named": true
       },
       {
+        "type": "readonly_attribute",
+        "named": true
+      },
+      {
         "type": "regular_operation",
         "named": true
       }
@@ -1150,6 +1154,21 @@
       "types": [
         {
           "type": "setlike_rest",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "readonly_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_rest",
           "named": true
         }
       ]

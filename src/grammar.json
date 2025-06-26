@@ -18,7 +18,19 @@
         },
         {
           "type": "SYMBOL",
-          "name": "interface_or_mixin"
+          "name": "interface"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_mixin"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "partial_interface"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "partial_interface_mixin"
         },
         {
           "type": "SYMBOL",
@@ -72,7 +84,7 @@
         }
       ]
     },
-    "interface_or_mixin": {
+    "interface": {
       "type": "SEQ",
       "members": [
         {
@@ -80,26 +92,76 @@
           "value": "interface"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "interface_rest"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "mixin_rest"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "_interface_rest"
         }
       ]
     },
-    "interface_rest": {
+    "interface_mixin": {
       "type": "SEQ",
       "members": [
         {
+          "type": "STRING",
+          "value": "interface"
+        },
+        {
+          "type": "STRING",
+          "value": "mixin"
+        },
+        {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "_mixin_rest"
+        }
+      ]
+    },
+    "partial_interface": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "partial"
+        },
+        {
+          "type": "STRING",
+          "value": "interface"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_partial_interface_rest"
+        }
+      ]
+    },
+    "partial_interface_mixin": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "partial"
+        },
+        {
+          "type": "STRING",
+          "value": "interface"
+        },
+        {
+          "type": "STRING",
+          "value": "mixin"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_partial_interface_rest"
+        }
+      ]
+    },
+    "_interface_rest": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         },
         {
           "type": "CHOICE",
@@ -143,33 +205,7 @@
         }
       ]
     },
-    "partial_interface": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "partial"
-        },
-        {
-          "type": "STRING",
-          "value": "interface"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "partial_interface_rest"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "mixin_rest"
-            }
-          ]
-        }
-      ]
-    },
-    "partial_interface_rest": {
+    "_partial_interface_rest": {
       "type": "SEQ",
       "members": [
         {
@@ -289,13 +325,9 @@
         }
       ]
     },
-    "mixin_rest": {
+    "_mixin_rest": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "STRING",
-          "value": "mixin"
-        },
         {
           "type": "FIELD",
           "name": "name",
@@ -1182,7 +1214,7 @@
         },
         {
           "type": "STRING",
-          "value": ":"
+          "value": ";"
         }
       ]
     },

@@ -36,6 +36,7 @@ export default grammar({
 
 		_definition: $ => choice(
 			$.callback,
+			$.callback_interface,
 			$.interface,
 			$.interface_mixin,
 			$.partial_interface,
@@ -51,7 +52,8 @@ export default grammar({
 		inheritance: $ => seq(':', field('inheriting', $.identifier)),
 
 		// callback
-		callback: $ => seq('callback', $._callback_rest_or_interface),
+		callback: $ => seq('callback', $._callback_rest),
+		callback_interface: $ => seq('callback', 'interface', $._callback_interface_rest),
 
 		// interface and partial interface
 		interface: $ => seq('interface', $._interface_rest),
@@ -134,13 +136,7 @@ export default grammar({
 		mixin_readonly_attribute: $ => seq(optional('readonly'), $.attribute_rest),
 
 		// callback + callback interface
-		_callback_rest_or_interface: $ => choice(
-			$._callback_rest,
-			$.callback_interface,
-		),
-
-		callback_interface: $ => seq(
-			'interface',
+		_callback_interface_rest: $ => seq(
 			field('name', $.identifier),
 			$._callback_interface_body,
 			';'

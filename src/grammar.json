@@ -18,6 +18,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "callback_interface"
+        },
+        {
+          "type": "SYMBOL",
           "name": "interface"
         },
         {
@@ -80,7 +84,24 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_callback_rest_or_interface"
+          "name": "_callback_rest"
+        }
+      ]
+    },
+    "callback_interface": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "callback"
+        },
+        {
+          "type": "STRING",
+          "value": "interface"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_callback_interface_rest"
         }
       ]
     },
@@ -425,26 +446,9 @@
         }
       ]
     },
-    "_callback_rest_or_interface": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_callback_rest"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "callback_interface"
-        }
-      ]
-    },
-    "callback_interface": {
+    "_callback_interface_rest": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "STRING",
-          "value": "interface"
-        },
         {
           "type": "FIELD",
           "name": "name",

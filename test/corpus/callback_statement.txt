@@ -29,20 +29,16 @@ callback interface EventListener {
 ----
 
 (source_file
-	(callback
-		(callback_interface
-			name: (identifier)
-			(regular_operation
-				(type
-					(distinguishable_type))
-				(operation_rest
-					(identifier)
-					(argument_list
-						(argument
-							type: (type
-								(distinguishable_type
-									(identifier)))
-							name: (identifier)))))
-		)
-	)
-)
+	(callback_interface
+		name: (identifier)
+		(regular_operation
+			(type
+				(distinguishable_type))
+			(operation_rest
+				(identifier)
+				(argument_list
+					(argument
+						type: (type
+							(distinguishable_type
+								(identifier)))
+						name: (identifier)))))))

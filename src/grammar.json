@@ -211,20 +211,15 @@
       ]
     },
     "interface_member": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "partial_interface_member"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "constructor"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "partial_interface_member"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "constructor"
         }
       ]
     },
@@ -589,7 +584,7 @@
       ]
     },
     "_attribute_name": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
@@ -1015,30 +1010,26 @@
           "value": "static"
         },
         {
-          "type": "SYMBOL",
-          "name": "_static_member_rest"
-        }
-      ]
-    },
-    "_static_member_rest": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "optional"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "optional"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "attribute_rest"
+                }
+              ]
             },
             {
               "type": "SYMBOL",
-              "name": "attribute_rest"
+              "name": "regular_operation"
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "regular_operation"
         }
       ]
     },
@@ -1960,32 +1951,7 @@
                 },
                 {
                   "type": "STRING",
-                  "value": ")"
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "async"
-                },
-                {
-                  "type": "STRING",
-                  "value": "iterable"
-                },
-                {
-                  "type": "STRING",
-                  "value": "<"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "type_with_extended_attributes"
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
+                  "value": ">"
                 }
               ]
             },
@@ -2018,7 +1984,7 @@
                 },
                 {
                   "type": "STRING",
-                  "value": ")"
+                  "value": ">"
                 }
               ]
             },
@@ -2039,7 +2005,7 @@
                 },
                 {
                   "type": "STRING",
-                  "value": ")"
+                  "value": ">"
                 }
               ]
             },

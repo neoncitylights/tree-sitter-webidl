@@ -13,3 +13,30 @@ interface AudioSinkInfo {};
 		)
 	)
 )
+
+============================================
+Interface statement with members
+============================================
+
+interface AudioSinkInfo {
+	readonly attribute AudioSinkType type;
+};
+
+----
+
+(source_file
+	(interface_or_mixin
+		(interface_rest
+			(identifier)
+			(interface_member
+				(partial_interface_member
+					(readonly_member
+						(attribute_rest
+							type: (type_with_extended_attributes
+								(type
+									(distinguishable_type
+										(identifier))))
+							name: (identifier)))))
+		)
+	)
+)

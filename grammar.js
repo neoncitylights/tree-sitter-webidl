@@ -86,11 +86,9 @@ export default grammar({
 			'}',
 		),
 
-		interface_member: $ => seq(
-			choice(
-				$.partial_interface_member,
-				$.constructor,
-			),
+		interface_member: $ => choice(
+			$.partial_interface_member,
+			$.constructor,
 		),
 
 		partial_interface_member: $ => seq(
@@ -188,7 +186,7 @@ export default grammar({
 			';',
 		),
 
-		_attribute_name: $ => seq(
+		_attribute_name: $ => choice(
 			$.attribute_name_keyword,
 			$.identifier,
 		),
@@ -302,10 +300,12 @@ export default grammar({
 		),
 
 		// static member
-		static_member: $ => seq('static', $._static_member_rest),
-		_static_member_rest: $ => choice(
-			seq('optional', $.attribute_rest),
-			$.regular_operation,
+		static_member: $ => seq(
+			'static',
+			choice(
+				seq('optional', $.attribute_rest),
+				$.regular_operation,
+			),
 		),
 
 		// iterables
@@ -533,13 +533,12 @@ export default grammar({
 				$.primitive_type,
 				$.string_type,
 				$.identifier,
-				seq('sequence', '<', $.type_with_extended_attributes, ')'),
-				seq('async', 'iterable', '<', $.type_with_extended_attributes, ')'),
+				seq('sequence', '<', $.type_with_extended_attributes, '>'),
 				'object',
 				'symbol',
 				$.buffer_related_type,
-				seq('FrozenArray', '<', $.type_with_extended_attributes, ')'),
-				seq('ObservableArray', '<', $.type_with_extended_attributes, ')'),
+				seq('FrozenArray', '<', $.type_with_extended_attributes, '>'),
+				seq('ObservableArray', '<', $.type_with_extended_attributes, '>'),
 				$.record_type,
 				'undefined',
 			),

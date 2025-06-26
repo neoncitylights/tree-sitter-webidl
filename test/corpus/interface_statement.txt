@@ -38,3 +38,43 @@ interface AudioSinkInfo {
 		)
 	)
 )
+
+============================================
+Interface mixin statement with members
+============================================
+
+interface mixin Observable {
+	undefined addEventListener(
+		DOMString type,
+		EventListener listener,
+		boolean useCapture
+	);
+};
+
+----
+
+(source_file
+	(interface_or_mixin
+		(mixin_rest
+			(identifier)
+			(regular_operation
+				(type
+					(distinguishable_type))
+				(operation_rest
+					(identifier)
+					(argument_list
+						(argument
+							(type
+								(distinguishable_type
+									(string_type)))
+							(identifier))
+						(argument
+							(type
+								(distinguishable_type
+									(identifier)))
+							(identifier))
+						(argument
+							(type
+								(distinguishable_type
+									(primitive_type)))
+							(identifier))))))))

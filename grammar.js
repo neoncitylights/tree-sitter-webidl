@@ -88,11 +88,11 @@ export default grammar({
 
 		_partial_interface_rest: $ => seq(
 			field('name', $.identifier),
-			field('body', $._partial_interface_body),
+			field('body', $.partial_interface_body),
 			';',
 		),
 
-		_partial_interface_body: $ => seq(
+		partial_interface_body: $ => seq(
 			'{',
 			repeat(
 				seq(
@@ -214,7 +214,7 @@ export default grammar({
 		),
 
 		regular_operation: $ => seq(
-			$.type,
+			field('return_type', $.type),
 			$.operation_rest,
 		),
 

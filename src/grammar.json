@@ -263,7 +263,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_partial_interface_body"
+            "name": "partial_interface_body"
           }
         },
         {
@@ -272,7 +272,7 @@
         }
       ]
     },
-    "_partial_interface_body": {
+    "partial_interface_body": {
       "type": "SEQ",
       "members": [
         {
@@ -716,8 +716,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "type"
+          "type": "FIELD",
+          "name": "return_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type"
+          }
         },
         {
           "type": "SYMBOL",

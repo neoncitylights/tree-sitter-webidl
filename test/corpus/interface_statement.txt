@@ -39,6 +39,20 @@ interface AudioSinkInfo {
 )
 
 ============================================
+Interface mixin statement with zero members
+============================================
+
+interface mixin Observable {};
+
+----
+
+(source_file
+	(interface_mixin
+		name: (identifier)
+	)
+)
+
+============================================
 Interface mixin statement with members
 ============================================
 
@@ -54,25 +68,67 @@ interface mixin Observable {
 
 (source_file
 	(interface_mixin
-		(identifier)
-		(regular_operation
-			(type
-				(distinguishable_type))
-			(operation_rest
-				(identifier)
-				(argument_list
-					(argument
+		name: (identifier)
+		body: (regular_operation
+				return_type: (type
+					(distinguishable_type))
+				(operation_rest
+					name: (identifier)
+					(argument_list
+						(argument
+							type: (type
+								(distinguishable_type
+									(string_type)))
+							name: (identifier))
+						(argument
+							type: (type
+								(distinguishable_type
+									(identifier)))
+							name: (identifier))
+						(argument
+							type: (type
+								(distinguishable_type
+									(primitive_type)))
+							name: (identifier)))))
+	)
+)
+
+============================================
+Partial interface statement with zero members
+============================================
+
+partial interface Foo {};
+
+----
+
+(source_file
+	(partial_interface
+		name: (identifier)
+		body: (partial_interface_body)
+	)
+)
+
+============================================
+Partial interface statement with members
+============================================
+
+partial interface Window {
+	readonly attribute Storage sessionStorage;
+};
+
+----
+
+(source_file
+	(partial_interface
+		name: (identifier)
+		body: (partial_interface_body
+			(readonly_member
+				(attribute_rest
+					type: (type_with_extended_attributes
 						(type
 							(distinguishable_type
-								(string_type)))
-						(identifier))
-					(argument
-						(type
-							(distinguishable_type
-								(identifier)))
-						(identifier))
-					(argument
-						(type
-							(distinguishable_type
-								(primitive_type)))
-						(identifier)))))))
+								(identifier))))
+					name: (identifier)))
+		)
+	)
+)

@@ -32,7 +32,7 @@ callback interface EventListener {
 	(callback_interface
 		name: (identifier)
 		body: (regular_operation
-			(type
+			return_type: (type
 				(distinguishable_type))
 			(operation_rest
 				name: (identifier)

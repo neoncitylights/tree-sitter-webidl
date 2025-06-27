@@ -1194,24 +1194,12 @@
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_partial_interface_member",
+            "type": "partial_interface_body",
             "named": true
-          },
-          {
-            "type": "extended_attribute_list",
-            "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },
@@ -1228,28 +1216,35 @@
     }
   },
   {
+    "type": "partial_interface_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_partial_interface_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "partial_interface_mixin",
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_partial_interface_member",
+            "type": "partial_interface_body",
             "named": true
-          },
-          {
-            "type": "extended_attribute_list",
-            "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },
@@ -1429,17 +1424,24 @@
   {
     "type": "regular_operation",
     "named": true,
-    "fields": {},
+    "fields": {
+      "return_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "operation_rest",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]

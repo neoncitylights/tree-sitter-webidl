@@ -1,5 +1,5 @@
 ============================================
-Interface statement with zero members
+Interface statement (empty)
 ============================================
 
 interface AudioSinkInfo {};
@@ -14,7 +14,7 @@ interface AudioSinkInfo {};
 )
 
 ============================================
-Interface statement with members
+Interface statement
 ============================================
 
 interface AudioSinkInfo {
@@ -39,7 +39,7 @@ interface AudioSinkInfo {
 )
 
 ============================================
-Interface mixin statement with zero members
+Interface mixin statement (empty)
 ============================================
 
 interface mixin Observable {};
@@ -53,7 +53,7 @@ interface mixin Observable {};
 )
 
 ============================================
-Interface mixin statement with members
+Interface mixin statement
 ============================================
 
 interface mixin Observable {
@@ -94,7 +94,7 @@ interface mixin Observable {
 )
 
 ============================================
-Partial interface statement with zero members
+Partial interface statement (empty)
 ============================================
 
 partial interface Foo {};
@@ -109,7 +109,7 @@ partial interface Foo {};
 )
 
 ============================================
-Partial interface statement with members
+Partial interface statement
 ============================================
 
 partial interface Window {

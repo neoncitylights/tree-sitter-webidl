@@ -42,7 +42,7 @@ namespace CSS {
 )
 
 ============================================
-Partial namespace statement
+Partial namespace statement (empty)
 ============================================
 
 partial namespace CSS {};

@@ -15,7 +15,7 @@ dictionary Foo: Bar {};
 )
 
 ============================================
-Dictionary statement with zero members
+Dictionary statement (empty)
 ============================================
 
 dictionary AudioEncoderInit {};
@@ -28,7 +28,7 @@ dictionary AudioEncoderInit {};
 )
 
 ============================================
-Dictionary statement with members
+Dictionary statement
 ============================================
 
 dictionary PaintOptions {

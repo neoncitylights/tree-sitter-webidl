@@ -398,30 +398,28 @@ export default grammar({
 					field('name', $.identifier),
 				),
 			),
-			field('body', $._dictionary_body),
+			field('body', $.dictionary_body),
 			';'
 		),
 
-		_dictionary_body: $ => seq(
+		dictionary_body: $ => seq(
 			'{',
-			repeat($.dictionary_member),
+			repeat(seq(
+				optional($.extended_attribute_list),
+				$.dictionary_member
+			)),
 			'}',
 		),
 
-		dictionary_member: $ => seq(
-			optional($.extended_attribute_list),
-			$._dictionary_member_rest,
-		),
-
-		_dictionary_member_rest: $ => choice(
+		dictionary_member: $ => choice(
 			seq(
 				'required',
-				$.type_with_extended_attributes,
+				field('type', $.type_with_extended_attributes),
 				field('name', $.identifier),
 				';',
 			),
 			seq(
-				$.type,
+				field('type', $.type),
 				field('name', $.identifier),
 				optional($.default),
 				';',

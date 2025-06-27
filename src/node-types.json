@@ -566,6 +566,25 @@
     }
   },
   {
+    "type": "dictionary_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dictionary_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "dictionary_member",
     "named": true,
     "fields": {
@@ -578,26 +597,28 @@
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          },
+          {
+            "type": "type_with_extended_attributes",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "default",
-          "named": true
-        },
-        {
-          "type": "extended_attribute_list",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        },
-        {
-          "type": "type_with_extended_attributes",
           "named": true
         }
       ]
@@ -608,20 +629,12 @@
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "dictionary_member",
+            "type": "dictionary_body",
             "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },

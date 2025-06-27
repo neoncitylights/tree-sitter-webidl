@@ -11,6 +11,7 @@ dictionary Foo: Bar {};
 		(inheritance
 			inheriting: (identifier)
 		)
+		body: (dictionary_body)
 	)
 )
 
@@ -23,7 +24,8 @@ dictionary AudioEncoderInit {};
 ----
 (source_file
 	(dictionary_statement
-		(identifier)
+		name: (identifier)
+		body: (dictionary_body)
 	)
 )
 
@@ -40,26 +42,28 @@ dictionary PaintOptions {
 ----
 (source_file
 	(dictionary_statement
-		(identifier)
-		(dictionary_member
-			(type
-				(distinguishable_type
-					(string_type)))
-			(identifier)
-			(default
-				(string))
-		)
-		(dictionary_member
-			(type
-				(distinguishable_type
-					(string_type)))
-			(identifier)
-		)
-		(dictionary_member
-			(type
-				(distinguishable_type
-					(identifier)))
-			(identifier)
+		name: (identifier)
+		body: (dictionary_body
+			(dictionary_member
+				type: (type
+					(distinguishable_type
+						(string_type)))
+				name: (identifier)
+				(default
+					value: (string))
+			)
+			(dictionary_member
+				type: (type
+					(distinguishable_type
+						(string_type)))
+				name: (identifier)
+			)
+			(dictionary_member
+				type: (type
+					(distinguishable_type
+						(identifier)))
+				name: (identifier)
+			)
 		)
 	)
 )
@@ -73,6 +77,7 @@ partial dictionary SomeDictionary {};
 ----
 (source_file
 	(dictionary_statement
-		(identifier)
+		name: (identifier)
+		body: (dictionary_body)
 	)
 )

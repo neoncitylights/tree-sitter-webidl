@@ -1469,7 +1469,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_dictionary_body"
+            "name": "dictionary_body"
           }
         },
         {
@@ -1478,7 +1478,7 @@
         }
       ]
     },
-    "_dictionary_body": {
+    "dictionary_body": {
       "type": "SEQ",
       "members": [
         {
@@ -1488,8 +1488,25 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "dictionary_member"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "extended_attribute_list"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dictionary_member"
+              }
+            ]
           }
         },
         {
@@ -1499,27 +1516,6 @@
       ]
     },
     "dictionary_member": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "extended_attribute_list"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_dictionary_member_rest"
-        }
-      ]
-    },
-    "_dictionary_member_rest": {
       "type": "CHOICE",
       "members": [
         {
@@ -1530,8 +1526,12 @@
               "value": "required"
             },
             {
-              "type": "SYMBOL",
-              "name": "type_with_extended_attributes"
+              "type": "FIELD",
+              "name": "type",
+              "content": {
+                "type": "SYMBOL",
+                "name": "type_with_extended_attributes"
+              }
             },
             {
               "type": "FIELD",
@@ -1551,8 +1551,12 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "type"
+              "type": "FIELD",
+              "name": "type",
+              "content": {
+                "type": "SYMBOL",
+                "name": "type"
+              }
             },
             {
               "type": "FIELD",

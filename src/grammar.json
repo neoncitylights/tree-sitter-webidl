@@ -2447,6 +2447,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "extended_attribute_arg_list"
+        },
+        {
+          "type": "SYMBOL",
           "name": "extended_attribute_named_arg_list"
         },
         {
@@ -2465,11 +2469,28 @@
     },
     "extended_attribute_no_args": {
       "type": "FIELD",
-      "name": "lhs",
+      "name": "name",
       "content": {
         "type": "SYMBOL",
         "name": "identifier"
       }
+    },
+    "extended_attribute_arg_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_parenthesized_argument_list"
+        }
+      ]
     },
     "extended_attribute_named_arg_list": {
       "type": "SEQ",
@@ -2530,7 +2551,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "lhs",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -2559,7 +2580,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "lhs",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"

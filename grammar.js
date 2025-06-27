@@ -618,13 +618,19 @@ export default grammar({
 
 		_extended_attribute: $ => choice(
 			$.extended_attribute_no_args,
+			$.extended_attribute_arg_list,
 			$.extended_attribute_named_arg_list,
 			$.extended_attribute_ident,
 			$.extended_attribute_ident_list,
 			$.extended_attribute_wildcard,
 		),
 
-		extended_attribute_no_args: $ => field('lhs', $.identifier),
+		extended_attribute_no_args: $ => field('name', $.identifier),
+
+		extended_attribute_arg_list: $ => seq(
+			field('name', $.identifier),
+			$._parenthesized_argument_list,
+		),
 
 		extended_attribute_named_arg_list: $ => seq(
 			field('lhs', $.identifier),
@@ -640,7 +646,7 @@ export default grammar({
 		),
 
 		extended_attribute_ident_list: $ => seq(
-			field('lhs', $.identifier),
+			field('name', $.identifier),
 			'=',
 			'(',
 			$.identifier_list,
@@ -648,12 +654,12 @@ export default grammar({
 		),
 
 		extended_attribute_wildcard: $ => seq(
-			field('lhs', $.identifier),
+			field('name', $.identifier),
 			'=',
 			'*'
 		),
 
-		// identifier list
+		// other identifier nodes
 		identifier_list: $ => sepByComma1($.identifier),
 
 		// terminal symbols

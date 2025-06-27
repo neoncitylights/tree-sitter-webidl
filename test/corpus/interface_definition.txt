@@ -33,7 +33,8 @@ interface AudioSinkInfo {
 						(type
 							(distinguishable_type
 								(identifier))))
-					name: (identifier)))
+					name: (identifier))
+			)
 		)
 	)
 )

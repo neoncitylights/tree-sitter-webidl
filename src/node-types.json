@@ -106,6 +106,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "extended_attribute_arg_list",
+        "named": true
+      },
+      {
         "type": "extended_attribute_ident",
         "named": true
       },
@@ -747,6 +751,32 @@
     }
   },
   {
+    "type": "extended_attribute_arg_list",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "extended_attribute_ident",
     "named": true,
     "fields": {
@@ -776,7 +806,7 @@
     "type": "extended_attribute_ident_list",
     "named": true,
     "fields": {
-      "lhs": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -853,7 +883,7 @@
     "type": "extended_attribute_no_args",
     "named": true,
     "fields": {
-      "lhs": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -869,7 +899,7 @@
     "type": "extended_attribute_wildcard",
     "named": true,
     "fields": {
-      "lhs": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [

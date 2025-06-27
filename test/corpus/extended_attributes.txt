@@ -1,0 +1,160 @@
+============================================
+Extended attributes: takes no arguments
+============================================
+
+[Replaceable]
+interface Foo {};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_no_args
+			name: (identifier)
+		)
+	)
+	(interface_definition
+		name: (identifier)
+		body: (interface_body)
+	)
+)
+
+
+============================================
+Extended attributes: takes an argument list (from WebVTT)
+============================================
+
+[Constructor(double startTime, double endTime, DOMString text)]
+interface VttCue : TextTrackCue {};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_arg_list
+			name: (identifier)
+			(argument_list
+				(argument
+					type: (type
+					(distinguishable_type
+						(primitive_type
+							(float_type))))
+					name: (identifier))
+				(argument
+					type: (type
+					(distinguishable_type
+						(primitive_type
+							(float_type))))
+					name: (identifier))
+				(argument
+					type: (type
+					(distinguishable_type
+						(string_type)))
+					name: (identifier))
+			)
+		)
+	)
+	(interface_definition
+		name: (identifier)
+		(inheritance
+			inheriting: (identifier))
+		body: (interface_body)
+	)
+)
+
+
+============================================
+Extended attributes: takes a named argument list
+============================================
+
+[LegacyFactoryFunction=Image(DOMString src)]
+interface Foo {};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_named_arg_list
+			lhs: (identifier)
+			rhs: (identifier)
+			(argument_list
+				(argument
+					type: (type (distinguishable_type (string_type)))
+					name: (identifier)
+				)
+			)
+		)
+	)
+	(interface_definition
+		name: (identifier)
+		body: (interface_body)
+	)
+)
+
+
+============================================
+Extended attributes: takes an identifier
+============================================
+
+[PutForwards=name]
+interface Foo {};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_ident
+			lhs: (identifier)
+			rhs: (identifier)
+		)
+	)
+	(interface_definition
+		name: (identifier)
+		body: (interface_body)
+	)
+)
+
+============================================
+Extended attributes: takes an identifier list
+============================================
+
+[Exposed=(Window,Worker)]
+interface Foo {};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_ident_list
+			name: (identifier)
+			(identifier_list
+				(identifier)
+				(identifier))
+		)
+	)
+	(interface_definition
+		name: (identifier)
+		body: (interface_body)
+	)
+)
+
+============================================
+Extended attributes: takes a wildcard
+============================================
+
+[Exposed=*]
+interface Foo {};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_wildcard
+			name: (identifier)
+		)
+	)
+	(interface_definition
+		name: (identifier)
+		body: (interface_body)
+	)
+)

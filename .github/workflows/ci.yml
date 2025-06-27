@@ -41,3 +41,5 @@ jobs:
         run: tree-sitter build
       - name: Run tests
         uses: tree-sitter/parser-test-action@v2
+        with:
+          test-parser-cmd: tree-sitter test --stat all

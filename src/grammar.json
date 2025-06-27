@@ -357,7 +357,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "const_statement"
+          "name": "const_member"
         },
         {
           "type": "SYMBOL",
@@ -468,7 +468,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "const_statement"
+          "name": "const_member"
         },
         {
           "type": "SYMBOL",
@@ -572,7 +572,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "const_statement"
+          "name": "const_member"
         },
         {
           "type": "SYMBOL",
@@ -1432,7 +1432,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "const_statement"
+          "name": "const_member"
         }
       ]
     },
@@ -1729,7 +1729,7 @@
         }
       ]
     },
-    "const_statement": {
+    "const_member": {
       "type": "SEQ",
       "members": [
         {

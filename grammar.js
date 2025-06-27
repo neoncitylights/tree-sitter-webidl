@@ -134,7 +134,7 @@ export default grammar({
 		),
 
 		_partial_interface_member: $ => choice(
-			$.const_statement,
+			$.const_member,
 			$._operation,
 			$.stringifier,
 			$.static_member,
@@ -164,7 +164,7 @@ export default grammar({
 		),
 
 		_mixin_member: $ => choice(
-			$.const_statement,
+			$.const_member,
 			$.regular_operation,
 			$.stringifier,
 			$.mixin_attribute,
@@ -189,7 +189,7 @@ export default grammar({
 		),
 
 		_callback_interface_member: $ => choice(
-			$.const_statement,
+			$.const_member,
 			$.regular_operation,
 		),
 
@@ -388,7 +388,7 @@ export default grammar({
 			';'
 		),
 
-		// namespace statement
+		// namespace
 		namespace_definition: $ => seq(
 			optional('partial'),
 			'namespace',
@@ -406,10 +406,10 @@ export default grammar({
 		_namespace_member: $ => choice(
 			$.regular_operation,
 			$.readonly_attribute,
-			$.const_statement,
+			$.const_member,
 		),
 
-		// dictionary statement
+		// dictionary
 		dictionary_definition: $ => seq(
 			choice(
 				seq(
@@ -451,7 +451,7 @@ export default grammar({
 			),
 		),
 
-		// enum statement
+		// enum
 		enum_definition: $ => seq(
 			'enum',
 			field('name', $.identifier),
@@ -465,7 +465,7 @@ export default grammar({
 			'}',
 		),
 
-		// includes statement
+		// includes
 		includes_definition: $ => seq(
 			field('lhs', $.identifier),
 			'includes',
@@ -473,8 +473,8 @@ export default grammar({
 			';'
 		),
 
-		// const statement
-		const_statement: $ => seq(
+		// const
+		const_member: $ => seq(
 			'const',
 			field('type', $._const_type),
 			field('name', $.identifier),

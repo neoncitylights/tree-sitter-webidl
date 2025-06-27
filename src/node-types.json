@@ -4,7 +4,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "const_statement",
+        "type": "const_member",
         "named": true
       },
       {
@@ -150,7 +150,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "const_statement",
+        "type": "const_member",
         "named": true
       },
       {
@@ -172,7 +172,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "const_statement",
+        "type": "const_member",
         "named": true
       },
       {
@@ -212,7 +212,7 @@
         "named": true
       },
       {
-        "type": "const_statement",
+        "type": "const_member",
         "named": true
       },
       {
@@ -498,7 +498,7 @@
     }
   },
   {
-    "type": "const_statement",
+    "type": "const_member",
     "named": true,
     "fields": {
       "name": {

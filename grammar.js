@@ -150,11 +150,11 @@ export default grammar({
 		// callback + callback interface
 		_callback_interface_rest: $ => seq(
 			field('name', $.identifier),
-			field('body', $._callback_interface_body),
+			field('body', $.callback_interface_body),
 			';'
 		),
 
-		_callback_interface_body: $ => seq(
+		callback_interface_body: $ => seq(
 			'{',
 			repeat(seq(
 				optional($.extended_attribute_list),
@@ -540,12 +540,12 @@ export default grammar({
 				$.primitive_type,
 				$.string_type,
 				$.identifier,
-				seq('sequence', '<', $.type_with_extended_attributes, '>'),
+				$.sequence_type,
 				'object',
 				'symbol',
 				$.buffer_related_type,
-				seq('FrozenArray', '<', $.type_with_extended_attributes, '>'),
-				seq('ObservableArray', '<', $.type_with_extended_attributes, '>'),
+				$.frozen_array_type,
+				$.observable_array_type,
 				$.record_type,
 				'undefined',
 			),
@@ -607,6 +607,27 @@ export default grammar({
 			'Float16Array',
 			'Float32Array',
 			'Float64Array',
+		),
+
+		sequence_type: $ => seq(
+			'sequence',
+			'<',
+			field('inner_type', $.type_with_extended_attributes),
+			'>',
+		),
+
+		frozen_array_type: $ => seq(
+			'FrozenArray',
+			'<',
+			field('inner_type', $.type_with_extended_attributes),
+			'>',
+		),
+
+		observable_array_type: $ => seq(
+			'ObservableArray',
+			'<',
+			field('inner_type', $.type_with_extended_attributes),
+			'>',
 		),
 
 		// attributes

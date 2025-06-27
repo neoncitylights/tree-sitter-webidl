@@ -453,28 +453,35 @@
     }
   },
   {
+    "type": "callback_interface_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_callback_interface_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "callback_interface_definition",
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_callback_interface_member",
+            "type": "callback_interface_body",
             "named": true
-          },
-          {
-            "type": "extended_attribute_list",
-            "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },
@@ -677,7 +684,15 @@
           "named": true
         },
         {
+          "type": "frozen_array_type",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "observable_array_type",
           "named": true
         },
         {
@@ -689,11 +704,11 @@
           "named": true
         },
         {
-          "type": "string_type",
+          "type": "sequence_type",
           "named": true
         },
         {
-          "type": "type_with_extended_attributes",
+          "type": "string_type",
           "named": true
         }
       ]
@@ -920,6 +935,22 @@
     "type": "float_type",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "frozen_array_type",
+    "named": true,
+    "fields": {
+      "inner_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_with_extended_attributes",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "identifier_list",
@@ -1191,6 +1222,22 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "observable_array_type",
+    "named": true,
+    "fields": {
+      "inner_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_with_extended_attributes",
             "named": true
           }
         ]
@@ -1488,6 +1535,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "sequence_type",
+    "named": true,
+    "fields": {
+      "inner_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_with_extended_attributes",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

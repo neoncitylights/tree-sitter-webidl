@@ -491,7 +491,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_callback_interface_body"
+            "name": "callback_interface_body"
           }
         },
         {
@@ -500,7 +500,7 @@
         }
       ]
     },
-    "_callback_interface_body": {
+    "callback_interface_body": {
       "type": "SEQ",
       "members": [
         {
@@ -2064,25 +2064,8 @@
               "name": "identifier"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "sequence"
-                },
-                {
-                  "type": "STRING",
-                  "value": "<"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "type_with_extended_attributes"
-                },
-                {
-                  "type": "STRING",
-                  "value": ">"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "sequence_type"
             },
             {
               "type": "STRING",
@@ -2097,46 +2080,12 @@
               "name": "buffer_related_type"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "FrozenArray"
-                },
-                {
-                  "type": "STRING",
-                  "value": "<"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "type_with_extended_attributes"
-                },
-                {
-                  "type": "STRING",
-                  "value": ">"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "frozen_array_type"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "ObservableArray"
-                },
-                {
-                  "type": "STRING",
-                  "value": "<"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "type_with_extended_attributes"
-                },
-                {
-                  "type": "STRING",
-                  "value": ">"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "observable_array_type"
             },
             {
               "type": "SYMBOL",
@@ -2397,6 +2346,81 @@
         {
           "type": "STRING",
           "value": "Float64Array"
+        }
+      ]
+    },
+    "sequence_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "sequence"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "FIELD",
+          "name": "inner_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_with_extended_attributes"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "frozen_array_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FrozenArray"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "FIELD",
+          "name": "inner_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_with_extended_attributes"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "observable_array_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ObservableArray"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "FIELD",
+          "name": "inner_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_with_extended_attributes"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ">"
         }
       ]
     },

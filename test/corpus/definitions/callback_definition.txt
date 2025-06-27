@@ -29,6 +29,7 @@ callback interface EventListener {};
 (source_file
 	(callback_interface_definition
 		name: (identifier)
+		body: (callback_interface_body)
 	)
 )
 
@@ -45,14 +46,18 @@ callback interface EventListener {
 (source_file
 	(callback_interface_definition
 		name: (identifier)
-		body: (regular_operation
-			return_type: (type
-				(distinguishable_type))
-			(operation_rest
-				name: (identifier)
-				(argument_list
-					(argument
-						type: (type
-							(distinguishable_type
-								(identifier)))
-						name: (identifier)))))))
+		body: (callback_interface_body
+			(regular_operation
+				return_type: (type
+					(distinguishable_type))
+				(operation_rest
+					name: (identifier)
+					(argument_list
+						(argument
+							type: (type
+								(distinguishable_type
+									(identifier)))
+							name: (identifier)))))
+		)
+	)
+)

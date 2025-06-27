@@ -196,7 +196,7 @@ export default grammar({
 		_callback_rest: $ => seq(
 			field('name', $.identifier),
 			'=',
-			field('type', $.type),
+			field('return_type', $.type),
 			$._parenthesized_argument_list,
 			';'
 		),

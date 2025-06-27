@@ -430,7 +430,7 @@
           }
         ]
       },
-      "type": {
+      "return_type": {
         "multiple": false,
         "required": true,
         "types": [

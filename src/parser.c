@@ -1540,7 +1540,7 @@ static const TSMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
 static const TSFieldMapEntry ts_field_map_entries[] = {
   [0] =
     {field_name, 1, .inherited = true},
-    {field_type, 1, .inherited = true},
+    {field_return_type, 1, .inherited = true},
   [2] =
     {field_body, 1, .inherited = true},
     {field_name, 1, .inherited = true},
@@ -1587,7 +1587,7 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_type, 0},
   [30] =
     {field_name, 0},
-    {field_type, 2},
+    {field_return_type, 2},
   [32] =
     {field_name, 2},
     {field_type, 0},

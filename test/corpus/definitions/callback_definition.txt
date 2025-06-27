@@ -8,7 +8,7 @@ callback DecodeErrorCallback = undefined (DOMException error);
 (source_file
 	(callback_definition
 		name: (identifier)
-		type: (type (distinguishable_type))
+		return_type: (type (distinguishable_type))
 		(argument_list
 			(argument
 				type: (type (distinguishable_type (identifier)))

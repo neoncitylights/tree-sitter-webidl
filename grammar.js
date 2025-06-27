@@ -68,10 +68,29 @@ export default grammar({
 		callback_interface_definition: $ => seq('callback', 'interface', $._callback_interface_rest),
 
 		// interface and partial interface
-		interface_definition: $ => seq('interface', $._interface_rest),
-		interface_mixin_definition: $ => seq('interface', 'mixin', $._mixin_rest),
-		partial_interface_definition: $ => seq('partial', 'interface', $._partial_interface_rest),
-		partial_interface_mixin_definition: $ => seq('partial', 'interface', 'mixin', $._partial_interface_rest),
+		interface_definition: $ => seq(
+			'interface',
+			$._interface_rest,
+		),
+
+		interface_mixin_definition: $ => seq(
+			'interface',
+			'mixin',
+			$._interface_mixin_rest,
+		),
+
+		partial_interface_definition: $ => seq(
+			'partial',
+			'interface',
+			$._partial_interface_rest,
+		),
+
+		partial_interface_mixin_definition: $ => seq(
+			'partial',
+			'interface',
+			'mixin',
+			$._partial_interface_mixin_rest,
+		),
 
 		_interface_rest: $ => seq(
 			field('name', $.identifier),
@@ -103,6 +122,12 @@ export default grammar({
 			'}',
 		),
 
+		_partial_interface_mixin_rest: $ => seq(
+			field('name', $.identifier),
+			field('body', alias($.partial_interface_body, $.partial_interface_mixin_body)),
+			';',
+		),
+
 		_interface_member: $ => choice(
 			$._partial_interface_member,
 			$.constructor,
@@ -123,13 +148,13 @@ export default grammar({
 		),
 
 		// interface mixin
-		_mixin_rest: $ => seq(
+		_interface_mixin_rest: $ => seq(
 			field('name', $.identifier),
-			field('body', $._mixin_body),
-			';',
+			field('body', $.interface_mixin_body),
+			';'
 		),
 
-		_mixin_body: $ => seq(
+		interface_mixin_body: $ => seq(
 			'{',
 			repeat(seq(
 				optional($.extended_attribute_list),

@@ -1086,28 +1086,35 @@
     }
   },
   {
+    "type": "interface_mixin_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_mixin_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "interface_mixin_definition",
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_mixin_member",
+            "type": "interface_mixin_body",
             "named": true
-          },
-          {
-            "type": "extended_attribute_list",
-            "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },
@@ -1325,6 +1332,25 @@
     }
   },
   {
+    "type": "partial_interface_mixin_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_partial_interface_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "partial_interface_mixin_definition",
     "named": true,
     "fields": {
@@ -1333,7 +1359,7 @@
         "required": true,
         "types": [
           {
-            "type": "partial_interface_body",
+            "type": "partial_interface_mixin_body",
             "named": true
           }
         ]

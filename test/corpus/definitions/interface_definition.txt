@@ -50,6 +50,7 @@ interface mixin Observable {};
 (source_file
 	(interface_mixin_definition
 		name: (identifier)
+		body: (interface_mixin_body)
 	)
 )
 
@@ -70,7 +71,8 @@ interface mixin Observable {
 (source_file
 	(interface_mixin_definition
 		name: (identifier)
-		body: (regular_operation
+		body: (interface_mixin_body
+			(regular_operation
 				return_type: (type
 					(distinguishable_type))
 				(operation_rest
@@ -90,7 +92,9 @@ interface mixin Observable {
 							type: (type
 								(distinguishable_type
 									(primitive_type)))
-							name: (identifier)))))
+							name: (identifier))))
+			)
+		)
 	)
 )
 
@@ -130,6 +134,40 @@ partial interface Window {
 							(distinguishable_type
 								(identifier))))
 					name: (identifier)))
+		)
+	)
+)
+
+============================================
+Partial interface mixin definition (empty)
+============================================
+
+partial interface mixin Window {};
+
+----
+
+(source_file
+	(partial_interface_mixin_definition
+		name: (identifier)
+		body: (partial_interface_mixin_body)
+	)
+)
+
+============================================
+Partial interface mixin definition
+============================================
+
+partial interface mixin Foo {
+	stringifier;
+};
+
+----
+
+(source_file
+	(partial_interface_mixin_definition
+		name: (identifier)
+		body: (partial_interface_mixin_body
+			(stringifier)
 		)
 	)
 )

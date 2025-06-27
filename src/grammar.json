@@ -148,7 +148,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_mixin_rest"
+          "name": "_interface_mixin_rest"
         }
       ]
     },
@@ -186,7 +186,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_partial_interface_rest"
+          "name": "_partial_interface_mixin_rest"
         }
       ]
     },
@@ -309,6 +309,36 @@
         }
       ]
     },
+    "_partial_interface_mixin_rest": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "partial_interface_body"
+            },
+            "named": true,
+            "value": "partial_interface_mixin_body"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
     "_interface_member": {
       "type": "CHOICE",
       "members": [
@@ -371,7 +401,7 @@
         }
       ]
     },
-    "_mixin_rest": {
+    "_interface_mixin_rest": {
       "type": "SEQ",
       "members": [
         {
@@ -387,7 +417,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_mixin_body"
+            "name": "interface_mixin_body"
           }
         },
         {
@@ -396,7 +426,7 @@
         }
       ]
     },
-    "_mixin_body": {
+    "interface_mixin_body": {
       "type": "SEQ",
       "members": [
         {

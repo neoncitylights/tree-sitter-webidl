@@ -47,31 +47,31 @@ export default grammar({
 		)),
 
 		_definition: $ => choice(
-			$.callback,
-			$.callback_interface,
-			$.interface,
-			$.interface_mixin,
-			$.partial_interface,
-			$.partial_interface_mixin,
-			$.namespace_statement,
-			$.dictionary_statement,
-			$.enum_statement,
-			$.typedef_statement,
-			$.includes_statement,
+			$.callback_definition,
+			$.callback_interface_definition,
+			$.interface_definition,
+			$.interface_mixin_definition,
+			$.partial_interface_definition,
+			$.partial_interface_mixin_definition,
+			$.namespace_definition,
+			$.dictionary_definition,
+			$.enum_definition,
+			$.typedef_definition,
+			$.includes_definition,
 		),
 
 		// inheritance
 		inheritance: $ => seq(':', field('inheriting', $.identifier)),
 
 		// callback
-		callback: $ => seq('callback', $._callback_rest),
-		callback_interface: $ => seq('callback', 'interface', $._callback_interface_rest),
+		callback_definition: $ => seq('callback', $._callback_rest),
+		callback_interface_definition: $ => seq('callback', 'interface', $._callback_interface_rest),
 
 		// interface and partial interface
-		interface: $ => seq('interface', $._interface_rest),
-		interface_mixin: $ => seq('interface', 'mixin', $._mixin_rest),
-		partial_interface: $ => seq('partial', 'interface', $._partial_interface_rest),
-		partial_interface_mixin: $ => seq('partial', 'interface', 'mixin', $._partial_interface_rest),
+		interface_definition: $ => seq('interface', $._interface_rest),
+		interface_mixin_definition: $ => seq('interface', 'mixin', $._mixin_rest),
+		partial_interface_definition: $ => seq('partial', 'interface', $._partial_interface_rest),
+		partial_interface_mixin_definition: $ => seq('partial', 'interface', 'mixin', $._partial_interface_rest),
 
 		_interface_rest: $ => seq(
 			field('name', $.identifier),
@@ -364,7 +364,7 @@ export default grammar({
 		),
 
 		// namespace statement
-		namespace_statement: $ => seq(
+		namespace_definition: $ => seq(
 			optional('partial'),
 			'namespace',
 			field('name', $.identifier),
@@ -385,7 +385,7 @@ export default grammar({
 		),
 
 		// dictionary statement
-		dictionary_statement: $ => seq(
+		dictionary_definition: $ => seq(
 			choice(
 				seq(
 					'dictionary',
@@ -427,7 +427,7 @@ export default grammar({
 		),
 
 		// enum statement
-		enum_statement: $ => seq(
+		enum_definition: $ => seq(
 			'enum',
 			field('name', $.identifier),
 			field('body', $.enum_body),
@@ -441,7 +441,7 @@ export default grammar({
 		),
 
 		// includes statement
-		includes_statement: $ => seq(
+		includes_definition: $ => seq(
 			field('lhs', $.identifier),
 			'includes',
 			field('rhs', $.identifier),
@@ -494,7 +494,7 @@ export default grammar({
 		),
 
 		// types
-		typedef_statement: $ => seq(
+		typedef_definition: $ => seq(
 			'typedef',
 			field('type', $.type_with_extended_attributes),
 			field('name', $.identifier),

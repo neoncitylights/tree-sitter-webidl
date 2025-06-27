@@ -1,5 +1,5 @@
 ============================================
-Interface statement (empty)
+Interface definition (empty)
 ============================================
 
 interface AudioSinkInfo {};
@@ -7,14 +7,14 @@ interface AudioSinkInfo {};
 ----
 
 (source_file
-	(interface
+	(interface_definition
 		name: (identifier)
 		body: (interface_body)
 	)
 )
 
 ============================================
-Interface statement
+Interface definition
 ============================================
 
 interface AudioSinkInfo {
@@ -24,7 +24,7 @@ interface AudioSinkInfo {
 ----
 
 (source_file
-	(interface
+	(interface_definition
 		name: (identifier)
 		body: (interface_body
 			(readonly_member
@@ -39,7 +39,7 @@ interface AudioSinkInfo {
 )
 
 ============================================
-Interface mixin statement (empty)
+Interface mixin definition (empty)
 ============================================
 
 interface mixin Observable {};
@@ -47,13 +47,13 @@ interface mixin Observable {};
 ----
 
 (source_file
-	(interface_mixin
+	(interface_mixin_definition
 		name: (identifier)
 	)
 )
 
 ============================================
-Interface mixin statement
+Interface mixin definition
 ============================================
 
 interface mixin Observable {
@@ -67,7 +67,7 @@ interface mixin Observable {
 ----
 
 (source_file
-	(interface_mixin
+	(interface_mixin_definition
 		name: (identifier)
 		body: (regular_operation
 				return_type: (type
@@ -94,7 +94,7 @@ interface mixin Observable {
 )
 
 ============================================
-Partial interface statement (empty)
+Partial interface definition (empty)
 ============================================
 
 partial interface Foo {};
@@ -102,14 +102,14 @@ partial interface Foo {};
 ----
 
 (source_file
-	(partial_interface
+	(partial_interface_definition
 		name: (identifier)
 		body: (partial_interface_body)
 	)
 )
 
 ============================================
-Partial interface statement
+Partial interface definition
 ============================================
 
 partial interface Window {
@@ -119,7 +119,7 @@ partial interface Window {
 ----
 
 (source_file
-	(partial_interface
+	(partial_interface_definition
 		name: (identifier)
 		body: (partial_interface_body
 			(readonly_member

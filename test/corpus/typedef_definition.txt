@@ -1,12 +1,12 @@
 ============================================
-Typedef statement with single builtin type
+Typedef definition with single builtin type
 ============================================
 
 typedef DOMString foo;
 
 ----
 (source_file
-	(typedef_statement
+	(typedef_definition
 		type: (type_with_extended_attributes
 			(type
 				(distinguishable_type
@@ -19,7 +19,7 @@ typedef DOMString foo;
 )
 
 ============================================
-Typedef statement with union type
+Typedef definition with union type
 ============================================
 
 typedef (DOMString or unsigned long) StringOrNumber;
@@ -27,7 +27,7 @@ typedef (DOMString or unsigned long) StringOrNumber;
 ----
 
 (source_file
-	(typedef_statement
+	(typedef_definition
 		type: (type_with_extended_attributes
 			(type
 				(union_type

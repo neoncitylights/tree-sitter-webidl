@@ -1,12 +1,12 @@
 ============================================
-Callback statement
+Callback definition
 ============================================
 
 callback DecodeErrorCallback = undefined (DOMException error);
 
 ----
 (source_file
-	(callback
+	(callback_definition
 		name: (identifier)
 		type: (type (distinguishable_type))
 		(argument_list
@@ -19,7 +19,7 @@ callback DecodeErrorCallback = undefined (DOMException error);
 )
 
 ============================================
-Callback interface statement (empty)
+Callback interface definition (empty)
 ============================================
 
 callback interface EventListener {};
@@ -27,13 +27,13 @@ callback interface EventListener {};
 ----
 
 (source_file
-	(callback_interface
+	(callback_interface_definition
 		name: (identifier)
 	)
 )
 
 ============================================
-Callback interface statement
+Callback interface definition
 ============================================
 
 callback interface EventListener {
@@ -43,7 +43,7 @@ callback interface EventListener {
 ----
 
 (source_file
-	(callback_interface
+	(callback_interface_definition
 		name: (identifier)
 		body: (regular_operation
 			return_type: (type

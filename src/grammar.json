@@ -31,47 +31,47 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "callback"
+          "name": "callback_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "callback_interface"
+          "name": "callback_interface_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "interface"
+          "name": "interface_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "interface_mixin"
+          "name": "interface_mixin_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "partial_interface"
+          "name": "partial_interface_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "partial_interface_mixin"
+          "name": "partial_interface_mixin_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "namespace_statement"
+          "name": "namespace_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "dictionary_statement"
+          "name": "dictionary_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "enum_statement"
+          "name": "enum_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "typedef_statement"
+          "name": "typedef_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "includes_statement"
+          "name": "includes_definition"
         }
       ]
     },
@@ -92,7 +92,7 @@
         }
       ]
     },
-    "callback": {
+    "callback_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -105,7 +105,7 @@
         }
       ]
     },
-    "callback_interface": {
+    "callback_interface_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -122,7 +122,7 @@
         }
       ]
     },
-    "interface": {
+    "interface_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -135,7 +135,7 @@
         }
       ]
     },
-    "interface_mixin": {
+    "interface_mixin_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -152,7 +152,7 @@
         }
       ]
     },
-    "partial_interface": {
+    "partial_interface_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -169,7 +169,7 @@
         }
       ]
     },
-    "partial_interface_mixin": {
+    "partial_interface_mixin_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -1328,7 +1328,7 @@
         }
       ]
     },
-    "namespace_statement": {
+    "namespace_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -1406,7 +1406,7 @@
         }
       ]
     },
-    "dictionary_statement": {
+    "dictionary_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -1586,7 +1586,7 @@
         }
       ]
     },
-    "enum_statement": {
+    "enum_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -1670,7 +1670,7 @@
         }
       ]
     },
-    "includes_statement": {
+    "includes_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -1880,7 +1880,7 @@
         }
       ]
     },
-    "typedef_statement": {
+    "typedef_definition": {
       "type": "SEQ",
       "members": [
         {

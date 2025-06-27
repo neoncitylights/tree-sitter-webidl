@@ -1,12 +1,12 @@
 ============================================
-Dictionary statement with inheritance
+Dictionary definition with inheritance
 ============================================
 
 dictionary Foo: Bar {};
 
 ----
 (source_file
-	(dictionary_statement
+	(dictionary_definition
 		name: (identifier)
 		(inheritance
 			inheriting: (identifier)
@@ -16,21 +16,21 @@ dictionary Foo: Bar {};
 )
 
 ============================================
-Dictionary statement (empty)
+Dictionary definition (empty)
 ============================================
 
 dictionary AudioEncoderInit {};
 
 ----
 (source_file
-	(dictionary_statement
+	(dictionary_definition
 		name: (identifier)
 		body: (dictionary_body)
 	)
 )
 
 ============================================
-Dictionary statement
+Dictionary definition
 ============================================
 
 dictionary PaintOptions {
@@ -41,7 +41,7 @@ dictionary PaintOptions {
 
 ----
 (source_file
-	(dictionary_statement
+	(dictionary_definition
 		name: (identifier)
 		body: (dictionary_body
 			(dictionary_member
@@ -69,14 +69,14 @@ dictionary PaintOptions {
 )
 
 ============================================
-Partial dictionary statement
+Partial dictionary definition
 ============================================
 
 partial dictionary SomeDictionary {};
 
 ----
 (source_file
-	(dictionary_statement
+	(dictionary_definition
 		name: (identifier)
 		body: (dictionary_body)
 	)

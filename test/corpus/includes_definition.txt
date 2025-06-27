@@ -1,5 +1,5 @@
 ============================================
-Includes statement
+Includes definition
 ============================================
 
 Foo includes Bar;
@@ -7,7 +7,7 @@ Foo includes Bar;
 ----
 
 (source_file
-	(includes_statement
+	(includes_definition
 		lhs: (identifier)
 		rhs: (identifier)
 	)

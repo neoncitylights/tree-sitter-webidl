@@ -1,5 +1,5 @@
 ============================================
-Enum statement
+Enum definition
 ============================================
 
 enum HardwareAcceleration {
@@ -11,7 +11,7 @@ enum HardwareAcceleration {
 ----
 
 (source_file
-	(enum_statement
+	(enum_definition
 		name: (identifier)
 		body: (enum_body
 			(string)
@@ -22,7 +22,7 @@ enum HardwareAcceleration {
 )
 
 ============================================
-Enum statement on a single line
+Enum definition on a single line
 ============================================
 
 enum SomeEnum { "test" };
@@ -30,7 +30,7 @@ enum SomeEnum { "test" };
 ----
 
 (source_file
-	(enum_statement
+	(enum_definition
 		name: (identifier)
 		body: (enum_body
 			(string)

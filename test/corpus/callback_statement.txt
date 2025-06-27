@@ -31,11 +31,11 @@ callback interface EventListener {
 (source_file
 	(callback_interface
 		name: (identifier)
-		(regular_operation
+		body: (regular_operation
 			(type
 				(distinguishable_type))
 			(operation_rest
-				(identifier)
+				name: (identifier)
 				(argument_list
 					(argument
 						type: (type

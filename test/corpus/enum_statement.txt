@@ -13,9 +13,11 @@ enum HardwareAcceleration {
 (source_file
 	(enum_statement
 		name: (identifier)
-		(string)
-		(string)
-		(string)
+		body: (enum_body
+			(string)
+			(string)
+			(string)
+		)
 	)
 )
 
@@ -30,6 +32,8 @@ enum SomeEnum { "test" };
 (source_file
 	(enum_statement
 		name: (identifier)
-		(string)
+		body: (enum_body
+			(string)
+		)
 	)
 )

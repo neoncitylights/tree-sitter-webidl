@@ -31,7 +31,6 @@ export default grammar({
 
 		// types
 		$._union_member_type,
-		$._primitive_type,
 
 		// value
 		$._default_value,
@@ -77,11 +76,11 @@ export default grammar({
 		_interface_rest: $ => seq(
 			field('name', $.identifier),
 			optional($.inheritance),
-			field('body', $._interface_body),
+			field('body', $.interface_body),
 			';',
 		),
 
-		_interface_body: $ => seq(
+		interface_body: $ => seq(
 			'{',
 			repeat($._interface_member),
 			'}',
@@ -433,11 +432,11 @@ export default grammar({
 		enum_statement: $ => seq(
 			'enum',
 			field('name', $.identifier),
-			field('body', $._enum_body),
+			field('body', $.enum_body),
 			';'
 		),
 
-		_enum_body: $ => seq(
+		enum_body: $ => seq(
 			'{',
 			sepByComma1Trailing($.string),
 			'}',
@@ -462,7 +461,7 @@ export default grammar({
 		),
 
 		_const_type: $ => choice(
-			$._primitive_type,
+			$.primitive_type,
 			$.identifier,
 		),
 
@@ -540,7 +539,7 @@ export default grammar({
 		// builtin types
 		distinguishable_type: $ => seq(
 			choice(
-				$._primitive_type,
+				$.primitive_type,
 				$.string_type,
 				$.identifier,
 				seq('sequence', '<', $.type_with_extended_attributes, '>'),
@@ -555,7 +554,7 @@ export default grammar({
 			optional('?'),
 		),
 
-		_primitive_type: $ => choice(
+		primitive_type: $ => choice(
 			$.integer_type,
 			$.float_type,
 			'boolean',

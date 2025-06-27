@@ -9,6 +9,7 @@ interface AudioSinkInfo {};
 (source_file
 	(interface
 		name: (identifier)
+		body: (interface_body)
 	)
 )
 
@@ -23,15 +24,19 @@ interface AudioSinkInfo {
 ----
 
 (source_file
-(interface
-	name: (identifier)
-	(readonly_member
-		(attribute_rest
-			type: (type_with_extended_attributes
-				(type
-					(distinguishable_type
-						(identifier))))
-			name: (identifier)))))
+	(interface
+		name: (identifier)
+		body: (interface_body
+			(readonly_member
+				(attribute_rest
+					type: (type_with_extended_attributes
+						(type
+							(distinguishable_type
+								(identifier))))
+					name: (identifier)))
+		)
+	)
+)
 
 ============================================
 Interface mixin statement with members

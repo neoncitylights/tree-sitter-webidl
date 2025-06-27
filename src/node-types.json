@@ -246,36 +246,6 @@
     ]
   },
   {
-    "type": "_primitive_type",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "bigint",
-        "named": false
-      },
-      {
-        "type": "boolean",
-        "named": false
-      },
-      {
-        "type": "byte",
-        "named": false
-      },
-      {
-        "type": "float_type",
-        "named": true
-      },
-      {
-        "type": "integer_type",
-        "named": true
-      },
-      {
-        "type": "octet",
-        "named": false
-      }
-    ]
-  },
-  {
     "type": "_union_member_type",
     "named": true,
     "subtypes": [
@@ -535,11 +505,11 @@
         "required": true,
         "types": [
           {
-            "type": "_primitive_type",
+            "type": "identifier",
             "named": true
           },
           {
-            "type": "identifier",
+            "type": "primitive_type",
             "named": true
           }
         ]
@@ -686,15 +656,15 @@
       "required": false,
       "types": [
         {
-          "type": "_primitive_type",
-          "named": true
-        },
-        {
           "type": "buffer_related_type",
           "named": true
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "primitive_type",
           "named": true
         },
         {
@@ -723,28 +693,31 @@
     "fields": {}
   },
   {
+    "type": "enum_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enum_statement",
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "string",
+            "type": "enum_body",
             "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },
@@ -992,20 +965,12 @@
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_interface_member",
+            "type": "interface_body",
             "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },
@@ -1026,6 +991,21 @@
       "types": [
         {
           "type": "inheritance",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_interface_member",
           "named": true
         }
       ]
@@ -1283,6 +1263,25 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "primitive_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "float_type",
+          "named": true
+        },
+        {
+          "type": "integer_type",
+          "named": true
+        }
+      ]
     }
   },
   {

@@ -69,7 +69,7 @@ dictionary PaintOptions {
 )
 
 ============================================
-Partial dictionary definition
+Partial dictionary definition (empty)
 ============================================
 
 partial dictionary SomeDictionary {};

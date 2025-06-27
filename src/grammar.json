@@ -480,11 +480,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "mixin_readonly_attribute"
+          "name": "mixin_attribute"
         }
       ]
     },
-    "mixin_readonly_attribute": {
+    "mixin_attribute": {
       "type": "SEQ",
       "members": [
         {

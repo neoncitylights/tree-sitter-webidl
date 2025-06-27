@@ -154,7 +154,7 @@
         "named": true
       },
       {
-        "type": "mixin_readonly_attribute",
+        "type": "mixin_attribute",
         "named": true
       },
       {
@@ -1187,7 +1187,7 @@
     }
   },
   {
-    "type": "mixin_readonly_attribute",
+    "type": "mixin_attribute",
     "named": true,
     "fields": {},
     "children": {

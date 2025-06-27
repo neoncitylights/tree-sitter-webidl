@@ -167,10 +167,10 @@ export default grammar({
 			$.const_statement,
 			$.regular_operation,
 			$.stringifier,
-			$.mixin_readonly_attribute,
+			$.mixin_attribute,
 		),
 
-		mixin_readonly_attribute: $ => seq(optional('readonly'), $.attribute_rest),
+		mixin_attribute: $ => seq(optional('readonly'), $.attribute_rest),
 
 		// callback + callback interface
 		_callback_interface_rest: $ => seq(

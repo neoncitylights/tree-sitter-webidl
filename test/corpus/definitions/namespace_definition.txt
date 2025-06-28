@@ -15,7 +15,7 @@ namespace CSS {
 		(regular_operation
 			(type
 				(distinguishable_type
-					(identifier)))
+					(type_identifier)))
 			(operation_rest
 				(identifier)
 				(argument_list
@@ -28,7 +28,7 @@ namespace CSS {
 		(regular_operation
 			(type
 				(distinguishable_type
-					(identifier)))
+					(type_identifier)))
 			(operation_rest
 				(identifier)
 				(argument_list

@@ -14,7 +14,7 @@ typedef DOMString foo;
 				)
 			)
 		)
-		name: (identifier)
+		name: (type_identifier)
 	)
 )
 
@@ -37,6 +37,6 @@ typedef (DOMString or unsigned long) StringOrNumber;
 						right: (distinguishable_type
 							(primitive_type
 								(integer_type)))))))
-		name: (identifier)
+		name: (type_identifier)
 	)
 )

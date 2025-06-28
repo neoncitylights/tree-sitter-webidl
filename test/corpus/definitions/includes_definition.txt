@@ -8,7 +8,7 @@ Foo includes Bar;
 
 (source_file
 	(includes_definition
-		lhs: (identifier)
-		rhs: (identifier)
+		lhs: (type_identifier)
+		rhs: (type_identifier)
 	)
 )

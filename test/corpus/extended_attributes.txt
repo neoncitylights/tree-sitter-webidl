@@ -14,7 +14,7 @@ interface Foo {};
 		)
 	)
 	(interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_body)
 	)
 )
@@ -55,9 +55,9 @@ interface VttCue : TextTrackCue {};
 		)
 	)
 	(interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		(inheritance
-			inheriting: (identifier))
+			inheriting: (type_identifier))
 		body: (interface_body)
 	)
 )
@@ -86,7 +86,7 @@ interface Foo {};
 		)
 	)
 	(interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_body)
 	)
 )
@@ -109,7 +109,7 @@ interface Foo {};
 		)
 	)
 	(interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_body)
 	)
 )
@@ -133,7 +133,7 @@ interface Foo {};
 		)
 	)
 	(interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_body)
 	)
 )
@@ -154,7 +154,7 @@ interface Foo {};
 		)
 	)
 	(interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_body)
 	)
 )

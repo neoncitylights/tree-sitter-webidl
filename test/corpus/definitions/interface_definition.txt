@@ -8,7 +8,7 @@ interface AudioSinkInfo {};
 
 (source_file
 	(interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_body)
 	)
 )
@@ -25,14 +25,14 @@ interface AudioSinkInfo {
 
 (source_file
 	(interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_body
 			(readonly_member
 				(attribute_rest
 					type: (type_with_extended_attributes
 						(type
 							(distinguishable_type
-								(identifier))))
+								(type_identifier))))
 					name: (identifier))
 			)
 		)
@@ -49,7 +49,7 @@ interface mixin Observable {};
 
 (source_file
 	(interface_mixin_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_mixin_body)
 	)
 )
@@ -70,7 +70,7 @@ interface mixin Observable {
 
 (source_file
 	(interface_mixin_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (interface_mixin_body
 			(regular_operation
 				return_type: (type
@@ -86,7 +86,7 @@ interface mixin Observable {
 						(argument
 							type: (type
 								(distinguishable_type
-									(identifier)))
+									(type_identifier)))
 							name: (identifier))
 						(argument
 							type: (type
@@ -108,7 +108,7 @@ partial interface Foo {};
 
 (source_file
 	(partial_interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (partial_interface_body)
 	)
 )
@@ -125,14 +125,14 @@ partial interface Window {
 
 (source_file
 	(partial_interface_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (partial_interface_body
 			(readonly_member
 				(attribute_rest
 					type: (type_with_extended_attributes
 						(type
 							(distinguishable_type
-								(identifier))))
+								(type_identifier))))
 					name: (identifier)))
 		)
 	)
@@ -148,7 +148,7 @@ partial interface mixin Window {};
 
 (source_file
 	(partial_interface_mixin_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (partial_interface_mixin_body)
 	)
 )
@@ -165,7 +165,7 @@ partial interface mixin Foo {
 
 (source_file
 	(partial_interface_mixin_definition
-		name: (identifier)
+		name: (type_identifier)
 		body: (partial_interface_mixin_body
 			(stringifier)
 		)

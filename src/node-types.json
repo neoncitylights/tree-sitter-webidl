@@ -551,7 +551,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "argument_list",
@@ -782,7 +782,7 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "argument_list",
@@ -885,7 +885,7 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "argument_list",
@@ -1044,6 +1044,10 @@
       "types": [
         {
           "type": "_interface_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
           "named": true
         }
       ]
@@ -1214,6 +1218,10 @@
             "named": true
           },
           {
+            "type": "extended_attribute_list",
+            "named": true
+          },
+          {
             "type": "{",
             "named": false
           },
@@ -1277,7 +1285,7 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "argument_list",
@@ -1900,6 +1908,10 @@
     "named": false
   },
   {
+    "type": "Promise",
+    "named": false
+  },
+  {
     "type": "SharedArrayBuffer",
     "named": false
   },
@@ -2065,10 +2077,6 @@
     "named": false
   },
   {
-    "type": "promise",
-    "named": false
-  },
-  {
     "type": "readonly",
     "named": false
   },
@@ -2078,10 +2086,6 @@
   },
   {
     "type": "required",
-    "named": false
-  },
-  {
-    "type": "restricted",
     "named": false
   },
   {

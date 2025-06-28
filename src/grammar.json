@@ -237,8 +237,25 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "_interface_member"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "extended_attribute_list"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_interface_member"
+              }
+            ]
           }
         },
         {
@@ -973,8 +990,16 @@
           "value": "("
         },
         {
-          "type": "SYMBOL",
-          "name": "argument_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "argument_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -1409,8 +1434,25 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "_namespace_member"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "extended_attribute_list"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_namespace_member"
+              }
+            ]
           }
         },
         {
@@ -2225,7 +2267,7 @@
           "members": [
             {
               "type": "STRING",
-              "value": "restricted"
+              "value": "unrestricted"
             },
             {
               "type": "BLANK"
@@ -2269,7 +2311,7 @@
       "members": [
         {
           "type": "STRING",
-          "value": "promise"
+          "value": "Promise"
         },
         {
           "type": "STRING",

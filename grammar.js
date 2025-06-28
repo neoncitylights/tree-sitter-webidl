@@ -105,7 +105,12 @@ export default grammar({
 
 		interface_body: $ => seq(
 			'{',
-			repeat($._interface_member),
+			repeat(
+				seq(
+					optional($.extended_attribute_list),
+					$._interface_member,
+				),
+			),
 			'}',
 		),
 
@@ -160,10 +165,12 @@ export default grammar({
 
 		interface_mixin_body: $ => seq(
 			'{',
-			repeat(seq(
-				optional($.extended_attribute_list),
-				$._mixin_member
-			)),
+			repeat(
+				seq(
+					optional($.extended_attribute_list),
+					$._mixin_member,
+				),
+			),
 			'}',
 		),
 
@@ -185,10 +192,12 @@ export default grammar({
 
 		callback_interface_body: $ => seq(
 			'{',
-			repeat(seq(
-				optional($.extended_attribute_list),
-				$._callback_interface_member
-			)),
+			repeat(
+				seq(
+					optional($.extended_attribute_list),
+					$._callback_interface_member,
+				),
+			),
 			'}',
 		),
 
@@ -302,7 +311,7 @@ export default grammar({
 
 		// arguments, constructor, stringifier
 		argument_list: $ => sepByComma1($.argument),
-		_parenthesized_argument_list: $ => seq('(', $.argument_list, ')'),
+		_parenthesized_argument_list: $ => seq('(', optional($.argument_list), ')'),
 
 		argument: $ => choice(
 			seq(
@@ -403,7 +412,12 @@ export default grammar({
 
 		_namespace_body: $ => seq(
 			'{',
-			repeat($._namespace_member),
+			repeat(
+				seq(
+					optional($.extended_attribute_list),
+					$._namespace_member
+				),
+			),
 			'}',
 		),
 
@@ -433,10 +447,12 @@ export default grammar({
 
 		dictionary_body: $ => seq(
 			'{',
-			repeat(seq(
-				optional($.extended_attribute_list),
-				$.dictionary_member
-			)),
+			repeat(
+				seq(
+					optional($.extended_attribute_list),
+					$.dictionary_member,
+				)
+			),
 			'}',
 		),
 
@@ -599,7 +615,7 @@ export default grammar({
 		),
 
 		float_type: $ => seq(
-			optional('restricted'),
+			optional('unrestricted'),
 			choice('float', 'double'),
 		),
 
@@ -609,7 +625,7 @@ export default grammar({
 			'USVString',
 		),
 
-		promise_type: $ => seq('promise', '<', $.type, '>'),
+		promise_type: $ => seq('Promise', '<', $.type, '>'),
 
 		record_type: $ => seq(
 			'record',

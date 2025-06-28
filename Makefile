@@ -96,4 +96,9 @@ clean:
 test:
 	$(TS) test
 
+playground:
+	tree-sitter generate
+	tree-sitter build --wasm
+	tree-sitter playground
+
 .PHONY: all install uninstall clean test

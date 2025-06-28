@@ -280,7 +280,7 @@ export default grammar({
 
 		operation_name_keyword: $ => 'includes',
 
-		// arguments
+		// arguments, constructor, stringifier
 		argument_name_keyword: $ => choice(
 			'async',
 			'attribute',
@@ -309,7 +309,6 @@ export default grammar({
 			'unrestricted',
 		),
 
-		// arguments, constructor, stringifier
 		argument_list: $ => sepByComma1($.argument),
 		_parenthesized_argument_list: $ => seq('(', optional($.argument_list), ')'),
 

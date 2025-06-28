@@ -1,0 +1,173 @@
+============================================
+Interface definition (empty)
+============================================
+
+interface AudioSinkInfo {};
+
+----
+
+(source_file
+	(interface_definition
+		name: (identifier)
+		body: (interface_body)
+	)
+)
+
+============================================
+Interface definition
+============================================
+
+interface AudioSinkInfo {
+	readonly attribute AudioSinkType type;
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (identifier)
+		body: (interface_body
+			(readonly_member
+				(attribute_rest
+					type: (type_with_extended_attributes
+						(type
+							(distinguishable_type
+								(identifier))))
+					name: (identifier))
+			)
+		)
+	)
+)
+
+============================================
+Interface mixin definition (empty)
+============================================
+
+interface mixin Observable {};
+
+----
+
+(source_file
+	(interface_mixin_definition
+		name: (identifier)
+		body: (interface_mixin_body)
+	)
+)
+
+============================================
+Interface mixin definition
+============================================
+
+interface mixin Observable {
+	undefined addEventListener(
+		DOMString type,
+		EventListener listener,
+		boolean useCapture
+	);
+};
+
+----
+
+(source_file
+	(interface_mixin_definition
+		name: (identifier)
+		body: (interface_mixin_body
+			(regular_operation
+				return_type: (type
+					(distinguishable_type))
+				(operation_rest
+					name: (identifier)
+					(argument_list
+						(argument
+							type: (type
+								(distinguishable_type
+									(string_type)))
+							name: (identifier))
+						(argument
+							type: (type
+								(distinguishable_type
+									(identifier)))
+							name: (identifier))
+						(argument
+							type: (type
+								(distinguishable_type
+									(primitive_type)))
+							name: (identifier))))
+			)
+		)
+	)
+)
+
+============================================
+Partial interface definition (empty)
+============================================
+
+partial interface Foo {};
+
+----
+
+(source_file
+	(partial_interface_definition
+		name: (identifier)
+		body: (partial_interface_body)
+	)
+)
+
+============================================
+Partial interface definition
+============================================
+
+partial interface Window {
+	readonly attribute Storage sessionStorage;
+};
+
+----
+
+(source_file
+	(partial_interface_definition
+		name: (identifier)
+		body: (partial_interface_body
+			(readonly_member
+				(attribute_rest
+					type: (type_with_extended_attributes
+						(type
+							(distinguishable_type
+								(identifier))))
+					name: (identifier)))
+		)
+	)
+)
+
+============================================
+Partial interface mixin definition (empty)
+============================================
+
+partial interface mixin Window {};
+
+----
+
+(source_file
+	(partial_interface_mixin_definition
+		name: (identifier)
+		body: (partial_interface_mixin_body)
+	)
+)
+
+============================================
+Partial interface mixin definition
+============================================
+
+partial interface mixin Foo {
+	stringifier;
+};
+
+----
+
+(source_file
+	(partial_interface_mixin_definition
+		name: (identifier)
+		body: (partial_interface_mixin_body
+			(stringifier)
+		)
+	)
+)

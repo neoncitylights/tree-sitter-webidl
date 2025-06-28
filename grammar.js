@@ -20,55 +20,86 @@ export default grammar({
 	],
 
 	supertypes: $ => [
-		$._extended_attribute,
-		$._callback_interface_member,
 		$._definition,
+
+		// members
+		$._callback_interface_member,
 		$._interface_member,
-		$._partial_interface_member,
 		$._mixin_member,
 		$._namespace_member,
-		$._operation,
+		$._partial_interface_member,
+
+		// types
 		$._union_member_type,
+
+		// value
+		$._default_value,
+
+		// other
+		$._extended_attribute,
+		$._operation,
 	],
 
 	rules: {
-		source_file: $ => repeat($._definition),
+		source_file: $ => repeat(seq(
+			optional($.extended_attribute_list),
+			$._definition
+		)),
 
 		_definition: $ => choice(
-			$.callback,
-			$.callback_interface,
-			$.interface,
-			$.interface_mixin,
-			$.partial_interface,
-			$.partial_interface_mixin,
-			$.namespace_statement,
-			$.dictionary_statement,
-			$.enum_statement,
-			$.typedef_statement,
-			$.includes_statement,
+			$.callback_definition,
+			$.callback_interface_definition,
+			$.interface_definition,
+			$.interface_mixin_definition,
+			$.partial_interface_definition,
+			$.partial_interface_mixin_definition,
+			$.namespace_definition,
+			$.dictionary_definition,
+			$.enum_definition,
+			$.typedef_definition,
+			$.includes_definition,
 		),
 
 		// inheritance
 		inheritance: $ => seq(':', field('inheriting', $.identifier)),
 
 		// callback
-		callback: $ => seq('callback', $._callback_rest),
-		callback_interface: $ => seq('callback', 'interface', $._callback_interface_rest),
+		callback_definition: $ => seq('callback', $._callback_rest),
+		callback_interface_definition: $ => seq('callback', 'interface', $._callback_interface_rest),
 
 		// interface and partial interface
-		interface: $ => seq('interface', $._interface_rest),
-		interface_mixin: $ => seq('interface', 'mixin', $._mixin_rest),
-		partial_interface: $ => seq('partial', 'interface', $._partial_interface_rest),
-		partial_interface_mixin: $ => seq('partial', 'interface', 'mixin', $._partial_interface_rest),
+		interface_definition: $ => seq(
+			'interface',
+			$._interface_rest,
+		),
+
+		interface_mixin_definition: $ => seq(
+			'interface',
+			'mixin',
+			$._interface_mixin_rest,
+		),
+
+		partial_interface_definition: $ => seq(
+			'partial',
+			'interface',
+			$._partial_interface_rest,
+		),
+
+		partial_interface_mixin_definition: $ => seq(
+			'partial',
+			'interface',
+			'mixin',
+			$._partial_interface_mixin_rest,
+		),
 
 		_interface_rest: $ => seq(
 			field('name', $.identifier),
 			optional($.inheritance),
-			$._interface_body,
+			field('body', $.interface_body),
 			';',
 		),
 
-		_interface_body: $ => seq(
+		interface_body: $ => seq(
 			'{',
 			repeat($._interface_member),
 			'}',
@@ -76,11 +107,11 @@ export default grammar({
 
 		_partial_interface_rest: $ => seq(
 			field('name', $.identifier),
-			$._partial_interface_body,
+			field('body', $.partial_interface_body),
 			';',
 		),
 
-		_partial_interface_body: $ => seq(
+		partial_interface_body: $ => seq(
 			'{',
 			repeat(
 				seq(
@@ -91,13 +122,19 @@ export default grammar({
 			'}',
 		),
 
+		_partial_interface_mixin_rest: $ => seq(
+			field('name', $.identifier),
+			field('body', alias($.partial_interface_body, $.partial_interface_mixin_body)),
+			';',
+		),
+
 		_interface_member: $ => choice(
 			$._partial_interface_member,
 			$.constructor,
 		),
 
 		_partial_interface_member: $ => choice(
-			$.const_statement,
+			$.const_member,
 			$._operation,
 			$.stringifier,
 			$.static_member,
@@ -111,13 +148,13 @@ export default grammar({
 		),
 
 		// interface mixin
-		_mixin_rest: $ => seq(
+		_interface_mixin_rest: $ => seq(
 			field('name', $.identifier),
-			$._mixin_body,
-			';',
+			field('body', $.interface_mixin_body),
+			';'
 		),
 
-		_mixin_body: $ => seq(
+		interface_mixin_body: $ => seq(
 			'{',
 			repeat(seq(
 				optional($.extended_attribute_list),
@@ -127,22 +164,22 @@ export default grammar({
 		),
 
 		_mixin_member: $ => choice(
-			$.const_statement,
+			$.const_member,
 			$.regular_operation,
 			$.stringifier,
-			$.mixin_readonly_attribute,
+			$.mixin_attribute,
 		),
 
-		mixin_readonly_attribute: $ => seq(optional('readonly'), $.attribute_rest),
+		mixin_attribute: $ => seq(optional('readonly'), $.attribute_rest),
 
 		// callback + callback interface
 		_callback_interface_rest: $ => seq(
 			field('name', $.identifier),
-			$._callback_interface_body,
+			field('body', $.callback_interface_body),
 			';'
 		),
 
-		_callback_interface_body: $ => seq(
+		callback_interface_body: $ => seq(
 			'{',
 			repeat(seq(
 				optional($.extended_attribute_list),
@@ -152,14 +189,14 @@ export default grammar({
 		),
 
 		_callback_interface_member: $ => choice(
-			$.const_statement,
+			$.const_member,
 			$.regular_operation,
 		),
 
 		_callback_rest: $ => seq(
 			field('name', $.identifier),
 			'=',
-			$.type,
+			field('return_type', $.type),
 			$._parenthesized_argument_list,
 			';'
 		),
@@ -202,7 +239,7 @@ export default grammar({
 		),
 
 		regular_operation: $ => seq(
-			$.type,
+			field('return_type', $.type),
 			$.operation_rest,
 		),
 
@@ -218,7 +255,7 @@ export default grammar({
 		),
 
 		operation_rest: $ => seq(
-			optional($._operation_name),
+			optional(field('name', $._operation_name)),
 			$._parenthesized_argument_list,
 			';'
 		),
@@ -311,8 +348,8 @@ export default grammar({
 		iterable: $ => seq(
 			'iterable',
 			'<',
-			$.type_with_extended_attributes,
-			optional($._optional_type),
+			field('lhs_type', $.type_with_extended_attributes),
+			field('rhs_type', optional($._optional_type)),
 			'>',
 			';',
 		),
@@ -321,8 +358,8 @@ export default grammar({
 			'async',
 			'iterable',
 			'<',
-			$.type_with_extended_attributes,
-			optional($._optional_type),
+			field('lhs_type', $.type_with_extended_attributes),
+			field('rhs_type', optional($._optional_type)),
 			'>',
 			optional($._parenthesized_argument_list),
 			';',
@@ -351,12 +388,12 @@ export default grammar({
 			';'
 		),
 
-		// namespace statement
-		namespace_statement: $ => seq(
+		// namespace
+		namespace_definition: $ => seq(
 			optional('partial'),
 			'namespace',
 			field('name', $.identifier),
-			$._namespace_body,
+			field('body', $._namespace_body),
 			';'
 		),
 
@@ -369,13 +406,11 @@ export default grammar({
 		_namespace_member: $ => choice(
 			$.regular_operation,
 			$.readonly_attribute,
-			$.const_statement,
+			$.const_member,
 		),
 
-
-
-		// dictionary statement
-		dictionary_statement: $ => seq(
+		// dictionary
+		dictionary_definition: $ => seq(
 			choice(
 				seq(
 					'dictionary',
@@ -388,60 +423,58 @@ export default grammar({
 					field('name', $.identifier),
 				),
 			),
-			$._dictionary_body,
+			field('body', $.dictionary_body),
 			';'
 		),
 
-		_dictionary_body: $ => seq(
+		dictionary_body: $ => seq(
 			'{',
-			repeat($.dictionary_member),
+			repeat(seq(
+				optional($.extended_attribute_list),
+				$.dictionary_member
+			)),
 			'}',
 		),
 
-		dictionary_member: $ => seq(
-			optional($.extended_attribute_list),
-			$._dictionary_member_rest,
-		),
-
-		_dictionary_member_rest: $ => choice(
+		dictionary_member: $ => choice(
 			seq(
 				'required',
-				$.type_with_extended_attributes,
+				field('type', $.type_with_extended_attributes),
 				field('name', $.identifier),
 				';',
 			),
 			seq(
-				$.type,
+				field('type', $.type),
 				field('name', $.identifier),
 				optional($.default),
 				';',
 			),
 		),
 
-		// enum statement
-		enum_statement: $ => seq(
+		// enum
+		enum_definition: $ => seq(
 			'enum',
 			field('name', $.identifier),
-			$._enum_body,
+			field('body', $.enum_body),
 			';'
 		),
 
-		_enum_body: $ => seq(
+		enum_body: $ => seq(
 			'{',
 			sepByComma1Trailing($.string),
 			'}',
 		),
 
-		// includes statement
-		includes_statement: $ => seq(
+		// includes
+		includes_definition: $ => seq(
 			field('lhs', $.identifier),
 			'includes',
 			field('rhs', $.identifier),
 			';'
 		),
 
-		// const statement
-		const_statement: $ => seq(
+		// const
+		const_member: $ => seq(
 			'const',
 			field('type', $._const_type),
 			field('name', $.identifier),
@@ -462,7 +495,7 @@ export default grammar({
 		),
 
 		// default values
-		default: $ => seq('=', $._default_value),
+		default: $ => seq('=', field('value', $._default_value)),
 		_default_value: $ => choice(
 			$._const_value,
 			$.string,
@@ -486,10 +519,10 @@ export default grammar({
 		),
 
 		// types
-		typedef_statement: $ => seq(
+		typedef_definition: $ => seq(
 			'typedef',
-			$.type_with_extended_attributes,
-			$.identifier,
+			field('type', $.type_with_extended_attributes),
+			field('name', $.identifier),
 			';'
 		),
 
@@ -532,12 +565,12 @@ export default grammar({
 				$.primitive_type,
 				$.string_type,
 				$.identifier,
-				seq('sequence', '<', $.type_with_extended_attributes, '>'),
+				$.sequence_type,
 				'object',
 				'symbol',
 				$.buffer_related_type,
-				seq('FrozenArray', '<', $.type_with_extended_attributes, '>'),
-				seq('ObservableArray', '<', $.type_with_extended_attributes, '>'),
+				$.frozen_array_type,
+				$.observable_array_type,
 				$.record_type,
 				'undefined',
 			),
@@ -601,6 +634,27 @@ export default grammar({
 			'Float64Array',
 		),
 
+		sequence_type: $ => seq(
+			'sequence',
+			'<',
+			field('inner_type', $.type_with_extended_attributes),
+			'>',
+		),
+
+		frozen_array_type: $ => seq(
+			'FrozenArray',
+			'<',
+			field('inner_type', $.type_with_extended_attributes),
+			'>',
+		),
+
+		observable_array_type: $ => seq(
+			'ObservableArray',
+			'<',
+			field('inner_type', $.type_with_extended_attributes),
+			'>',
+		),
+
 		// attributes
 		extended_attribute_list: $ => seq(
 			'[',
@@ -610,15 +664,18 @@ export default grammar({
 
 		_extended_attribute: $ => choice(
 			$.extended_attribute_no_args,
+			$.extended_attribute_arg_list,
 			$.extended_attribute_named_arg_list,
 			$.extended_attribute_ident,
 			$.extended_attribute_ident_list,
 			$.extended_attribute_wildcard,
 		),
 
-		extended_attribute_no_args: $ => alias(
-			$.identifier,
-			$.extended_attribute_no_args,
+		extended_attribute_no_args: $ => field('name', $.identifier),
+
+		extended_attribute_arg_list: $ => seq(
+			field('name', $.identifier),
+			$._parenthesized_argument_list,
 		),
 
 		extended_attribute_named_arg_list: $ => seq(
@@ -635,7 +692,7 @@ export default grammar({
 		),
 
 		extended_attribute_ident_list: $ => seq(
-			field('lhs', $.identifier),
+			field('name', $.identifier),
 			'=',
 			'(',
 			$.identifier_list,
@@ -643,12 +700,12 @@ export default grammar({
 		),
 
 		extended_attribute_wildcard: $ => seq(
-			field('lhs', $.identifier),
+			field('name', $.identifier),
 			'=',
 			'*'
 		),
 
-		// identifier list
+		// other identifier nodes
 		identifier_list: $ => sepByComma1($.identifier),
 
 		// terminal symbols

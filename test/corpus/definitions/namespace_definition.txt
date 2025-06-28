@@ -1,5 +1,5 @@
 ============================================
-Namespace statement with operations
+Namespace definition with operations
 ============================================
 
 namespace CSS {
@@ -10,7 +10,7 @@ namespace CSS {
 ----
 
 (source_file
-	(namespace_statement
+	(namespace_definition
 		(identifier)
 		(regular_operation
 			(type
@@ -42,7 +42,7 @@ namespace CSS {
 )
 
 ============================================
-Partial namespace statement
+Partial namespace definition (empty)
 ============================================
 
 partial namespace CSS {};
@@ -50,7 +50,7 @@ partial namespace CSS {};
 ----
 
 (source_file
-	(namespace_statement
+	(namespace_definition
 		(identifier)
 	)
 )

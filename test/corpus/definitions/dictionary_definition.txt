@@ -1,0 +1,83 @@
+============================================
+Dictionary definition with inheritance
+============================================
+
+dictionary Foo: Bar {};
+
+----
+(source_file
+	(dictionary_definition
+		name: (identifier)
+		(inheritance
+			inheriting: (identifier)
+		)
+		body: (dictionary_body)
+	)
+)
+
+============================================
+Dictionary definition (empty)
+============================================
+
+dictionary AudioEncoderInit {};
+
+----
+(source_file
+	(dictionary_definition
+		name: (identifier)
+		body: (dictionary_body)
+	)
+)
+
+============================================
+Dictionary definition
+============================================
+
+dictionary PaintOptions {
+	DOMString fillPattern = "black";
+	DOMString strokePattern;
+	Point position;
+};
+
+----
+(source_file
+	(dictionary_definition
+		name: (identifier)
+		body: (dictionary_body
+			(dictionary_member
+				type: (type
+					(distinguishable_type
+						(string_type)))
+				name: (identifier)
+				(default
+					value: (string))
+			)
+			(dictionary_member
+				type: (type
+					(distinguishable_type
+						(string_type)))
+				name: (identifier)
+			)
+			(dictionary_member
+				type: (type
+					(distinguishable_type
+						(identifier)))
+				name: (identifier)
+			)
+		)
+	)
+)
+
+============================================
+Partial dictionary definition (empty)
+============================================
+
+partial dictionary SomeDictionary {};
+
+----
+(source_file
+	(dictionary_definition
+		name: (identifier)
+		body: (dictionary_body)
+	)
+)

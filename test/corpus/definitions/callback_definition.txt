@@ -1,0 +1,63 @@
+============================================
+Callback definition
+============================================
+
+callback DecodeErrorCallback = undefined (DOMException error);
+
+----
+(source_file
+	(callback_definition
+		name: (identifier)
+		return_type: (type (distinguishable_type))
+		(argument_list
+			(argument
+				type: (type (distinguishable_type (identifier)))
+				name: (identifier)
+			)
+		)
+	)
+)
+
+============================================
+Callback interface definition (empty)
+============================================
+
+callback interface EventListener {};
+
+----
+
+(source_file
+	(callback_interface_definition
+		name: (identifier)
+		body: (callback_interface_body)
+	)
+)
+
+============================================
+Callback interface definition
+============================================
+
+callback interface EventListener {
+	undefined handleEvent(Event event);
+};
+
+----
+
+(source_file
+	(callback_interface_definition
+		name: (identifier)
+		body: (callback_interface_body
+			(regular_operation
+				return_type: (type
+					(distinguishable_type))
+				(operation_rest
+					name: (identifier)
+					(argument_list
+						(argument
+							type: (type
+								(distinguishable_type
+									(identifier)))
+							name: (identifier)))))
+		)
+	)
+)

@@ -2722,7 +2722,9 @@
   "conflicts": [],
   "precedences": [],
   "externals": [],
-  "inline": [],
+  "inline": [
+    "_type_identifier"
+  ],
   "supertypes": [
     "_definition",
     "_callback_interface_member",

@@ -40,6 +40,10 @@ export default grammar({
 		$._operation,
 	],
 
+	inline: $ => [
+		$._type_identifier,
+	],
+
 	rules: {
 		source_file: $ => repeat(seq(
 			optional($.extended_attribute_list),

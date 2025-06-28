@@ -9,7 +9,7 @@ callback DecodeErrorCallback = undefined (DOMException error);
 	(callback_definition
 		name: (type_identifier)
 		return_type: (type (distinguishable_type))
-		(argument_list
+		arguments: (argument_list
 			(argument
 				type: (type (distinguishable_type (type_identifier)))
 				name: (identifier)
@@ -52,7 +52,7 @@ callback interface EventListener {
 					(distinguishable_type))
 				(operation_rest
 					name: (identifier)
-					(argument_list
+					arguments: (argument_list
 						(argument
 							type: (type
 								(distinguishable_type

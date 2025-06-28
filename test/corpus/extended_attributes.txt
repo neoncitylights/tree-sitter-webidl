@@ -33,7 +33,7 @@ interface VttCue : TextTrackCue {};
 	(extended_attribute_list
 		(extended_attribute_arg_list
 			name: (identifier)
-			(argument_list
+			arguments: (argument_list
 				(argument
 					type: (type
 					(distinguishable_type
@@ -77,7 +77,7 @@ interface Foo {};
 		(extended_attribute_named_arg_list
 			lhs: (identifier)
 			rhs: (identifier)
-			(argument_list
+			arguments: (argument_list
 				(argument
 					type: (type (distinguishable_type (string_type)))
 					name: (identifier)
@@ -127,9 +127,10 @@ interface Foo {};
 	(extended_attribute_list
 		(extended_attribute_ident_list
 			name: (identifier)
-			(identifier_list
+			identifiers: (identifier_list
 				(identifier)
-				(identifier))
+				(identifier)
+			)
 		)
 	)
 	(interface_definition

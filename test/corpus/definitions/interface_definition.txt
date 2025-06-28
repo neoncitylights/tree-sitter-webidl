@@ -40,8 +40,10 @@ interface AudioSinkInfo {
 				return_type: (type
 					(distinguishable_type
 						(type_identifier)))
-					(operation_rest
-						name: (identifier))
+				(operation_rest
+					name: (identifier)
+					arguments: (argument_list)
+				)
 			)
 		)
 	)
@@ -85,7 +87,7 @@ interface mixin Observable {
 					(distinguishable_type))
 				(operation_rest
 					name: (identifier)
-					(argument_list
+					arguments: (argument_list
 						(argument
 							type: (type
 								(distinguishable_type

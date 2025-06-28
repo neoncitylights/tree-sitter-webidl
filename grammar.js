@@ -253,7 +253,7 @@ export default grammar({
 
 		regular_operation: $ => seq(
 			field('return_type', $.type),
-			$.operation_rest,
+			$._operation_rest,
 		),
 
 		special_operation: $ => seq(
@@ -267,7 +267,7 @@ export default grammar({
 			'deleter',
 		),
 
-		operation_rest: $ => seq(
+		_operation_rest: $ => seq(
 			optional(field('name', $._operation_name)),
 			field('arguments', $.argument_list),
 			';'
@@ -405,11 +405,11 @@ export default grammar({
 			optional('partial'),
 			'namespace',
 			field('name', $.identifier),
-			field('body', $._namespace_body),
+			field('body', $.namespace_body),
 			';'
 		),
 
-		_namespace_body: $ => seq(
+		namespace_body: $ => seq(
 			'{',
 			repeat(
 				seq(

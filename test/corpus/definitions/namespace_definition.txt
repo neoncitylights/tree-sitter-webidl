@@ -11,33 +11,39 @@ namespace CSS {
 
 (source_file
 	(namespace_definition
-		(identifier)
-		(regular_operation
-			(type
-				(distinguishable_type
-					(type_identifier)))
-			(operation_rest
-				(identifier)
-				(argument_list
+		name: (identifier)
+		body: (namespace_body
+			(regular_operation
+				return_type: (type
+					(distinguishable_type
+						(type_identifier)))
+				name: (identifier)
+				arguments: (argument_list
 					(argument
-						(type
+						type: (type
 							(distinguishable_type
 								(primitive_type
 									(float_type))))
-						(identifier)))))
-		(regular_operation
-			(type
-				(distinguishable_type
-					(type_identifier)))
-			(operation_rest
-				(identifier)
-				(argument_list
+						name: (identifier)
+					)
+				)
+			)
+			(regular_operation
+				return_type: (type
+					(distinguishable_type
+						(type_identifier)))
+				name: (identifier)
+				arguments: (argument_list
 					(argument
-						(type
+						type: (type
 							(distinguishable_type
 								(primitive_type
 									(float_type))))
-						(identifier)))))
+						name: (identifier)
+					)
+				)
+			)
+		)
 	)
 )
 
@@ -51,6 +57,7 @@ partial namespace CSS {};
 
 (source_file
 	(namespace_definition
-		(identifier)
+		name: (identifier)
+		body: (namespace_body)
 	)
 )

@@ -7,13 +7,7 @@ typedef DOMString foo;
 ----
 (source_file
 	(typedef_definition
-		type: (type_with_extended_attributes
-			(type
-				(distinguishable_type
-					(string_type)
-				)
-			)
-		)
+		type: (type (distinguishable_type (string_type)))
 		name: (type_identifier)
 	)
 )
@@ -28,15 +22,14 @@ typedef (DOMString or unsigned long) StringOrNumber;
 
 (source_file
 	(typedef_definition
-		type: (type_with_extended_attributes
-			(type
-				(union_type
-					(union_or_expression
-						left: (distinguishable_type
-							(string_type))
-						right: (distinguishable_type
-							(primitive_type
-								(integer_type)))))))
+		type: (type
+			(union_type
+				(union_or_expression
+					left: (distinguishable_type (string_type))
+					right: (distinguishable_type (primitive_type (integer_type)))
+				)
+			)
+		)
 		name: (type_identifier)
 	)
 )

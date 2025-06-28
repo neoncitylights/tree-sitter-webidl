@@ -30,10 +30,7 @@ interface AudioSinkInfo {
 		body: (interface_body
 			(readonly_member
 				(attribute_rest
-					type: (type_with_extended_attributes
-						(type
-							(distinguishable_type
-								(type_identifier))))
+					type: (type (distinguishable_type (type_identifier)))
 					name: (identifier))
 			)
 			(regular_operation
@@ -137,11 +134,10 @@ partial interface Window {
 		body: (partial_interface_body
 			(readonly_member
 				(attribute_rest
-					type: (type_with_extended_attributes
-						(type
-							(distinguishable_type
-								(type_identifier))))
-					name: (identifier)))
+					type: (type (distinguishable_type (type_identifier)))
+					name: (identifier)
+				)
+			)
 		)
 	)
 )

@@ -40,6 +40,10 @@ export default grammar({
 		$._operation,
 	],
 
+	inline: $ => [
+		$._type_identifier,
+	],
+
 	rules: {
 		source_file: $ => repeat(seq(
 			optional($.extended_attribute_list),
@@ -61,7 +65,7 @@ export default grammar({
 		),
 
 		// inheritance
-		inheritance: $ => seq(':', field('inheriting', $.identifier)),
+		inheritance: $ => seq(':', field('inheriting', $._type_identifier)),
 
 		// callback
 		callback_definition: $ => seq('callback', $._callback_rest),
@@ -93,7 +97,7 @@ export default grammar({
 		),
 
 		_interface_rest: $ => seq(
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			optional($.inheritance),
 			field('body', $.interface_body),
 			';',
@@ -106,7 +110,7 @@ export default grammar({
 		),
 
 		_partial_interface_rest: $ => seq(
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			field('body', $.partial_interface_body),
 			';',
 		),
@@ -123,7 +127,7 @@ export default grammar({
 		),
 
 		_partial_interface_mixin_rest: $ => seq(
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			field('body', alias($.partial_interface_body, $.partial_interface_mixin_body)),
 			';',
 		),
@@ -149,7 +153,7 @@ export default grammar({
 
 		// interface mixin
 		_interface_mixin_rest: $ => seq(
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			field('body', $.interface_mixin_body),
 			';'
 		),
@@ -174,7 +178,7 @@ export default grammar({
 
 		// callback + callback interface
 		_callback_interface_rest: $ => seq(
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			field('body', $.callback_interface_body),
 			';'
 		),
@@ -194,7 +198,7 @@ export default grammar({
 		),
 
 		_callback_rest: $ => seq(
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			'=',
 			field('return_type', $.type),
 			$._parenthesized_argument_list,
@@ -414,13 +418,13 @@ export default grammar({
 			choice(
 				seq(
 					'dictionary',
-					field('name', $.identifier),
+					field('name', $._type_identifier),
 					optional($.inheritance),
 				),
 				seq(
 					'partial',
 					'dictionary',
-					field('name', $.identifier),
+					field('name', $._type_identifier),
 				),
 			),
 			field('body', $.dictionary_body),
@@ -454,7 +458,7 @@ export default grammar({
 		// enum
 		enum_definition: $ => seq(
 			'enum',
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			field('body', $.enum_body),
 			';'
 		),
@@ -467,9 +471,9 @@ export default grammar({
 
 		// includes
 		includes_definition: $ => seq(
-			field('lhs', $.identifier),
+			field('lhs', $._type_identifier),
 			'includes',
-			field('rhs', $.identifier),
+			field('rhs', $._type_identifier),
 			';'
 		),
 
@@ -477,7 +481,7 @@ export default grammar({
 		const_member: $ => seq(
 			'const',
 			field('type', $._const_type),
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			'=',
 			field('value', $._const_value),
 			';',
@@ -485,7 +489,7 @@ export default grammar({
 
 		_const_type: $ => choice(
 			$.primitive_type,
-			$.identifier,
+			$._type_identifier,
 		),
 
 		_const_value: $ => choice(
@@ -522,7 +526,7 @@ export default grammar({
 		typedef_definition: $ => seq(
 			'typedef',
 			field('type', $.type_with_extended_attributes),
-			field('name', $.identifier),
+			field('name', $._type_identifier),
 			';'
 		),
 
@@ -564,7 +568,7 @@ export default grammar({
 			choice(
 				$.primitive_type,
 				$.string_type,
-				$.identifier,
+				$._type_identifier,
 				$.sequence_type,
 				'object',
 				'symbol',
@@ -707,6 +711,7 @@ export default grammar({
 
 		// other identifier nodes
 		identifier_list: $ => sepByComma1($.identifier),
+		_type_identifier: $ => alias($.identifier, $.type_identifier),
 
 		// terminal symbols
 		_integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,

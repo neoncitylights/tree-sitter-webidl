@@ -210,7 +210,7 @@ export default grammar({
 			field('name', $._type_identifier),
 			'=',
 			field('return_type', $.type),
-			$._parenthesized_argument_list,
+			field('arguments', $.argument_list),
 			';'
 		),
 
@@ -269,7 +269,7 @@ export default grammar({
 
 		operation_rest: $ => seq(
 			optional(field('name', $._operation_name)),
-			$._parenthesized_argument_list,
+			field('arguments', $.argument_list),
 			';'
 		),
 
@@ -309,8 +309,8 @@ export default grammar({
 			'unrestricted',
 		),
 
-		argument_list: $ => sepByComma1($.argument),
-		_parenthesized_argument_list: $ => seq('(', optional($.argument_list), ')'),
+		// arguments
+		argument_list: $ => seq('(', optional(sepByComma1($.argument)), ')'),
 
 		argument: $ => choice(
 			seq(
@@ -335,7 +335,7 @@ export default grammar({
 
 		constructor: $ => seq(
 			'constructor',
-			$._parenthesized_argument_list,
+			field('arguments', $.argument_list),
 			';',
 		),
 
@@ -373,7 +373,7 @@ export default grammar({
 			field('lhs_type', $.type_with_extended_attributes),
 			field('rhs_type', optional($._optional_type)),
 			'>',
-			optional($._parenthesized_argument_list),
+			optional(field('arguments', $.argument_list)),
 			';',
 		),
 
@@ -694,14 +694,14 @@ export default grammar({
 
 		extended_attribute_arg_list: $ => seq(
 			field('name', $.identifier),
-			$._parenthesized_argument_list,
+			field('arguments', $.argument_list),
 		),
 
 		extended_attribute_named_arg_list: $ => seq(
 			field('lhs', $.identifier),
 			'=',
 			field('rhs', $.identifier),
-			$._parenthesized_argument_list,
+			field('arguments', $.argument_list),
 		),
 
 		extended_attribute_ident: $ => seq(
@@ -713,9 +713,7 @@ export default grammar({
 		extended_attribute_ident_list: $ => seq(
 			field('name', $.identifier),
 			'=',
-			'(',
-			$.identifier_list,
-			')',
+			field('identifiers', $.identifier_list),
 		),
 
 		extended_attribute_wildcard: $ => seq(
@@ -725,7 +723,11 @@ export default grammar({
 		),
 
 		// other identifier nodes
-		identifier_list: $ => sepByComma1($.identifier),
+		identifier_list: $ => seq(
+			'(',
+			sepByComma1($.identifier),
+			')',
+		),
 		_type_identifier: $ => alias($.identifier, $.type_identifier),
 
 		// terminal symbols

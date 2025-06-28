@@ -230,7 +230,7 @@ export default grammar({
 		inherit_attribute: $ => seq('inherit', $.attribute_rest),
 		attribute_rest: $ => seq(
 			'attribute',
-			field('type', $.type_with_extended_attributes),
+			field('type', $._type_with_extended_attributes),
 			field('name', $._attribute_name),
 			';',
 		),
@@ -315,7 +315,7 @@ export default grammar({
 		argument: $ => choice(
 			seq(
 				'optional',
-				field('type', $.type_with_extended_attributes),
+				field('type', $._type_with_extended_attributes),
 				field('name', $._argument_name),
 				optional($.default),
 			),
@@ -360,7 +360,7 @@ export default grammar({
 		iterable: $ => seq(
 			'iterable',
 			'<',
-			field('lhs_type', $.type_with_extended_attributes),
+			field('lhs_type', $._type_with_extended_attributes),
 			field('rhs_type', optional($._optional_type)),
 			'>',
 			';',
@@ -370,21 +370,21 @@ export default grammar({
 			'async',
 			'iterable',
 			'<',
-			field('lhs_type', $.type_with_extended_attributes),
+			field('lhs_type', $._type_with_extended_attributes),
 			field('rhs_type', optional($._optional_type)),
 			'>',
 			optional(field('arguments', $.argument_list)),
 			';',
 		),
 
-		_optional_type: $ => seq(',', $.type_with_extended_attributes),
+		_optional_type: $ => seq(',', $._type_with_extended_attributes),
 
 		// setlike and maplike
 		read_write_setlike: $ => $.setlike_rest,
 		setlike_rest: $ => seq(
 			'setlike',
 			'<',
-			field('type', $.type_with_extended_attributes),
+			field('type', $._type_with_extended_attributes),
 			'>',
 			';',
 		),
@@ -393,9 +393,9 @@ export default grammar({
 		maplike_rest: $ => seq(
 			'maplike',
 			'<',
-			field('key_type', $.type_with_extended_attributes),
+			field('key_type', $._type_with_extended_attributes),
 			',',
-			field('value_type', $.type_with_extended_attributes),
+			field('value_type', $._type_with_extended_attributes),
 			'>',
 			';'
 		),
@@ -458,7 +458,7 @@ export default grammar({
 		dictionary_member: $ => choice(
 			seq(
 				'required',
-				field('type', $.type_with_extended_attributes),
+				field('type', $._type_with_extended_attributes),
 				field('name', $.identifier),
 				';',
 			),
@@ -540,7 +540,7 @@ export default grammar({
 		// types
 		typedef_definition: $ => seq(
 			'typedef',
-			field('type', $.type_with_extended_attributes),
+			field('type', $._type_with_extended_attributes),
 			field('name', $._type_identifier),
 			';'
 		),
@@ -550,7 +550,7 @@ export default grammar({
 			seq($.union_type, optional('?')),
 		),
 
-		type_with_extended_attributes: $ => seq(
+		_type_with_extended_attributes: $ => seq(
 			optional($.extended_attribute_list),
 			$.type,
 		),
@@ -631,7 +631,7 @@ export default grammar({
 			'<',
 			$.string_type,
 			',',
-			$.type_with_extended_attributes,
+			$._type_with_extended_attributes,
 			'>'
 		),
 
@@ -656,21 +656,21 @@ export default grammar({
 		sequence_type: $ => seq(
 			'sequence',
 			'<',
-			field('inner_type', $.type_with_extended_attributes),
+			field('inner_type', $._type_with_extended_attributes),
 			'>',
 		),
 
 		frozen_array_type: $ => seq(
 			'FrozenArray',
 			'<',
-			field('inner_type', $.type_with_extended_attributes),
+			field('inner_type', $._type_with_extended_attributes),
 			'>',
 		),
 
 		observable_array_type: $ => seq(
 			'ObservableArray',
 			'<',
-			field('inner_type', $.type_with_extended_attributes),
+			field('inner_type', $._type_with_extended_attributes),
 			'>',
 		),
 

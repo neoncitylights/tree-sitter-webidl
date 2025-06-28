@@ -19,6 +19,7 @@ Interface definition
 
 interface AudioSinkInfo {
 	readonly attribute AudioSinkType type;
+	AnalyserNode createAnalyser();
 };
 
 ----
@@ -34,6 +35,13 @@ interface AudioSinkInfo {
 							(distinguishable_type
 								(type_identifier))))
 					name: (identifier))
+			)
+			(regular_operation
+				return_type: (type
+					(distinguishable_type
+						(type_identifier)))
+					(operation_rest
+						name: (identifier))
 			)
 		)
 	)

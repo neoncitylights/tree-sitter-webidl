@@ -1207,28 +1207,35 @@
     }
   },
   {
+    "type": "namespace_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_namespace_member",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "namespace_definition",
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_namespace_member",
+            "type": "namespace_body",
             "named": true
-          },
-          {
-            "type": "extended_attribute_list",
-            "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },
@@ -1264,36 +1271,6 @@
     "type": "operation_name_keyword",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "operation_rest",
-    "named": true,
-    "fields": {
-      "arguments": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "argument_list",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "operation_name_keyword",
-            "named": true
-          }
-        ]
-      }
-    }
   },
   {
     "type": "partial_interface_body",
@@ -1550,6 +1527,30 @@
     "type": "regular_operation",
     "named": true,
     "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "operation_name_keyword",
+            "named": true
+          }
+        ]
+      },
       "return_type": {
         "multiple": false,
         "required": true,
@@ -1560,16 +1561,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "operation_rest",
-          "named": true
-        }
-      ]
     }
   },
   {

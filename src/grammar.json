@@ -776,7 +776,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "operation_rest"
+          "name": "_operation_rest"
         }
       ]
     },
@@ -810,7 +810,7 @@
         }
       ]
     },
-    "operation_rest": {
+    "_operation_rest": {
       "type": "SEQ",
       "members": [
         {
@@ -1427,7 +1427,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_namespace_body"
+            "name": "namespace_body"
           }
         },
         {
@@ -1436,7 +1436,7 @@
         }
       ]
     },
-    "_namespace_body": {
+    "namespace_body": {
       "type": "SEQ",
       "members": [
         {

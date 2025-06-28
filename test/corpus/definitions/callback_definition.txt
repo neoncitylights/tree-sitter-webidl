@@ -50,14 +50,16 @@ callback interface EventListener {
 			(regular_operation
 				return_type: (type
 					(distinguishable_type))
-				(operation_rest
-					name: (identifier)
-					arguments: (argument_list
-						(argument
-							type: (type
-								(distinguishable_type
-									(type_identifier)))
-							name: (identifier)))))
+				name: (identifier)
+				arguments: (argument_list
+					(argument
+						type: (type
+							(distinguishable_type
+								(type_identifier)))
+						name: (identifier)
+					)
+				)
+			)
 		)
 	)
 )

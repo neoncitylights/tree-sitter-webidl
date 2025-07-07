@@ -13,7 +13,7 @@ namespace CSS {
 	(namespace_definition
 		name: (identifier)
 		body: (namespace_body
-			(regular_operation
+			(namespace_operation
 				return_type: (type
 					(distinguishable_type
 						(type_identifier)))
@@ -28,7 +28,7 @@ namespace CSS {
 					)
 				)
 			)
-			(regular_operation
+			(namespace_operation
 				return_type: (type
 					(distinguishable_type
 						(type_identifier)))

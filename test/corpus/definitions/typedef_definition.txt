@@ -25,8 +25,8 @@ typedef (DOMString or unsigned long) StringOrNumber;
 		type: (type
 			(union_type
 				(union_or_expression
-					left: (distinguishable_type (string_type))
-					right: (distinguishable_type (primitive_type (integer_type)))
+					lhs_type: (distinguishable_type (string_type))
+					rhs_type: (distinguishable_type (primitive_type (integer_type)))
 				)
 			)
 		)

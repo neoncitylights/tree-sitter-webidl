@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   test:
-    name: test
+    name: tests (local)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -43,3 +43,13 @@ jobs:
         uses: tree-sitter/parser-test-action@v2
         with:
           test-parser-cmd: tree-sitter test --stat all
+  test:
+    name: tests (examples)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v2
+      - name: Set up real-life examples
+        uses: actions/checkout@v4

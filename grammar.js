@@ -37,7 +37,6 @@ export default grammar({
 
 		// other
 		$._extended_attribute,
-		$._operation,
 	],
 
 	inline: $ => [
@@ -69,31 +68,44 @@ export default grammar({
 
 		// callback
 		callback_definition: $ => seq('callback', $._callback_rest),
+
+		_callback_rest: $ => seq(
+			field('name', $._type_identifier),
+			'=',
+			field('return_type', $.type),
+			field('arguments', $.argument_list),
+			';'
+		),
+
+		// callback interface
 		callback_interface_definition: $ => seq('callback', 'interface', $._callback_interface_rest),
 
-		// interface and partial interface
+		_callback_interface_rest: $ => seq(
+			field('name', $._type_identifier),
+			field('body', $.callback_interface_body),
+			';'
+		),
+
+		callback_interface_body: $ => seq(
+			'{',
+			repeat(
+				seq(
+					optional($.extended_attribute_list),
+					$._callback_interface_member,
+				),
+			),
+			'}',
+		),
+
+		_callback_interface_member: $ => choice(
+			$.const_member,
+			alias($._regular_operation, $.callback_interface_operation),
+		),
+
+		// interface
 		interface_definition: $ => seq(
 			'interface',
 			$._interface_rest,
-		),
-
-		interface_mixin_definition: $ => seq(
-			'interface',
-			'mixin',
-			$._interface_mixin_rest,
-		),
-
-		partial_interface_definition: $ => seq(
-			'partial',
-			'interface',
-			$._partial_interface_rest,
-		),
-
-		partial_interface_mixin_definition: $ => seq(
-			'partial',
-			'interface',
-			'mixin',
-			$._partial_interface_mixin_rest,
 		),
 
 		_interface_rest: $ => seq(
@@ -114,49 +126,18 @@ export default grammar({
 			'}',
 		),
 
-		_partial_interface_rest: $ => seq(
-			field('name', $._type_identifier),
-			field('body', $.partial_interface_body),
-			';',
-		),
-
-		partial_interface_body: $ => seq(
-			'{',
-			repeat(
-				seq(
-					optional($.extended_attribute_list),
-					$._partial_interface_member,
-				)
-			),
-			'}',
-		),
-
-		_partial_interface_mixin_rest: $ => seq(
-			field('name', $._type_identifier),
-			field('body', alias($.partial_interface_body, $.partial_interface_mixin_body)),
-			';',
-		),
-
 		_interface_member: $ => choice(
 			$._partial_interface_member,
 			$.constructor,
 		),
 
-		_partial_interface_member: $ => choice(
-			$.const_member,
-			$._operation,
-			$.stringifier,
-			$.static_member,
-			$.iterable,
-			$.async_iterable,
-			$.readonly_member,
-			$.read_write_attribute,
-			$.read_write_maplike,
-			$.read_write_setlike,
-			$.inherit_attribute,
+		// interface mixin
+		interface_mixin_definition: $ => seq(
+			'interface',
+			'mixin',
+			$._interface_mixin_rest,
 		),
 
-		// interface mixin
 		_interface_mixin_rest: $ => seq(
 			field('name', $._type_identifier),
 			field('body', $.interface_mixin_body),
@@ -174,45 +155,68 @@ export default grammar({
 			'}',
 		),
 
+		// partial interface
+		partial_interface_definition: $ => seq(
+			'partial',
+			'interface',
+			$._partial_interface_rest,
+		),
+
+		_partial_interface_rest: $ => seq(
+			field('name', $._type_identifier),
+			field('body', $.partial_interface_body),
+			';',
+		),
+
+		partial_interface_body: $ => seq(
+			'{',
+			repeat(
+				seq(
+					optional($.extended_attribute_list),
+					$._partial_interface_member,
+				),
+			),
+			'}',
+		),
+
+		_partial_interface_member: $ => choice(
+			$.const_member,
+			$.operation,
+			$.stringifier,
+			$.static_member,
+			$.iterable,
+			$.async_iterable,
+			$.readonly_member,
+			$.read_write_attribute,
+			$.read_write_maplike,
+			$.read_write_setlike,
+			$.inherit_attribute,
+		),
+
+		// partial interface mixin
+		partial_interface_mixin_definition: $ => seq(
+			'partial',
+			'interface',
+			'mixin',
+			$._partial_interface_mixin_rest,
+		),
+
+		_partial_interface_mixin_rest: $ => seq(
+			field('name', $._type_identifier),
+			field('body', alias($.partial_interface_body, $.partial_interface_mixin_body)),
+			';',
+		),
+
 		_mixin_member: $ => choice(
 			$.const_member,
-			$.regular_operation,
+			alias($._regular_operation, $.mixin_operation),
 			$.stringifier,
 			$.mixin_attribute,
 		),
 
 		mixin_attribute: $ => seq(optional('readonly'), $.attribute_rest),
 
-		// callback + callback interface
-		_callback_interface_rest: $ => seq(
-			field('name', $._type_identifier),
-			field('body', $.callback_interface_body),
-			';'
-		),
-
-		callback_interface_body: $ => seq(
-			'{',
-			repeat(
-				seq(
-					optional($.extended_attribute_list),
-					$._callback_interface_member,
-				),
-			),
-			'}',
-		),
-
-		_callback_interface_member: $ => choice(
-			$.const_member,
-			$.regular_operation,
-		),
-
-		_callback_rest: $ => seq(
-			field('name', $._type_identifier),
-			'=',
-			field('return_type', $.type),
-			field('arguments', $.argument_list),
-			';'
-		),
+		// callback interfae
 
 		// readonly members and attributes
 		readonly_member: $ => seq(
@@ -225,7 +229,6 @@ export default grammar({
 		),
 
 		readonly_attribute: $ => seq('readonly', $.attribute_rest),
-
 		read_write_attribute: $ => alias($.attribute_rest, $.read_write_attribute),
 		inherit_attribute: $ => seq('inherit', $.attribute_rest),
 		attribute_rest: $ => seq(
@@ -240,31 +243,20 @@ export default grammar({
 			$.identifier,
 		),
 
-		attribute_name_keyword: $ => choice(
+		attribute_name_keyword: _ => choice(
 			'async',
 			'required',
 		),
 
 		// operations
-		_operation: $ => choice(
-			$.regular_operation,
-			$.special_operation,
+		operation: $ => seq(
+			optional(field('modifier', $.special)),
+			$._regular_operation,
 		),
 
-		regular_operation: $ => seq(
+		_regular_operation: $ => seq(
 			field('return_type', $.type),
 			$._operation_rest,
-		),
-
-		special_operation: $ => seq(
-			$.special,
-			$.regular_operation,
-		),
-
-		special: $ => choice(
-			'getter',
-			'setter',
-			'deleter',
 		),
 
 		_operation_rest: $ => seq(
@@ -273,15 +265,21 @@ export default grammar({
 			';'
 		),
 
+		special: _ => choice(
+			'getter',
+			'setter',
+			'deleter',
+		),
+
 		_operation_name: $ => choice(
 			$.operation_name_keyword,
 			$.identifier,
 		),
 
-		operation_name_keyword: $ => 'includes',
+		operation_name_keyword: _ => 'includes',
 
 		// arguments, constructor, stringifier
-		argument_name_keyword: $ => choice(
+		argument_name_keyword: _ => choice(
 			'async',
 			'attribute',
 			'callback',
@@ -310,7 +308,11 @@ export default grammar({
 		),
 
 		// arguments
-		argument_list: $ => seq('(', optional(sepByComma1($.argument)), ')'),
+		argument_list: $ => seq(
+			'(',
+			optional(sepByComma1($.argument)),
+			')',
+		),
 
 		argument: $ => choice(
 			seq(
@@ -331,7 +333,7 @@ export default grammar({
 			$.identifier,
 		),
 
-		ellipsis: $ => '...',
+		ellipsis: _ => '...',
 
 		constructor: $ => seq(
 			'constructor',
@@ -352,7 +354,7 @@ export default grammar({
 			'static',
 			choice(
 				seq('optional', $.attribute_rest),
-				$.regular_operation,
+				$._regular_operation,
 			),
 		),
 
@@ -361,7 +363,7 @@ export default grammar({
 			'iterable',
 			'<',
 			field('lhs_type', $._type_with_extended_attributes),
-			field('rhs_type', optional($._optional_type)),
+			optional(field('rhs_type', $._optional_type)),
 			'>',
 			';',
 		),
@@ -371,7 +373,7 @@ export default grammar({
 			'iterable',
 			'<',
 			field('lhs_type', $._type_with_extended_attributes),
-			field('rhs_type', optional($._optional_type)),
+			optional(field('rhs_type', $._optional_type)),
 			'>',
 			optional(field('arguments', $.argument_list)),
 			';',
@@ -421,7 +423,7 @@ export default grammar({
 		),
 
 		_namespace_member: $ => choice(
-			$.regular_operation,
+			alias($._regular_operation, $.namespace_operation),
 			$.readonly_attribute,
 			$.const_member,
 		),
@@ -524,12 +526,12 @@ export default grammar({
 			'undefined',
 		),
 
-		empty_array: $ => seq('[', ']'),
-		empty_object: $ => seq('{', '}'),
+		empty_array: _ => seq('[', ']'),
+		empty_object: _ => seq('{', '}'),
 
 		// literals
 		integer_literal: $ => $._integer,
-		boolean_literal: $ => choice('true', 'false'),
+		boolean_literal: _ => choice('true', 'false'),
 		float_literal: $ => choice(
 			$._decimal,
 			'-Infinity',
@@ -568,9 +570,9 @@ export default grammar({
 		),
 
 		union_or_expression: $ => prec.left(seq(
-			field('left', $._union_member_type),
-			'or',
-			field('right', choice($.union_or_expression, $._union_member_type))
+			field('lhs_type', $._union_member_type),
+			field('operator', 'or'),
+			field('rhs_type', choice($.union_or_expression, $._union_member_type))
 		)),
 
 		_union_member_type: $ => choice(
@@ -605,7 +607,7 @@ export default grammar({
 			'bigint',
 		),
 
-		integer_type: $ => seq(
+		integer_type: _ => seq(
 			optional('unsigned'),
 			choice(
 				'short',
@@ -613,29 +615,34 @@ export default grammar({
 			),
 		),
 
-		float_type: $ => seq(
+		float_type: _ => seq(
 			optional('unrestricted'),
 			choice('float', 'double'),
 		),
 
-		string_type: $ => choice(
+		string_type: _ => choice(
 			'ByteString',
 			'DOMString',
 			'USVString',
 		),
 
-		promise_type: $ => seq('Promise', '<', $.type, '>'),
+		promise_type: $ => seq(
+			'Promise',
+			'<',
+			field('type', $.type),
+			'>',
+		),
 
 		record_type: $ => seq(
 			'record',
 			'<',
-			$.string_type,
+			field('key_type', $.string_type),
 			',',
-			$._type_with_extended_attributes,
+			field('value_type', $._type_with_extended_attributes),
 			'>'
 		),
 
-		buffer_related_type: $ => choice(
+		buffer_related_type: _ => choice(
 			'ArrayBuffer',
 			'SharedArrayBuffer',
 			'DataView',
@@ -656,21 +663,21 @@ export default grammar({
 		sequence_type: $ => seq(
 			'sequence',
 			'<',
-			field('inner_type', $._type_with_extended_attributes),
+			field('type', $._type_with_extended_attributes),
 			'>',
 		),
 
 		frozen_array_type: $ => seq(
 			'FrozenArray',
 			'<',
-			field('inner_type', $._type_with_extended_attributes),
+			field('type', $._type_with_extended_attributes),
 			'>',
 		),
 
 		observable_array_type: $ => seq(
 			'ObservableArray',
 			'<',
-			field('inner_type', $._type_with_extended_attributes),
+			field('type', $._type_with_extended_attributes),
 			'>',
 		),
 
@@ -731,11 +738,11 @@ export default grammar({
 		_type_identifier: $ => alias($.identifier, $.type_identifier),
 
 		// terminal symbols
-		_integer: $ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
-		_decimal: $ => /-?(([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([Ee][+-]?[0-9]+)?|[0-9]+[Ee][+-]?[0-9]+)/,
-		identifier: $ => /[_-]?[A-Za-z][0-9A-Z_a-z-]*/,
-		string: $ => /"[^"]*"/,
-		_whitespace: $ => /[\t\n\r ]+/,
-		comment: $ => /\/\/.*|\/\*(.|\n)*?\*\//,
+		_integer: _ => /-?([1-9][0-9]*|0[Xx][0-9A-Fa-f]+|0[0-7]*)/,
+		_decimal: _ => /-?(([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([Ee][+-]?[0-9]+)?|[0-9]+[Ee][+-]?[0-9]+)/,
+		identifier: _ => /[_-]?[A-Za-z][0-9A-Z_a-z-]*/,
+		string: _ => /"[^"]*"/,
+		_whitespace: _ => /[\t\n\r ]+/,
+		comment: _ => /\/\/.*|\/\*(.|\n)*?\*\//,
 	}
 });

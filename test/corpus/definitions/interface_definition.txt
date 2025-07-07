@@ -33,7 +33,7 @@ interface AudioSinkInfo {
 					type: (type (distinguishable_type (type_identifier)))
 					name: (identifier))
 			)
-			(regular_operation
+			(operation
 				return_type: (type
 					(distinguishable_type
 						(type_identifier)))
@@ -77,7 +77,7 @@ interface mixin Observable {
 	(interface_mixin_definition
 		name: (type_identifier)
 		body: (interface_mixin_body
-			(regular_operation
+			(mixin_operation
 				return_type: (type
 					(distinguishable_type))
 				name: (identifier)

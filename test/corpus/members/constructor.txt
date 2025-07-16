@@ -36,7 +36,7 @@ interface Circle {
 			(constructor_member
 				arguments: (argument_list
 					(argument
-						type: (type (distinguishable_type (primitive_type (float_type))))
+						type: (primitive_type (float_type))
 						name: (identifier)
 					)
 				)

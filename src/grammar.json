@@ -1145,7 +1145,7 @@
               "name": "rhs_type",
               "content": {
                 "type": "SYMBOL",
-                "name": "_optional_type"
+                "name": "_iterable_optional_rhs_type"
               }
             },
             {
@@ -1194,7 +1194,7 @@
               "name": "rhs_type",
               "content": {
                 "type": "SYMBOL",
-                "name": "_optional_type"
+                "name": "_iterable_optional_rhs_type"
               }
             },
             {
@@ -1228,7 +1228,7 @@
         }
       ]
     },
-    "_optional_type": {
+    "_iterable_optional_rhs_type": {
       "type": "SEQ",
       "members": [
         {
@@ -1943,28 +1943,23 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_single_type"
+          "name": "_distinguishable_type"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "union_type"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "?"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
+          "type": "STRING",
+          "value": "any"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "promise_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "union_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "optional_type"
         }
       ]
     },
@@ -1989,20 +1984,25 @@
         }
       ]
     },
-    "_single_type": {
-      "type": "CHOICE",
+    "optional_type": {
+      "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "distinguishable_type"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_distinguishable_type"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "union_type"
+            }
+          ]
         },
         {
           "type": "STRING",
-          "value": "any"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "promise_type"
+          "value": "?"
         }
       ]
     },
@@ -2070,7 +2070,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "distinguishable_type"
+          "name": "optional_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_distinguishable_type"
         },
         {
           "type": "SYMBOL",
@@ -2078,71 +2082,58 @@
         }
       ]
     },
-    "distinguishable_type": {
-      "type": "SEQ",
+    "_distinguishable_type": {
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "primitive_type"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "string_type"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_type_identifier"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "sequence_type"
-            },
-            {
-              "type": "STRING",
-              "value": "object"
-            },
-            {
-              "type": "STRING",
-              "value": "symbol"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "buffer_related_type"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "frozen_array_type"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "observable_array_type"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "record_type"
-            },
-            {
-              "type": "STRING",
-              "value": "undefined"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "primitive_type"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "?"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "string_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_type_identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sequence_type"
+        },
+        {
+          "type": "STRING",
+          "value": "object"
+        },
+        {
+          "type": "STRING",
+          "value": "symbol"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "buffer_related_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frozen_array_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "observable_array_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "undefined_type"
         }
       ]
+    },
+    "undefined_type": {
+      "type": "STRING",
+      "value": "undefined"
     },
     "primitive_type": {
       "type": "CHOICE",
@@ -2764,7 +2755,7 @@
     "_mixin_member",
     "_namespace_member",
     "_partial_interface_member",
-    "_union_member_type",
+    "type",
     "_default_value",
     "_extended_attribute"
   ],

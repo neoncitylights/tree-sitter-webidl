@@ -29,10 +29,10 @@ interface AudioSinkInfo {
 		name: (type_identifier)
 		body: (interface_body
 			(attribute_member
-				type: (type (distinguishable_type (type_identifier)))
+				type: (type_identifier)
 				name: (identifier))
 			(operation_member
-				return_type: (type (distinguishable_type (type_identifier)))
+				return_type: (type_identifier)
 				name: (identifier)
 				arguments: (argument_list)
 			)
@@ -74,18 +74,17 @@ interface mixin Observable {
 		name: (type_identifier)
 		body: (interface_mixin_body
 			(mixin_operation_member
-				return_type: (type
-					(distinguishable_type))
+				return_type: (undefined_type)
 				name: (identifier)
 				arguments: (argument_list
 					(argument
-						type: (type (distinguishable_type (string_type)))
+						type: (string_type)
 						name: (identifier))
 					(argument
-						type: (type (distinguishable_type (type_identifier)))
+						type: (type_identifier)
 						name: (identifier))
 					(argument
-						type: (type (distinguishable_type (primitive_type)))
+						type: (primitive_type)
 						name: (identifier))
 				)
 			)
@@ -123,7 +122,7 @@ partial interface Window {
 		name: (type_identifier)
 		body: (partial_interface_body
 			(attribute_member
-				type: (type (distinguishable_type (type_identifier)))
+				type: (type_identifier)
 				name: (identifier)
 			)
 		)

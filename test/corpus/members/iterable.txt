@@ -14,11 +14,11 @@ interface interface_identifier {
 		name: (type_identifier)
 		body: (interface_body
 			(iterable_member
-				lhs_type: (type (distinguishable_type (type_identifier)))
+				lhs_type: (type_identifier)
 			)
 			(iterable_member
-				lhs_type: (type (distinguishable_type (type_identifier)))
-				rhs_type: (type (distinguishable_type (type_identifier)))
+				lhs_type: (type_identifier)
+				rhs_type: (type_identifier)
 			)
 		)
 	)
@@ -42,19 +42,19 @@ interface interface_identifier {
 		name: (type_identifier)
 		body: (interface_body
 			(async_iterable_member
-				lhs_type: (type (distinguishable_type (type_identifier)))
+				lhs_type: (type_identifier)
 			)
 			(async_iterable_member
-				lhs_type: (type (distinguishable_type (type_identifier)))
+				lhs_type: (type_identifier)
 				arguments: (argument_list)
 			)
 			(async_iterable_member
-				lhs_type: (type (distinguishable_type (type_identifier)))
-				rhs_type: (type (distinguishable_type (type_identifier)))
+				lhs_type: (type_identifier)
+				rhs_type: (type_identifier)
 			)
 			(async_iterable_member
-				lhs_type: (type (distinguishable_type (type_identifier)))
-				rhs_type: (type (distinguishable_type (type_identifier)))
+				lhs_type: (type_identifier)
+				rhs_type: (type_identifier)
 				arguments: (argument_list)
 			)
 		)

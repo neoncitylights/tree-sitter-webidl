@@ -30,7 +30,7 @@ export default grammar({
 		$._partial_interface_member,
 
 		// types
-		$._union_member_type,
+		$.type,
 
 		// value
 		$._default_value,
@@ -335,7 +335,7 @@ export default grammar({
 			'iterable',
 			'<',
 			field('lhs_type', $._type_with_extended_attributes),
-			optional(field('rhs_type', $._optional_type)),
+			optional(field('rhs_type', $._iterable_optional_rhs_type)),
 			'>',
 			';',
 		),
@@ -345,13 +345,13 @@ export default grammar({
 			'iterable',
 			'<',
 			field('lhs_type', $._type_with_extended_attributes),
-			optional(field('rhs_type', $._optional_type)),
+			optional(field('rhs_type', $._iterable_optional_rhs_type)),
 			'>',
 			optional(field('arguments', $.argument_list)),
 			';',
 		),
 
-		_optional_type: $ => seq(',', $._type_with_extended_attributes),
+		_iterable_optional_rhs_type: $ => seq(',', $._type_with_extended_attributes),
 
 		// setlike and maplike
 		setlike_member: $ => seq(
@@ -520,8 +520,11 @@ export default grammar({
 		),
 
 		type: $ => choice(
-			$._single_type,
-			seq($.union_type, optional('?')),
+			$._distinguishable_type,
+			'any',
+			$.promise_type,
+			$.union_type,
+			$.optional_type,
 		),
 
 		_type_with_extended_attributes: $ => seq(
@@ -529,10 +532,9 @@ export default grammar({
 			$.type,
 		),
 
-		_single_type: $ => choice(
-			$.distinguishable_type,
-			'any',
-			$.promise_type,
+		optional_type: $ => seq(
+			choice($._distinguishable_type, $.union_type),
+			'?',
 		),
 
 		union_type: $ => seq(
@@ -548,27 +550,27 @@ export default grammar({
 		)),
 
 		_union_member_type: $ => choice(
-			$.distinguishable_type,
+			$.optional_type,
+			$._distinguishable_type,
 			$.union_type,
 		),
 
 		// builtin types
-		distinguishable_type: $ => seq(
-			choice(
-				$.primitive_type,
-				$.string_type,
-				$._type_identifier,
-				$.sequence_type,
-				'object',
-				'symbol',
-				$.buffer_related_type,
-				$.frozen_array_type,
-				$.observable_array_type,
-				$.record_type,
-				'undefined',
-			),
-			optional('?'),
+		_distinguishable_type: $ => choice(
+			$.primitive_type,
+			$.string_type,
+			$._type_identifier,
+			$.sequence_type,
+			'object',
+			'symbol',
+			$.buffer_related_type,
+			$.frozen_array_type,
+			$.observable_array_type,
+			$.record_type,
+			$.undefined_type,
 		),
+
+		undefined_type: _ => 'undefined',
 
 		primitive_type: $ => choice(
 			$.integer_type,

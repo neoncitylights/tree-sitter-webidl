@@ -14,12 +14,12 @@ interface Foo {
 		name: (type_identifier)
 		body: (interface_body
 			(maplike_member
-				key_type: (type (distinguishable_type (string_type)))
-				value_type: (type (distinguishable_type (primitive_type (integer_type))))
+				key_type: (string_type)
+				value_type: (primitive_type (integer_type))
 			)
 			(maplike_member
-				key_type: (type (distinguishable_type (string_type)))
-				value_type: (type (distinguishable_type (primitive_type (integer_type))))
+				key_type: (string_type)
+				value_type: (primitive_type (integer_type))
 			)
 		)
 	)
@@ -41,10 +41,10 @@ interface Bar {
 		name: (type_identifier)
 		body: (interface_body
 			(setlike_member
-				type: (type (distinguishable_type (string_type)))
+				type: (string_type)
 			)
 			(setlike_member
-				type: (type (distinguishable_type (string_type)))
+				type: (string_type)
 			)
 		)
 	)

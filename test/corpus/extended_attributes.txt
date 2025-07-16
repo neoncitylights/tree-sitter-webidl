@@ -35,21 +35,13 @@ interface VttCue : TextTrackCue {};
 			name: (identifier)
 			arguments: (argument_list
 				(argument
-					type: (type
-					(distinguishable_type
-						(primitive_type
-							(float_type))))
+					type: (primitive_type (float_type))
 					name: (identifier))
 				(argument
-					type: (type
-					(distinguishable_type
-						(primitive_type
-							(float_type))))
+					type: (primitive_type (float_type))
 					name: (identifier))
 				(argument
-					type: (type
-					(distinguishable_type
-						(string_type)))
+					type: (string_type)
 					name: (identifier))
 			)
 		)
@@ -79,7 +71,7 @@ interface Foo {};
 			rhs: (identifier)
 			arguments: (argument_list
 				(argument
-					type: (type (distinguishable_type (string_type)))
+					type: (string_type)
 					name: (identifier)
 				)
 			)

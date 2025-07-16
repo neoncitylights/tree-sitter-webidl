@@ -335,7 +335,7 @@ export default grammar({
 			'iterable',
 			'<',
 			field('lhs_type', $._type_with_extended_attributes),
-			optional(field('rhs_type', $._optional_type)),
+			optional(field('rhs_type', $._iterable_optional_rhs_type)),
 			'>',
 			';',
 		),
@@ -345,13 +345,13 @@ export default grammar({
 			'iterable',
 			'<',
 			field('lhs_type', $._type_with_extended_attributes),
-			optional(field('rhs_type', $._optional_type)),
+			optional(field('rhs_type', $._iterable_optional_rhs_type)),
 			'>',
 			optional(field('arguments', $.argument_list)),
 			';',
 		),
 
-		_optional_type: $ => seq(',', $._type_with_extended_attributes),
+		_iterable_optional_rhs_type: $ => seq(',', $._type_with_extended_attributes),
 
 		// setlike and maplike
 		setlike_member: $ => seq(

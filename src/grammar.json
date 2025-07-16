@@ -1145,7 +1145,7 @@
               "name": "rhs_type",
               "content": {
                 "type": "SYMBOL",
-                "name": "_optional_type"
+                "name": "_iterable_optional_rhs_type"
               }
             },
             {
@@ -1194,7 +1194,7 @@
               "name": "rhs_type",
               "content": {
                 "type": "SYMBOL",
-                "name": "_optional_type"
+                "name": "_iterable_optional_rhs_type"
               }
             },
             {
@@ -1228,7 +1228,7 @@
         }
       ]
     },
-    "_optional_type": {
+    "_iterable_optional_rhs_type": {
       "type": "SEQ",
       "members": [
         {

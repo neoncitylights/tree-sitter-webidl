@@ -1,0 +1,78 @@
+============================================
+Operation with mixed arguments
+============================================
+
+
+interface mixin GPUBindingCommandsMixin {
+	undefined setBindGroup(GPUIndex32 index, GPUBindGroup? bindGroup,
+		optional sequence<GPUBufferDynamicOffset> dynamicOffsets = []);
+
+	undefined setBindGroup(GPUIndex32 index, GPUBindGroup? bindGroup,
+		[AllowShared] Uint32Array dynamicOffsetsData,
+		GPUSize64 dynamicOffsetsDataStart,
+		GPUSize32 dynamicOffsetsDataLength);
+};
+
+----
+
+(source_file
+	(interface_mixin_definition
+		name: (type_identifier)
+		body: (interface_mixin_body
+			(mixin_operation_member
+				return_type: (undefined_type)
+				name: (identifier)
+				arguments: (argument_list
+					(argument
+						type: (type_identifier)
+						name: (identifier)
+					)
+					(argument
+						type: (optional_type (type_identifier))
+						name: (identifier)
+					)
+					(argument
+						type: (sequence_type
+							type: (type_identifier)
+						)
+						name: (identifier)
+						default_value: (default
+							value: (empty_array)
+						)
+					)
+				)
+			)
+			(mixin_operation_member
+				return_type: (undefined_type)
+				name: (identifier)
+				arguments: (argument_list
+					(argument
+						type: (type_identifier)
+						name: (identifier)
+					)
+					(argument
+						type: (optional_type (type_identifier))
+						name: (identifier)
+					)
+					(extended_attribute_list
+						(extended_attribute_no_args
+							name: (identifier)
+						)
+					)
+					(argument
+						type: (buffer_related_type)
+						name: (identifier)
+					)
+					(argument
+						type: (type_identifier)
+						name: (identifier)
+					)
+					(argument
+						type: (type_identifier)
+						name: (identifier)
+					)
+				)
+			)
+		)
+	)
+)

@@ -47,7 +47,7 @@ dictionary PaintOptions {
 			(dictionary_member
 				type: (string_type)
 				name: (identifier)
-				(default
+				default_value: (default
 					value: (string))
 			)
 			(dictionary_member

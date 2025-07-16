@@ -293,6 +293,16 @@
     "type": "argument",
     "named": true,
     "fields": {
+      "default_value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "default",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -327,10 +337,6 @@
       "required": false,
       "types": [
         {
-          "type": "default",
-          "named": true
-        },
-        {
           "type": "ellipsis",
           "named": true
         }
@@ -347,6 +353,10 @@
       "types": [
         {
           "type": "argument",
+          "named": true
+        },
+        {
+          "type": "extended_attribute_list",
           "named": true
         }
       ]
@@ -746,6 +756,16 @@
     "type": "dictionary_member",
     "named": true,
     "fields": {
+      "default_value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "default",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -770,16 +790,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "default",
-          "named": true
-        }
-      ]
     }
   },
   {

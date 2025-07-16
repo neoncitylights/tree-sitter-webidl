@@ -518,11 +518,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "iterable"
+          "name": "iterable_member"
         },
         {
           "type": "SYMBOL",
-          "name": "async_iterable"
+          "name": "async_iterable_member"
         },
         {
           "type": "SYMBOL",
@@ -1120,7 +1120,7 @@
         }
       ]
     },
-    "iterable": {
+    "iterable_member": {
       "type": "SEQ",
       "members": [
         {
@@ -1165,7 +1165,7 @@
         }
       ]
     },
-    "async_iterable": {
+    "async_iterable_member": {
       "type": "SEQ",
       "members": [
         {

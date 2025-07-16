@@ -184,8 +184,8 @@ export default grammar({
 			$.operation,
 			$.stringifier_member,
 			$.static_member,
-			$.iterable,
-			$.async_iterable,
+			$.iterable_member,
+			$.async_iterable_member,
 			$.attribute_rest,
 			$.maplike_member,
 			$.setlike_member,
@@ -340,7 +340,7 @@ export default grammar({
 		),
 
 		// iterables
-		iterable: $ => seq(
+		iterable_member: $ => seq(
 			'iterable',
 			'<',
 			field('lhs_type', $._type_with_extended_attributes),
@@ -349,7 +349,7 @@ export default grammar({
 			';',
 		),
 
-		async_iterable: $ => seq(
+		async_iterable_member: $ => seq(
 			'async',
 			'iterable',
 			'<',

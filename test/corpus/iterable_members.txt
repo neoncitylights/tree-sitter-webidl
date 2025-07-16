@@ -1,0 +1,63 @@
+============================================
+Interface with iterable member
+============================================
+
+interface interface_identifier {
+	iterable<ValueType>;
+	iterable<KeyType, ValueType>;
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(iterable_member
+				lhs_type: (type (distinguishable_type (type_identifier)))
+			)
+			(iterable_member
+				lhs_type: (type (distinguishable_type (type_identifier)))
+				rhs_type: (type (distinguishable_type (type_identifier)))
+			)
+		)
+	)
+)
+
+============================================
+Interface with async iterable member
+============================================
+
+interface interface_identifier {
+	async iterable<KeyType>;
+	async iterable<KeyType>();
+	async iterable<KeyType, ValueType>;
+	async iterable<KeyType, ValueType>();
+};
+
+----
+
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(async_iterable_member
+				lhs_type: (type (distinguishable_type (type_identifier)))
+			)
+			(async_iterable_member
+				lhs_type: (type (distinguishable_type (type_identifier)))
+				arguments: (argument_list)
+			)
+			(async_iterable_member
+				lhs_type: (type (distinguishable_type (type_identifier)))
+				rhs_type: (type (distinguishable_type (type_identifier)))
+			)
+			(async_iterable_member
+				lhs_type: (type (distinguishable_type (type_identifier)))
+				rhs_type: (type (distinguishable_type (type_identifier)))
+				arguments: (argument_list)
+			)
+		)
+	)
+)

@@ -190,7 +190,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "async_iterable",
+        "type": "async_iterable_member",
         "named": true
       },
       {
@@ -202,7 +202,7 @@
         "named": true
       },
       {
-        "type": "iterable",
+        "type": "iterable_member",
         "named": true
       },
       {
@@ -310,7 +310,7 @@
     "fields": {}
   },
   {
-    "type": "async_iterable",
+    "type": "async_iterable_member",
     "named": true,
     "fields": {
       "arguments": {
@@ -1155,7 +1155,7 @@
     }
   },
   {
-    "type": "iterable",
+    "type": "iterable_member",
     "named": true,
     "fields": {
       "lhs_type": {

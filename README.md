@@ -2,7 +2,7 @@
 [![License: MIT][license-badge]][license-url]
 [![CI][ci-badge]][ci-url]
 
-[license-badge]: https://img.shields.io/badge/License-MIT%20%26%20Apache%202.0-blue?style=flat-square
+[license-badge]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square
 [license-url]: #license
 [ci-badge]: https://img.shields.io/github/actions/workflow/status/neoncitylights/tree-sitter-webidl/.github/workflows/ci.yml?style=flat-square
 [ci-url]: https://github.com/neoncitylights/tree-sitter-webidl/actions/workflows/ci.yml

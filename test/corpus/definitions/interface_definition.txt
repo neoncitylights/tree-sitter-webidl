@@ -28,15 +28,11 @@ interface AudioSinkInfo {
 	(interface_definition
 		name: (type_identifier)
 		body: (interface_body
-			(readonly_member
-				(attribute_rest
-					type: (type (distinguishable_type (type_identifier)))
-					name: (identifier))
-			)
-			(operation
-				return_type: (type
-					(distinguishable_type
-						(type_identifier)))
+			(attribute_member
+				type: (type (distinguishable_type (type_identifier)))
+				name: (identifier))
+			(operation_member
+				return_type: (type (distinguishable_type (type_identifier)))
 				name: (identifier)
 				arguments: (argument_list)
 			)
@@ -77,25 +73,19 @@ interface mixin Observable {
 	(interface_mixin_definition
 		name: (type_identifier)
 		body: (interface_mixin_body
-			(mixin_operation
+			(mixin_operation_member
 				return_type: (type
 					(distinguishable_type))
 				name: (identifier)
 				arguments: (argument_list
 					(argument
-						type: (type
-							(distinguishable_type
-								(string_type)))
+						type: (type (distinguishable_type (string_type)))
 						name: (identifier))
 					(argument
-						type: (type
-							(distinguishable_type
-								(type_identifier)))
+						type: (type (distinguishable_type (type_identifier)))
 						name: (identifier))
 					(argument
-						type: (type
-							(distinguishable_type
-								(primitive_type)))
+						type: (type (distinguishable_type (primitive_type)))
 						name: (identifier))
 				)
 			)
@@ -132,11 +122,9 @@ partial interface Window {
 	(partial_interface_definition
 		name: (type_identifier)
 		body: (partial_interface_body
-			(readonly_member
-				(attribute_rest
-					type: (type (distinguishable_type (type_identifier)))
-					name: (identifier)
-				)
+			(attribute_member
+				type: (type (distinguishable_type (type_identifier)))
+				name: (identifier)
 			)
 		)
 	)
@@ -171,7 +159,7 @@ partial interface mixin Foo {
 	(partial_interface_mixin_definition
 		name: (type_identifier)
 		body: (partial_interface_mixin_body
-			(stringifier)
+			(stringifier_member)
 		)
 	)
 )

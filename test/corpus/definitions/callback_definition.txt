@@ -53,9 +53,7 @@ callback interface EventListener {
 				name: (identifier)
 				arguments: (argument_list
 					(argument
-						type: (type
-							(distinguishable_type
-								(type_identifier)))
+						type: (type (distinguishable_type (type_identifier)))
 						name: (identifier)
 					)
 				)

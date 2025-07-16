@@ -45,23 +45,17 @@ dictionary PaintOptions {
 		name: (type_identifier)
 		body: (dictionary_body
 			(dictionary_member
-				type: (type
-					(distinguishable_type
-						(string_type)))
+				type: (type (distinguishable_type (string_type)))
 				name: (identifier)
 				(default
 					value: (string))
 			)
 			(dictionary_member
-				type: (type
-					(distinguishable_type
-						(string_type)))
+				type: (type (distinguishable_type (string_type)))
 				name: (identifier)
 			)
 			(dictionary_member
-				type: (type
-					(distinguishable_type
-						(type_identifier)))
+				type: (type (distinguishable_type (type_identifier)))
 				name: (identifier)
 			)
 		)

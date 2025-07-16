@@ -1,0 +1,22 @@
+============================================
+Interface with constant member
+============================================
+
+interface A {
+	const short rambaldi = 47;
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(const_member
+				type: (primitive_type (integer_type))
+				name: (type_identifier)
+				value: (integer_literal)
+			)
+		)
+	)
+)

@@ -1,0 +1,46 @@
+============================================
+Interface with constructor (no argument)
+============================================
+
+interface Circle {
+	constructor();
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(constructor_member
+				arguments: (argument_list)
+			)
+		)
+	)
+)
+
+============================================
+Interface with constructor (with arguments)
+============================================
+
+interface Circle {
+	constructor(double radius);
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(constructor_member
+				arguments: (argument_list
+					(argument
+						type: (type (distinguishable_type (primitive_type (float_type))))
+						name: (identifier)
+					)
+				)
+			)
+		)
+	)
+)

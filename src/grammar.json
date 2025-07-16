@@ -335,7 +335,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "constructor"
+          "name": "constructor_member"
         }
       ]
     },
@@ -506,43 +506,31 @@
         },
         {
           "type": "SYMBOL",
-          "name": "operation"
+          "name": "operation_member"
         },
         {
           "type": "SYMBOL",
-          "name": "stringifier"
+          "name": "stringifier_member"
         },
         {
           "type": "SYMBOL",
-          "name": "static_member"
+          "name": "iterable_member"
         },
         {
           "type": "SYMBOL",
-          "name": "iterable"
+          "name": "async_iterable_member"
         },
         {
           "type": "SYMBOL",
-          "name": "async_iterable"
+          "name": "attribute_member"
         },
         {
           "type": "SYMBOL",
-          "name": "readonly_member"
+          "name": "maplike_member"
         },
         {
           "type": "SYMBOL",
-          "name": "read_write_attribute"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "maplike_rest"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "setlike_rest"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "inherit_attribute"
+          "name": "setlike_member"
         }
       ]
     },
@@ -611,21 +599,50 @@
             "name": "_regular_operation"
           },
           "named": true,
-          "value": "mixin_operation"
+          "value": "mixin_operation_member"
         },
         {
           "type": "SYMBOL",
-          "name": "stringifier"
+          "name": "stringifier_member"
         },
         {
           "type": "SYMBOL",
-          "name": "mixin_attribute"
+          "name": "attribute_member"
         }
       ]
     },
-    "mixin_attribute": {
+    "attribute_member": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "attribute_modifier",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "stringifier"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "inherit"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "static"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "CHOICE",
           "members": [
@@ -638,76 +655,6 @@
             }
           ]
         },
-        {
-          "type": "SYMBOL",
-          "name": "attribute_rest"
-        }
-      ]
-    },
-    "readonly_member": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "readonly"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "attribute_rest"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "maplike_rest"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "setlike_rest"
-            }
-          ]
-        }
-      ]
-    },
-    "readonly_attribute": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "readonly"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "attribute_rest"
-        }
-      ]
-    },
-    "read_write_attribute": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "attribute_rest"
-      },
-      "named": true,
-      "value": "read_write_attribute"
-    },
-    "inherit_attribute": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "inherit"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "attribute_rest"
-        }
-      ]
-    },
-    "attribute_rest": {
-      "type": "SEQ",
-      "members": [
         {
           "type": "STRING",
           "value": "attribute"
@@ -760,7 +707,7 @@
         }
       ]
     },
-    "operation": {
+    "operation_member": {
       "type": "SEQ",
       "members": [
         {
@@ -788,6 +735,31 @@
     "_regular_operation": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "operation_modifier",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "stringifier"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "static"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "FIELD",
           "name": "return_type",
@@ -1112,7 +1084,7 @@
       "type": "STRING",
       "value": "..."
     },
-    "constructor": {
+    "constructor_member": {
       "type": "SEQ",
       "members": [
         {
@@ -1133,7 +1105,7 @@
         }
       ]
     },
-    "stringifier": {
+    "stringifier_member": {
       "type": "SEQ",
       "members": [
         {
@@ -1141,69 +1113,12 @@
           "value": "stringifier"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "readonly"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "attribute_rest"
-                }
-              ]
-            },
-            {
-              "type": "STRING",
-              "value": ";"
-            }
-          ]
-        }
-      ]
-    },
-    "static_member": {
-      "type": "SEQ",
-      "members": [
-        {
           "type": "STRING",
-          "value": "static"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "optional"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "attribute_rest"
-                }
-              ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_regular_operation"
-            }
-          ]
+          "value": ";"
         }
       ]
     },
-    "iterable": {
+    "iterable_member": {
       "type": "SEQ",
       "members": [
         {
@@ -1248,7 +1163,7 @@
         }
       ]
     },
-    "async_iterable": {
+    "async_iterable_member": {
       "type": "SEQ",
       "members": [
         {
@@ -1326,9 +1241,21 @@
         }
       ]
     },
-    "setlike_rest": {
+    "setlike_member": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "readonly"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "STRING",
           "value": "setlike"
@@ -1355,9 +1282,21 @@
         }
       ]
     },
-    "maplike_rest": {
+    "maplike_member": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "readonly"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "STRING",
           "value": "maplike"
@@ -1488,7 +1427,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "readonly_attribute"
+          "name": "attribute_member"
         },
         {
           "type": "SYMBOL",

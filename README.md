@@ -1,5 +1,11 @@
 # tree-sitter-webidl
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![License: MIT][license-badge]][license-url]
+[![CI][ci-badge]][ci-url]
+
+[license-badge]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square
+[license-url]: #license
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/neoncitylights/tree-sitter-webidl/.github/workflows/ci.yml?style=flat-square
+[ci-url]: https://github.com/neoncitylights/tree-sitter-webidl/actions/workflows/ci.yml
 
 WebIDL grammar for tree-sitter.
 

@@ -294,7 +294,12 @@ export default grammar({
 		// arguments
 		argument_list: $ => seq(
 			'(',
-			optional(sepByComma1($.argument)),
+			optional(
+				sepByComma1(seq(
+					optional($.extended_attribute_list),
+					$.argument
+				))
+			),
 			')',
 		),
 
@@ -303,7 +308,7 @@ export default grammar({
 				'optional',
 				field('type', $._type_with_extended_attributes),
 				field('name', $._argument_name),
-				optional($.default),
+				optional(field('default_value', $.default)),
 			),
 			seq(
 				field('type', $.type),
@@ -439,7 +444,7 @@ export default grammar({
 			seq(
 				field('type', $.type),
 				field('name', $.identifier),
-				optional($.default),
+				optional(field('default_value', $.default)),
 				';',
 			),
 		),

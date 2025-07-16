@@ -506,7 +506,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "operation"
+          "name": "operation_member"
         },
         {
           "type": "SYMBOL",
@@ -603,7 +603,7 @@
             "name": "_regular_operation"
           },
           "named": true,
-          "value": "mixin_operation"
+          "value": "mixin_operation_member"
         },
         {
           "type": "SYMBOL",
@@ -694,7 +694,7 @@
         }
       ]
     },
-    "operation": {
+    "operation_member": {
       "type": "SEQ",
       "members": [
         {

@@ -181,7 +181,7 @@ export default grammar({
 
 		_partial_interface_member: $ => choice(
 			$.const_member,
-			$.operation,
+			$.operation_member,
 			$.stringifier_member,
 			$.static_member,
 			$.iterable_member,
@@ -207,7 +207,7 @@ export default grammar({
 
 		_mixin_member: $ => choice(
 			$.const_member,
-			alias($._regular_operation, $.mixin_operation),
+			alias($._regular_operation, $.mixin_operation_member),
 			$.stringifier_member,
 			$.attribute_rest,
 		),
@@ -233,7 +233,7 @@ export default grammar({
 		),
 
 		// operations
-		operation: $ => seq(
+		operation_member: $ => seq(
 			optional(field('modifier', $.special)),
 			$._regular_operation,
 		),

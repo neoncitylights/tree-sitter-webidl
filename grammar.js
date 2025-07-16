@@ -183,10 +183,9 @@ export default grammar({
 			$.const_member,
 			$.operation_member,
 			$.stringifier_member,
-			$.static_member,
 			$.iterable_member,
 			$.async_iterable_member,
-			$.attribute_rest,
+			$.attribute_member,
 			$.maplike_member,
 			$.setlike_member,
 		),
@@ -209,12 +208,12 @@ export default grammar({
 			$.const_member,
 			alias($._regular_operation, $.mixin_operation_member),
 			$.stringifier_member,
-			$.attribute_rest,
+			$.attribute_member,
 		),
 
 		// readonly members and attributes
-		attribute_rest: $ => seq(
-			optional('inherit'),
+		attribute_member: $ => seq(
+			optional(field('attribute_modifier', choice('stringifier', 'inherit', 'static'))),
 			optional('readonly'),
 			'attribute',
 			field('type', $._type_with_extended_attributes),
@@ -239,6 +238,7 @@ export default grammar({
 		),
 
 		_regular_operation: $ => seq(
+			optional(field('operation_modifier', choice('stringifier', 'static'))),
 			field('return_type', $.type),
 			$._operation_rest,
 		),
@@ -327,16 +327,7 @@ export default grammar({
 
 		stringifier_member: $ => seq(
 			'stringifier',
-			choice(';', $.attribute_rest),
-		),
-
-		// static member
-		static_member: $ => seq(
-			'static',
-			choice(
-				seq('optional', $.attribute_rest),
-				$._regular_operation,
-			),
+			';',
 		),
 
 		// iterables
@@ -405,7 +396,7 @@ export default grammar({
 
 		_namespace_member: $ => choice(
 			alias($._regular_operation, $.namespace_operation),
-			$.attribute_rest,
+			$.attribute_member,
 			$.const_member,
 		),
 

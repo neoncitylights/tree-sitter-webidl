@@ -28,7 +28,7 @@ interface AudioSinkInfo {
 	(interface_definition
 		name: (type_identifier)
 		body: (interface_body
-			(attribute_rest
+			(attribute_member
 				type: (type (distinguishable_type (type_identifier)))
 				name: (identifier))
 			(operation_member
@@ -122,7 +122,7 @@ partial interface Window {
 	(partial_interface_definition
 		name: (type_identifier)
 		body: (partial_interface_body
-			(attribute_rest
+			(attribute_member
 				type: (type (distinguishable_type (type_identifier)))
 				name: (identifier)
 			)

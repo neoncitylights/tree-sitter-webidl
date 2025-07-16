@@ -85,9 +85,7 @@ interface mixin Observable {
 						type: (type (distinguishable_type (type_identifier)))
 						name: (identifier))
 					(argument
-						type: (type
-							(distinguishable_type
-								(primitive_type)))
+						type: (type (distinguishable_type (primitive_type)))
 						name: (identifier))
 				)
 			)

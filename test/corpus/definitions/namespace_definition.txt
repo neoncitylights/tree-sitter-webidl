@@ -14,31 +14,21 @@ namespace CSS {
 		name: (identifier)
 		body: (namespace_body
 			(namespace_operation
-				return_type: (type
-					(distinguishable_type
-						(type_identifier)))
+				return_type: (type (distinguishable_type (type_identifier)))
 				name: (identifier)
 				arguments: (argument_list
 					(argument
-						type: (type
-							(distinguishable_type
-								(primitive_type
-									(float_type))))
+						type: (type (distinguishable_type (primitive_type (float_type))))
 						name: (identifier)
 					)
 				)
 			)
 			(namespace_operation
-				return_type: (type
-					(distinguishable_type
-						(type_identifier)))
+				return_type: (type (distinguishable_type (type_identifier)))
 				name: (identifier)
 				arguments: (argument_list
 					(argument
-						type: (type
-							(distinguishable_type
-								(primitive_type
-									(float_type))))
+						type: (type (distinguishable_type (primitive_type (float_type))))
 						name: (identifier)
 					)
 				)

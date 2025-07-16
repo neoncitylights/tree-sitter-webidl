@@ -1,0 +1,51 @@
+============================================
+Interface with maplike member
+============================================
+
+interface Foo {
+	readonly maplike<DOMString, unsigned short>;
+	maplike<DOMString, unsigned short>;
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(maplike_member
+				key_type: (type (distinguishable_type (string_type)))
+				value_type: (type (distinguishable_type (primitive_type (integer_type))))
+			)
+			(maplike_member
+				key_type: (type (distinguishable_type (string_type)))
+				value_type: (type (distinguishable_type (primitive_type (integer_type))))
+			)
+		)
+	)
+)
+
+============================================
+Interface with setlike member
+============================================
+
+interface Bar {
+	readonly setlike<DOMString>;
+	setlike<DOMString>;
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(setlike_member
+				type: (type (distinguishable_type (string_type)))
+			)
+			(setlike_member
+				type: (type (distinguishable_type (string_type)))
+			)
+		)
+	)
+)

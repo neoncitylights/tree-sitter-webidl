@@ -128,7 +128,7 @@ export default grammar({
 
 		_interface_member: $ => choice(
 			$._partial_interface_member,
-			$.constructor,
+			$.constructor_member,
 		),
 
 		// interface mixin
@@ -182,15 +182,13 @@ export default grammar({
 		_partial_interface_member: $ => choice(
 			$.const_member,
 			$.operation,
-			$.stringifier,
+			$.stringifier_member,
 			$.static_member,
 			$.iterable,
 			$.async_iterable,
-			$.readonly_member,
-			$.read_write_attribute,
-			$.maplike_rest,
-			$.setlike_rest,
-			$.inherit_attribute,
+			$.attribute_rest,
+			$.maplike_member,
+			$.setlike_member,
 		),
 
 		// partial interface mixin
@@ -210,28 +208,14 @@ export default grammar({
 		_mixin_member: $ => choice(
 			$.const_member,
 			alias($._regular_operation, $.mixin_operation),
-			$.stringifier,
-			$.mixin_attribute,
+			$.stringifier_member,
+			$.attribute_rest,
 		),
-
-		mixin_attribute: $ => seq(optional('readonly'), $.attribute_rest),
-
-		// callback interfae
 
 		// readonly members and attributes
-		readonly_member: $ => seq(
-			'readonly',
-			choice(
-				$.attribute_rest,
-				$.maplike_rest,
-				$.setlike_rest,
-			)
-		),
-
-		readonly_attribute: $ => seq('readonly', $.attribute_rest),
-		read_write_attribute: $ => alias($.attribute_rest, $.read_write_attribute),
-		inherit_attribute: $ => seq('inherit', $.attribute_rest),
 		attribute_rest: $ => seq(
+			optional('inherit'),
+			optional('readonly'),
 			'attribute',
 			field('type', $._type_with_extended_attributes),
 			field('name', $._attribute_name),
@@ -335,18 +319,15 @@ export default grammar({
 
 		ellipsis: _ => '...',
 
-		constructor: $ => seq(
+		constructor_member: $ => seq(
 			'constructor',
 			field('arguments', $.argument_list),
 			';',
 		),
 
-		stringifier: $ => seq(
+		stringifier_member: $ => seq(
 			'stringifier',
-			choice(
-				seq(optional('readonly'), $.attribute_rest),
-				';',
-			),
+			choice(';', $.attribute_rest),
 		),
 
 		// static member
@@ -382,7 +363,8 @@ export default grammar({
 		_optional_type: $ => seq(',', $._type_with_extended_attributes),
 
 		// setlike and maplike
-		setlike_rest: $ => seq(
+		setlike_member: $ => seq(
+			optional('readonly'),
 			'setlike',
 			'<',
 			field('type', $._type_with_extended_attributes),
@@ -390,7 +372,8 @@ export default grammar({
 			';',
 		),
 
-		maplike_rest: $ => seq(
+		maplike_member: $ => seq(
+			optional('readonly'),
 			'maplike',
 			'<',
 			field('key_type', $._type_with_extended_attributes),
@@ -422,7 +405,7 @@ export default grammar({
 
 		_namespace_member: $ => choice(
 			alias($._regular_operation, $.namespace_operation),
-			$.readonly_attribute,
+			$.attribute_rest,
 			$.const_member,
 		),
 

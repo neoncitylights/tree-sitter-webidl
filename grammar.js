@@ -188,8 +188,8 @@ export default grammar({
 			$.async_iterable,
 			$.readonly_member,
 			$.read_write_attribute,
-			$.read_write_maplike,
-			$.read_write_setlike,
+			$.maplike_rest,
+			$.setlike_rest,
 			$.inherit_attribute,
 		),
 
@@ -382,7 +382,6 @@ export default grammar({
 		_optional_type: $ => seq(',', $._type_with_extended_attributes),
 
 		// setlike and maplike
-		read_write_setlike: $ => $.setlike_rest,
 		setlike_rest: $ => seq(
 			'setlike',
 			'<',
@@ -391,7 +390,6 @@ export default grammar({
 			';',
 		),
 
-		read_write_maplike: $ => $.maplike_rest,
 		maplike_rest: $ => seq(
 			'maplike',
 			'<',

@@ -206,6 +206,10 @@
         "named": true
       },
       {
+        "type": "maplike_rest",
+        "named": true
+      },
+      {
         "type": "operation",
         "named": true
       },
@@ -214,15 +218,11 @@
         "named": true
       },
       {
-        "type": "read_write_maplike",
-        "named": true
-      },
-      {
-        "type": "read_write_setlike",
-        "named": true
-      },
-      {
         "type": "readonly_member",
+        "named": true
+      },
+      {
+        "type": "setlike_rest",
         "named": true
       },
       {
@@ -1628,36 +1628,6 @@
       "types": [
         {
           "type": "read_write_attribute",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "read_write_maplike",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "maplike_rest",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "read_write_setlike",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "setlike_rest",
           "named": true
         }
       ]

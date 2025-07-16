@@ -534,11 +534,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "read_write_maplike"
+          "name": "maplike_rest"
         },
         {
           "type": "SYMBOL",
-          "name": "read_write_setlike"
+          "name": "setlike_rest"
         },
         {
           "type": "SYMBOL",
@@ -1326,10 +1326,6 @@
         }
       ]
     },
-    "read_write_setlike": {
-      "type": "SYMBOL",
-      "name": "setlike_rest"
-    },
     "setlike_rest": {
       "type": "SEQ",
       "members": [
@@ -1358,10 +1354,6 @@
           "value": ";"
         }
       ]
-    },
-    "read_write_maplike": {
-      "type": "SYMBOL",
-      "name": "maplike_rest"
     },
     "maplike_rest": {
       "type": "SEQ",

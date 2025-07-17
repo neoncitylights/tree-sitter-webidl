@@ -8,15 +8,28 @@
 // @ts-check
 
 import {
+	sepBy1,
 	sepByComma1,
 	sepByComma1Trailing,
 } from './grammar.utils.js'
+
+const PREC = {
+	extended_attribute_ident: 1,
+	ident_expr_list: 4,
+}
 
 export default grammar({
 	name: "webidl",
 	extras: $ => [
 		$._whitespace,
 		$.comment,
+	],
+
+	conflicts: $ => [
+		[
+			$.extended_attribute_ident,
+			$.ident_expr,
+		],
 	],
 
 	supertypes: $ => [
@@ -682,9 +695,9 @@ export default grammar({
 			$.extended_attribute_ident,
 			$.extended_attribute_ident_list,
 			$.extended_attribute_wildcard,
-			// Unofficial node, written for compatibility
-			// with Mozilla's WebIDL files
-			$.extended_attribute_string,
+			// Unofficial nodes, written for compatibility
+			$.extended_attribute_ident_expr, // Used within WebKit
+			$.extended_attribute_string, // Used within Mozilla
 		),
 
 		extended_attribute_no_args: $ => field('name', $.identifier),
@@ -719,7 +732,7 @@ export default grammar({
 			'*'
 		),
 
-		// This extended attribute node is not part of the official spec;
+		// These extended attribute nodes are not part of the official spec;
 		// however, there are some notable things:
 		// - the official `ExtendedAttribute` node can accept nearly any token
 		// - the WebIDL files in Mozilla Firefox uses this syntax quite often.
@@ -727,12 +740,23 @@ export default grammar({
 		// "The ExtendedAttribute grammar symbol matches nearly any
 		// sequence of tokens, however the extended attributes defined
 		// in this document only accept a more restricted syntax."
+
+		extended_attribute_ident_expr: $ => seq(
+			field('name', $.identifier),
+			'=',
+			field('expression', $.ident_expr),
+		),
+
+		ident_expr: $ => sepBy1(
+			choice('&', '|'),
+			$.identifier,
+		),
+
 		extended_attribute_string: $ => seq(
 			field('name', $.identifier),
 			'=',
 			field('string', $.string),
 		),
-
 
 		// other identifier nodes
 		identifier_list: $ => seq(

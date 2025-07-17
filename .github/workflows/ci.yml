@@ -43,6 +43,7 @@ jobs:
         uses: tree-sitter/parser-test-action@v2
         with:
           test-parser-cmd: tree-sitter test --stat all
+
   test_examples:
     name: test (examples)
     runs-on: ubuntu-latest
@@ -51,18 +52,23 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up tree-sitter
         uses: tree-sitter/setup-action/cli@v2
+
       - name: Setup examples (WebKit)
-        uses: neoncitylights/tree-sitter-webidl/.github/workflows/fast-checkout.yml
-        with:
-          repository: WebKit/WebKit
-          directory: examples/webkit
-          checkout-directories: Source/WebCore
+        run: |-
+          git clone --single-branch --depth=1 --filter=blob:none --no-checkout https://github.com/WebKit/WebKit examples/webkit/
+          cd examples/webkit
+          git sparse-checkout init --cone
+          git sparse-checkout set Source/WebCore
+          git checkout
+
       - name: Setup examples (Firefox)
-        uses: neoncitylights/tree-sitter-webidl/.github/workflows/fast-checkout.yml
-        with:
-          repository: mozilla-firefox/firefox
-          directory: examples/firefox
-          checkout-directories: dom/webidl
+        run: |-
+          git clone --single-branch --depth=1 --filter=blob:none --no-checkout https://github.com/mozilla-firefox/firefox/ examples/firefox/
+          cd examples/firefox
+          git sparse-checkout init --cone
+          git sparse-checkout set dom/webidl
+          git checkout
+
       - name: Parse examples
         uses: tree-sitter/parse-action@v4
         with:

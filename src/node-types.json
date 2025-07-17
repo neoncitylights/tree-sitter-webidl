@@ -126,6 +126,10 @@
         "named": true
       },
       {
+        "type": "extended_attribute_string",
+        "named": true
+      },
+      {
         "type": "extended_attribute_wildcard",
         "named": true
       }
@@ -982,6 +986,32 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "extended_attribute_string",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "string": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
             "named": true
           }
         ]

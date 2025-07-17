@@ -2566,6 +2566,10 @@
         {
           "type": "SYMBOL",
           "name": "extended_attribute_wildcard"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "extended_attribute_string"
         }
       ]
     },
@@ -2699,6 +2703,31 @@
         {
           "type": "STRING",
           "value": "*"
+        }
+      ]
+    },
+    "extended_attribute_string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "string",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
         }
       ]
     },

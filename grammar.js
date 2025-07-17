@@ -674,6 +674,9 @@ export default grammar({
 			$.extended_attribute_ident,
 			$.extended_attribute_ident_list,
 			$.extended_attribute_wildcard,
+			// Unofficial node, written for compatibility
+			// with Mozilla's WebIDL files
+			$.extended_attribute_string,
 		),
 
 		extended_attribute_no_args: $ => field('name', $.identifier),
@@ -707,6 +710,21 @@ export default grammar({
 			'=',
 			'*'
 		),
+
+		// This extended attribute node is not part of the official spec;
+		// however, there are some notable things:
+		// - the official `ExtendedAttribute` node can accept nearly any token
+		// - the WebIDL files in Mozilla Firefox uses this syntax quite often.
+		//
+		// "The ExtendedAttribute grammar symbol matches nearly any
+		// sequence of tokens, however the extended attributes defined
+		// in this document only accept a more restricted syntax."
+		extended_attribute_string: $ => seq(
+			field('name', $.identifier),
+			'=',
+			field('string', $.string),
+		),
+
 
 		// other identifier nodes
 		identifier_list: $ => seq(

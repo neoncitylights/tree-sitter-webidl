@@ -346,8 +346,16 @@ export default grammar({
 		),
 
 		async_iterable_member: $ => seq(
-			'async',
-			'iterable',
+			// Previously, an async iterable member would be denoted with 2 separate tokens,
+			// "async" and "iterable" sequentially. However in a PR, this was changed to be
+			// one singular token as "async_iterable". To maintain backwards compatibility,
+			// both are kept here.
+			//
+			// PR: https://github.com/whatwg/webidl/pull/1489
+			choice(
+				'async_iterable',
+				seq('async', 'iterable'),
+			),
 			'<',
 			field('lhs_type', $._type_with_extended_attributes),
 			optional(field('rhs_type', $._iterable_optional_rhs_type)),

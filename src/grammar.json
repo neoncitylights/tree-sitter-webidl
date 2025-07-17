@@ -1205,12 +1205,26 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "async"
-        },
-        {
-          "type": "STRING",
-          "value": "iterable"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "async_iterable"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "async"
+                },
+                {
+                  "type": "STRING",
+                  "value": "iterable"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "STRING",

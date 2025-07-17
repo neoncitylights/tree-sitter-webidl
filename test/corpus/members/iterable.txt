@@ -29,6 +29,7 @@ Interface with async iterable member
 ============================================
 
 interface interface_identifier {
+	async_iterable<KeyType>;
 	async iterable<KeyType>;
 	async iterable<KeyType>();
 	async iterable<KeyType, ValueType>;
@@ -41,6 +42,9 @@ interface interface_identifier {
 	(interface_definition
 		name: (type_identifier)
 		body: (interface_body
+			(async_iterable_member
+				lhs_type: (type_identifier)
+			)
 			(async_iterable_member
 				lhs_type: (type_identifier)
 			)

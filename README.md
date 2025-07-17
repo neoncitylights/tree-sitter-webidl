@@ -9,6 +9,8 @@
 
 An unofficial WebIDL grammar for tree-sitter.
 
+- [WebIDL Living Standard](https://webidl.spec.whatwg.org) (webidl.spec.whatwg.org)
+
 ## Compliance
 The tree-sitter grammar has unit tests in [`test/corpus`](./test/corpus), and is also tested against WebIDL files in the WebKit and Firefox repositories. It aims to be mostly spec-compliant, although also tries to be backwards-compatible and tolerant with some non-compliant syntax (where reasonable).
 
@@ -20,9 +22,6 @@ The following non-compliant syntaxes are implemented:
 
 The following non-compliant syntaxes are *not* implemented:
 - Conditional C-like directives (including `#if`, `#else`, and `#endif`).
-
-## References
-- [WebIDL Living Standard](https://webidl.spec.whatwg.org) (webidl.spec.whatwg.org)
 
 ## Developing
 1. Install the `tree-sitter` CLI. ([Instructions available](https://tree-sitter.github.io/tree-sitter/creating-parsers/1-getting-started.html#installation))

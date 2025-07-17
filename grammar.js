@@ -8,6 +8,7 @@
 // @ts-check
 
 import {
+	sepBy1,
 	sepByComma1,
 	sepByComma1Trailing,
 } from './grammar.utils.js'
@@ -17,6 +18,13 @@ export default grammar({
 	extras: $ => [
 		$._whitespace,
 		$.comment,
+	],
+
+	conflicts: $ => [
+		[
+			$.extended_attribute_ident,
+			$.ident_expr,
+		],
 	],
 
 	supertypes: $ => [
@@ -111,7 +119,7 @@ export default grammar({
 		_interface_rest: $ => seq(
 			field('name', $._type_identifier),
 			optional($.inheritance),
-			field('body', $.interface_body),
+			optional(field('body', $.interface_body)),
 			';',
 		),
 
@@ -563,9 +571,12 @@ export default grammar({
 		)),
 
 		_union_member_type: $ => choice(
-			$.optional_type,
-			$._distinguishable_type,
+			seq(
+				optional($.extended_attribute_list),
+				$._distinguishable_type
+			),
 			$.union_type,
+			$.optional_type,
 		),
 
 		// builtin types
@@ -611,6 +622,8 @@ export default grammar({
 			'ByteString',
 			'DOMString',
 			'USVString',
+			// Non-compliant, used by Firefox
+			'UTF8String',
 		),
 
 		promise_type: $ => seq(
@@ -671,7 +684,7 @@ export default grammar({
 		// attributes
 		extended_attribute_list: $ => seq(
 			'[',
-			sepByComma1($._extended_attribute),
+			sepByComma1Trailing($._extended_attribute),
 			']'
 		),
 
@@ -682,9 +695,9 @@ export default grammar({
 			$.extended_attribute_ident,
 			$.extended_attribute_ident_list,
 			$.extended_attribute_wildcard,
-			// Unofficial node, written for compatibility
-			// with Mozilla's WebIDL files
-			$.extended_attribute_string,
+			// Unofficial nodes, written for compatibility
+			$.extended_attribute_ident_expr, // Used within WebKit
+			$.extended_attribute_string, // Used within Mozilla
 		),
 
 		extended_attribute_no_args: $ => field('name', $.identifier),
@@ -719,7 +732,7 @@ export default grammar({
 			'*'
 		),
 
-		// This extended attribute node is not part of the official spec;
+		// These extended attribute nodes are not part of the official spec;
 		// however, there are some notable things:
 		// - the official `ExtendedAttribute` node can accept nearly any token
 		// - the WebIDL files in Mozilla Firefox uses this syntax quite often.
@@ -727,12 +740,23 @@ export default grammar({
 		// "The ExtendedAttribute grammar symbol matches nearly any
 		// sequence of tokens, however the extended attributes defined
 		// in this document only accept a more restricted syntax."
+
+		extended_attribute_ident_expr: $ => seq(
+			field('name', $.identifier),
+			'=',
+			field('expression', $.ident_expr),
+		),
+
+		ident_expr: $ => sepBy1(
+			choice('&', '|'),
+			$.identifier,
+		),
+
 		extended_attribute_string: $ => seq(
 			field('name', $.identifier),
 			'=',
 			field('string', $.string),
 		),
-
 
 		// other identifier nodes
 		identifier_list: $ => seq(
@@ -748,6 +772,20 @@ export default grammar({
 		identifier: _ => /[_-]?[A-Za-z][0-9A-Z_a-z-]*/,
 		string: _ => /"[^"]*"/,
 		_whitespace: _ => /[\t\n\r ]+/,
-		comment: _ => /\/\/.*|\/\*(.|\n)*?\*\//,
+
+		// taken originally from tree-sitter-javascript, which takes from:
+		// https://stackoverflow.com/a/36328890/
+		//
+		// Note that this intentionally doesn't use the original regular expression
+		// defined in the WebIDL specification. For whatever reasons (that I'm not sure of),
+		// the original causes errors when parsing.
+		comment: _ => token(choice(
+			seq('//', /[^\r\n\u2028\u2029]*/),
+			seq(
+				'/*',
+				/[^*]*\*+([^/*][^*]*\*+)*/,
+				'/',
+			),
+		)),
 	}
 });

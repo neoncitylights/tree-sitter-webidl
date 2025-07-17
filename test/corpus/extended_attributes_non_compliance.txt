@@ -1,0 +1,70 @@
+============================================
+Extended attributes: takes an identifier expression (non-compliant attribute)
+============================================
+
+[
+	Conditional=WEBXR_HANDS,
+	EnabledBySetting=WebXREnabled&WebXRHandInputModuleEnabled,
+] partial interface WebXRInputSource {
+	[SameObject] readonly attribute WebXRHand? hand;
+};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_ident
+			lhs: (identifier)
+			rhs: (identifier)
+		)
+		(extended_attribute_ident_expr
+			name: (identifier)
+			expression: (ident_expr
+				(identifier)
+				(identifier)
+			)
+		)
+	)
+	(partial_interface_definition
+		name: (type_identifier)
+		body: (partial_interface_body
+			(extended_attribute_list
+				(extended_attribute_no_args
+					name: (identifier)
+				)
+			)
+			(attribute_member
+				type: (optional_type (type_identifier))
+				name: (identifier)
+			)
+		)
+	)
+)
+
+============================================
+Extended attributes: takes a string (non-compliant attribute)
+============================================
+
+[Pref="apz.test.logging_enabled",
+ Exposed=Window]
+namespace APZHitResultFlags {
+};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_string
+			name: (identifier)
+			string: (string)
+		)
+		(extended_attribute_ident
+			lhs: (identifier)
+			rhs: (identifier)
+		)
+	)
+	(namespace_definition
+		name: (identifier)
+		body: (namespace_body)
+	)
+)

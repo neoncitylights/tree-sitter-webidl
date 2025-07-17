@@ -43,3 +43,77 @@ jobs:
         uses: tree-sitter/parser-test-action@v2
         with:
           test-parser-cmd: tree-sitter test --stat all
+
+  test_examples:
+    name: test (examples)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v2
+
+      - name: Setup examples (WebKit)
+        run: |-
+          git clone --single-branch --depth=1 --filter=blob:none --no-checkout https://github.com/WebKit/WebKit examples/webkit/
+          cd examples/webkit
+          git sparse-checkout init --cone
+          git sparse-checkout set Source/WebCore
+          git checkout
+
+      - name: Setup examples (Firefox)
+        run: |-
+          git clone --single-branch --depth=1 --filter=blob:none --no-checkout https://github.com/mozilla-firefox/firefox/ examples/firefox/
+          cd examples/firefox
+          git sparse-checkout init --cone
+          git sparse-checkout set dom/webidl
+          git checkout
+
+      - name: Parse examples
+        uses: tree-sitter/parse-action@v4
+        with:
+          files: |-
+            examples/webkit/Source/WebCore/**/*.idl
+            examples/firefox/dom/webidl/**/*.webidl
+
+          # - `callback instructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
+          # - `legacycaller` found in HTMLAllCollection
+          # - Empty extended attributes list in TestDictionaryNoToNative
+          # - Invalid identifier in attribute members (double underscores at the start) in TestObj
+          # - Invalid enum (no comma) in WebGLContextAttributes
+          # - Conditional C-like directives found in Node, Window, and everything listed after it
+          invalid-files: |-
+            examples/firefox/dom/webidl/AudioWorkletGlobalScope.webidl
+            examples/firefox/dom/webidl/CustomElementRegistry.webidl
+            examples/firefox/dom/webidl/HTMLAllCollection.webidl
+            examples/webkit/Source/WebCore/bindings/scripts/test/TestDictionaryNoToNative.idl
+            examples/webkit/Source/WebCore/bindings/scripts/test/TestObj.idl
+            examples/webkit/Source/WebCore/html/canvas/WebGLContextAttributes.idl
+            examples/firefox/dom/webidl/Node.webidl
+            examples/firefox/dom/webidl/Window.webidl
+            examples/webkit/Source/WebCore/Modules/ShapeDetection/BarcodeDetector.idl
+            examples/webkit/Source/WebCore/Modules/ShapeDetection/FaceDetector.idl
+            examples/webkit/Source/WebCore/Modules/ShapeDetection/TextDetector.idl
+            examples/webkit/Source/WebCore/Modules/WebGPU/GPUExternalTextureDescriptor.idl
+            examples/webkit/Source/WebCore/Modules/WebGPU/GPUImageCopyExternalImage.idl
+            examples/webkit/Source/WebCore/Modules/applepay/ApplePayErrorCode.idl
+            examples/webkit/Source/WebCore/Modules/applepay/ApplePayFeature.idl
+            examples/webkit/Source/WebCore/Modules/applepay/ApplePayMerchantCapability.idl
+            examples/webkit/Source/WebCore/Modules/applepay/ApplePayPaymentTiming.idl
+            examples/webkit/Source/WebCore/Modules/mediasession/MediaSessionAction.idl
+            examples/webkit/Source/WebCore/Modules/webcodecs/WebCodecsVideoFrame.idl
+            examples/webkit/Source/WebCore/dom/DeviceOrientationEvent.idl
+            examples/webkit/Source/WebCore/dom/Document.idl
+            examples/webkit/Source/WebCore/html/HTMLCanvasElement.idl
+            examples/webkit/Source/WebCore/html/HTMLMediaElement.idl
+            examples/webkit/Source/WebCore/html/OffscreenCanvas.idl
+            examples/webkit/Source/WebCore/html/canvas/CanvasDrawImage.idl
+            examples/webkit/Source/WebCore/html/canvas/CanvasFillStrokeStyles.idl
+            examples/webkit/Source/WebCore/html/canvas/GPUCanvasContext.idl
+            examples/webkit/Source/WebCore/html/canvas/ImageBitmapRenderingContext.idl
+            examples/webkit/Source/WebCore/html/canvas/PredefinedColorSpace.idl
+            examples/webkit/Source/WebCore/html/canvas/WebGL2RenderingContext.idl
+            examples/webkit/Source/WebCore/html/canvas/WebGLRenderingContext.idl
+            examples/webkit/Source/WebCore/html/canvas/WebGLRenderingContextBase.idl
+            examples/webkit/Source/WebCore/page/WindowOrWorkerGlobalScope.idl
+            examples/webkit/Source/WebCore/testing/Internals.idl

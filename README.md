@@ -11,9 +11,6 @@ WebIDL grammar for tree-sitter.
 
 - [WebIDL Living Standard](https://webidl.spec.whatwg.org) (webidl.spec.whatwg.org)
 
-> [!NOTE]
-> This tree-sitter grammar is (mostly) functionally complete as it implements the entire WebIDL grammar. However, it is currently being optimized so that it produces a smaller AST.
-
 ## Developing
 1. Install the `tree-sitter` CLI. ([Instructions available](https://tree-sitter.github.io/tree-sitter/creating-parsers/1-getting-started.html#installation))
 1. Run `npm install`.

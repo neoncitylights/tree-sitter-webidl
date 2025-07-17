@@ -76,7 +76,7 @@ jobs:
             examples/webkit/Source/WebCore/**/*.idl
             examples/firefox/dom/webidl/**/*.webidl
 
-          # - `callback instructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
+          # - `callback constructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
           # - `legacycaller` found in HTMLAllCollection
           # - Empty extended attributes list in TestDictionaryNoToNative
           # - Invalid identifier in attribute members (double underscores at the start) in TestObj

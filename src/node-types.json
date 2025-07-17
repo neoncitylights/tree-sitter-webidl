@@ -2165,6 +2165,10 @@
     "named": false
   },
   {
+    "type": "async_iterable",
+    "named": false
+  },
+  {
     "type": "attribute",
     "named": false
   },

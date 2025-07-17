@@ -22,6 +22,8 @@ The following non-compliant syntaxes are implemented:
 
 The following non-compliant syntaxes are *not* implemented:
 - Conditional C-like directives (including `#if`, `#else`, and `#endif`).
+- Callbacks with the `constructor` keyword, written as `callback constructor`.
+- Special operation members marked as `legacycaller`.
 
 ## Developing
 1. Install the `tree-sitter` CLI. ([Instructions available](https://tree-sitter.github.io/tree-sitter/creating-parsers/1-getting-started.html#installation))

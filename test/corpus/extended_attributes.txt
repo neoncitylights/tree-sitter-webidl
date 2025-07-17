@@ -132,6 +132,34 @@ interface Foo {};
 )
 
 ============================================
+Extended attributes: takes a string
+============================================
+
+[Pref="apz.test.logging_enabled",
+ Exposed=Window]
+namespace APZHitResultFlags {
+};
+
+----
+
+(source_file
+	(extended_attribute_list
+		(extended_attribute_string
+			lhs_name: (identifier)
+			string: (identifier)
+		)
+		(extedned_attribute_ident
+			lhs_name: (identifier)
+			rhs_name: (identifier)
+		)
+	)
+	(namespace_definition
+		name: (type_identifier)
+		body: (namespace_body)
+	)
+)
+
+============================================
 Extended attributes: takes a wildcard
 ============================================
 

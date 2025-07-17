@@ -1878,14 +1878,18 @@
           "name": "empty_object"
         },
         {
-          "type": "STRING",
-          "value": "null"
+          "type": "SYMBOL",
+          "name": "null_type"
         },
         {
-          "type": "STRING",
-          "value": "undefined"
+          "type": "SYMBOL",
+          "name": "undefined_type"
         }
       ]
+    },
+    "null_type": {
+      "type": "STRING",
+      "value": "null"
     },
     "empty_array": {
       "type": "SEQ",
@@ -2144,12 +2148,12 @@
           "name": "sequence_type"
         },
         {
-          "type": "STRING",
-          "value": "object"
+          "type": "SYMBOL",
+          "name": "object_type"
         },
         {
-          "type": "STRING",
-          "value": "symbol"
+          "type": "SYMBOL",
+          "name": "symbol_type"
         },
         {
           "type": "SYMBOL",
@@ -2172,6 +2176,14 @@
           "name": "undefined_type"
         }
       ]
+    },
+    "object_type": {
+      "type": "STRING",
+      "value": "object"
+    },
+    "symbol_type": {
+      "type": "STRING",
+      "value": "symbol"
     },
     "undefined_type": {
       "type": "STRING",
@@ -2565,6 +2577,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "extended_attribute_string"
+        },
+        {
+          "type": "SYMBOL",
           "name": "extended_attribute_wildcard"
         }
       ]
@@ -2677,6 +2693,31 @@
           "content": {
             "type": "SYMBOL",
             "name": "identifier_list"
+          }
+        }
+      ]
+    },
+    "extended_attribute_string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "string_literal",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
           }
         }
       ]

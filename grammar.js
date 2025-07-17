@@ -499,10 +499,11 @@ export default grammar({
 			$.string,
 			$.empty_array,
 			$.empty_object,
-			'null',
-			'undefined',
+			$.null_type,
+			$.undefined_type,
 		),
 
+		null_type: _ => 'null',
 		empty_array: _ => seq('[', ']'),
 		empty_object: _ => seq('{', '}'),
 
@@ -558,6 +559,7 @@ export default grammar({
 			$.optional_type,
 			$._distinguishable_type,
 			$.union_type,
+			$.optional_type,
 		),
 
 		// builtin types
@@ -566,8 +568,8 @@ export default grammar({
 			$.string_type,
 			$._type_identifier,
 			$.sequence_type,
-			'object',
-			'symbol',
+			$.object_type,
+			$.symbol_type,
 			$.buffer_related_type,
 			$.frozen_array_type,
 			$.observable_array_type,
@@ -575,6 +577,8 @@ export default grammar({
 			$.undefined_type,
 		),
 
+		object_type: _ => 'object',
+		symbol_type: _ => 'symbol',
 		undefined_type: _ => 'undefined',
 
 		primitive_type: $ => choice(
@@ -673,6 +677,7 @@ export default grammar({
 			$.extended_attribute_named_arg_list,
 			$.extended_attribute_ident,
 			$.extended_attribute_ident_list,
+			$.extended_attribute_string,
 			$.extended_attribute_wildcard,
 		),
 
@@ -684,22 +689,36 @@ export default grammar({
 		),
 
 		extended_attribute_named_arg_list: $ => seq(
-			field('lhs', $.identifier),
+			field('lhs_name', $.identifier),
 			'=',
-			field('rhs', $.identifier),
+			field('rhs_name', $.identifier),
 			field('arguments', $.argument_list),
 		),
 
 		extended_attribute_ident: $ => seq(
-			field('lhs', $.identifier),
+			field('lhs_name', $.identifier),
 			'=',
-			field('rhs', $.identifier),
+			field('rhs_name', $.identifier),
 		),
 
 		extended_attribute_ident_list: $ => seq(
 			field('name', $.identifier),
 			'=',
 			field('identifiers', $.identifier_list),
+		),
+
+		// This extended attribute node is not part of the official spec;
+		// however, there are some notable things:
+		// - the official `ExtendedAttribute` node can accept nearly any token
+		// - the WebIDL files in Mozilla Firefox uses this syntax quite often.
+		//
+		// "The ExtendedAttribute grammar symbol matches nearly any
+		// sequence of tokens, however the extended attributes defined
+		// in this document only accept a more restricted syntax."
+		extended_attribute_string: $ => seq(
+			field('name', $.identifier),
+			'=',
+			field('string_literal', $.string),
 		),
 
 		extended_attribute_wildcard: $ => seq(

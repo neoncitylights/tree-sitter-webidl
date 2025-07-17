@@ -624,6 +624,8 @@ export default grammar({
 			'ByteString',
 			'DOMString',
 			'USVString',
+			// Non-compliant, used by Firefox
+			'UTF8String',
 		),
 
 		promise_type: $ => seq(

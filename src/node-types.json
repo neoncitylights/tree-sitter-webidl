@@ -2182,6 +2182,10 @@
     "named": false
   },
   {
+    "type": "UTF8String",
+    "named": false
+  },
+  {
     "type": "Uint16Array",
     "named": false
   },

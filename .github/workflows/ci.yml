@@ -103,6 +103,6 @@ jobs:
             examples/webkit/Source/WebCore/html/HTMLCanvasElement.idl
             examples/webkit/Source/WebCore/html/HTMLMediaElement.idl
             examples/webkit/Source/WebCore/html/OffscreenCanvas.idl
-            examples/webkit/Source/WebCore/html/canvas/*.webidl
+            examples/webkit/Source/WebCore/html/canvas/*.idl
             examples/webkit/Source/WebCore/page/WindowOrWorkerGlobalScope.idl
             examples/webkit/Source/WebCore/testing/Internals.idl

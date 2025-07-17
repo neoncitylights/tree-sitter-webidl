@@ -32,7 +32,7 @@ The following non-compliant syntaxes are *not* implemented:
 1. Run `tree-sitter test`; ensure parser tests pass.
 1. Repeat steps 3-6 as needed.
 
-> [!NOTE]
+> [!TIP]
 > To run a playground locally, prefer running `make playground` (instead of just `tree-sitter playground`). This command also runs `tree-sitter generate` + `tree-sitter build --wasm` beforehand to guarantee the playground will be up-to-date.
 
 ## License

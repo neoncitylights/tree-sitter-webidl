@@ -79,12 +79,14 @@ jobs:
           # - `callback instructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
           # - `legacycaller` found in HTMLAllCollection
           # - Empty extended attributes list in TestDictionaryNoToNative
+          # - Invalid enum (no comma) in WebGLContextAttributes
           # - Conditional C-like directives found in Node, Window, and everything listed after it
           invalid-files: |-
             examples/firefox/dom/webidl/AudioWorkletGlobalScope.webidl
             examples/firefox/dom/webidl/CustomElementRegistry.webidl
             examples/firefox/dom/webidl/HTMLAllCollection.webidl
             examples/webkit/Source/WebCore/bindings/scripts/test/TestDictionaryNoToNative.idl
+            examples/webkit/Source/WebCore/html/canvas/WebGLContextAttributes.idl
             examples/firefox/dom/webidl/Node.webidl
             examples/firefox/dom/webidl/Window.webidl
             examples/webkit/Source/WebCore/Modules/ShapeDetection/BarcodeDetector.idl
@@ -103,6 +105,13 @@ jobs:
             examples/webkit/Source/WebCore/html/HTMLCanvasElement.idl
             examples/webkit/Source/WebCore/html/HTMLMediaElement.idl
             examples/webkit/Source/WebCore/html/OffscreenCanvas.idl
-            examples/webkit/Source/WebCore/html/canvas/*.idl
+            examples/webkit/Source/WebCore/html/canvas/CanvasDrawImage.idl
+            examples/webkit/Source/WebCore/html/canvas/CanvasFillStrokeStyles.idl
+            examples/webkit/Source/WebCore/html/canvas/GPUCanvasContext.idl
+            examples/webkit/Source/WebCore/html/canvas/ImageBitmapRenderingContext.idl
+            examples/webkit/Source/WebCore/html/canvas/PredefinedColorSpace.idl
+            examples/webkit/Source/WebCore/html/canvas/WebGL2RenderingContext.idl
+            examples/webkit/Source/WebCore/html/canvas/WebGLRenderingContext.idl
+            examples/webkit/Source/WebCore/html/canvas/WebGLRenderingContextBase.idl
             examples/webkit/Source/WebCore/page/WindowOrWorkerGlobalScope.idl
             examples/webkit/Source/WebCore/testing/Internals.idl

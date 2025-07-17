@@ -69,5 +69,5 @@ jobs:
         uses: tree-sitter/parse-action@v4
         with:
           files: |-
-            examples/Source/WebCore/**/*.idl
-            examples/dom/webidl/**/*.webidl
+            examples/webkit/Source/WebCore/**/*.idl
+            examples/firefox/dom/webidl/**/*.webidl

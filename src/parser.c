@@ -1450,7 +1450,7 @@ enum ts_field_identifiers {
   field_return_type = 14,
   field_rhs = 15,
   field_rhs_type = 16,
-  field_string_literal = 17,
+  field_string = 17,
   field_type = 18,
   field_value = 19,
   field_value_type = 20,
@@ -1474,7 +1474,7 @@ static const char * const ts_field_names[] = {
   [field_return_type] = "return_type",
   [field_rhs] = "rhs",
   [field_rhs_type] = "rhs_type",
-  [field_string_literal] = "string_literal",
+  [field_string] = "string",
   [field_type] = "type",
   [field_value] = "value",
   [field_value_type] = "value_type",
@@ -1575,7 +1575,7 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_rhs, 2},
   [25] =
     {field_name, 0},
-    {field_string_literal, 2},
+    {field_string, 2},
   [27] =
     {field_identifiers, 2},
     {field_name, 0},

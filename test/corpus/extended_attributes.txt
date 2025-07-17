@@ -145,16 +145,16 @@ namespace APZHitResultFlags {
 (source_file
 	(extended_attribute_list
 		(extended_attribute_string
-			lhs_name: (identifier)
-			string: (identifier)
+			name: (identifier)
+			string: (string)
 		)
-		(extedned_attribute_ident
-			lhs_name: (identifier)
-			rhs_name: (identifier)
+		(extended_attribute_ident
+			lhs: (identifier)
+			rhs: (identifier)
 		)
 	)
 	(namespace_definition
-		name: (type_identifier)
+		name: (identifier)
 		body: (namespace_body)
 	)
 )

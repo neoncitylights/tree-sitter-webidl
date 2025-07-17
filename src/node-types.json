@@ -1006,7 +1006,7 @@
           }
         ]
       },
-      "string_literal": {
+      "string": {
         "multiple": false,
         "required": true,
         "types": [

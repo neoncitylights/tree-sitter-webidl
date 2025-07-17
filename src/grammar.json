@@ -2723,7 +2723,7 @@
         },
         {
           "type": "FIELD",
-          "name": "string_literal",
+          "name": "string",
           "content": {
             "type": "SYMBOL",
             "name": "string"

@@ -722,7 +722,7 @@ export default grammar({
 		extended_attribute_string: $ => seq(
 			field('name', $.identifier),
 			'=',
-			field('string_literal', $.string),
+			field('string', $.string),
 		),
 
 

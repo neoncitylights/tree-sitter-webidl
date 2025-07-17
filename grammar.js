@@ -111,7 +111,7 @@ export default grammar({
 		_interface_rest: $ => seq(
 			field('name', $._type_identifier),
 			optional($.inheritance),
-			field('body', $.interface_body),
+			optional(field('body', $.interface_body)),
 			';',
 		),
 
@@ -671,7 +671,7 @@ export default grammar({
 		// attributes
 		extended_attribute_list: $ => seq(
 			'[',
-			sepByComma1($._extended_attribute),
+			sepByComma1Trailing($._extended_attribute),
 			']'
 		),
 
@@ -748,6 +748,20 @@ export default grammar({
 		identifier: _ => /[_-]?[A-Za-z][0-9A-Z_a-z-]*/,
 		string: _ => /"[^"]*"/,
 		_whitespace: _ => /[\t\n\r ]+/,
-		comment: _ => /\/\/.*|\/\*(.|\n)*?\*\//,
+
+		// taken originally from tree-sitter-javascript, which takes from:
+		// https://stackoverflow.com/a/36328890/
+		//
+		// Note that this intentionally doesn't use the original regular expression
+		// defined in the WebIDL specification. For whatever reasons (that I'm not sure of),
+		// the original causes errors when parsing.
+		comment: _ => token(choice(
+			seq('//', /[^\r\n\u2028\u2029]*/),
+			seq(
+				'/*',
+				/[^*]*\*+([^/*][^*]*\*+)*/,
+				'/',
+			),
+		)),
 	}
 });

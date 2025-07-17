@@ -43,3 +43,21 @@ jobs:
         uses: tree-sitter/parser-test-action@v2
         with:
           test-parser-cmd: tree-sitter test --stat all
+  test_examples:
+    name: test (examples)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v2
+      - name: Set up examples
+        run: |-
+          git clone https://github.com/mozilla-firefox/firefox/ examples/firefox/ --single-branch --depth=1 --filter=blob:none
+          git clone https://github.com/WebKit/WebKit public_code/webkit/ --single-branch --depth=1 --filter=blob:none
+      - name: Run tests
+        uses: tree-sitter/parser-test-action@v2
+      - name: Parse examples
+        uses: tree-sitter/parse-action@v4
+        with:
+          files: examples/**/*.rs

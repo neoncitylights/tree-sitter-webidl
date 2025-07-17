@@ -59,4 +59,5 @@ jobs:
         uses: tree-sitter/parse-action@v4
         with:
           files: |-
-            examples/**/*.{webidl,idl}
+            examples/**/*.idl
+            examples/**/*.webidl

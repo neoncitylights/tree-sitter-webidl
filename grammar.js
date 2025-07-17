@@ -499,11 +499,10 @@ export default grammar({
 			$.string,
 			$.empty_array,
 			$.empty_object,
-			$.null_type,
-			$.undefined_type,
+			'null',
+			'undefined',
 		),
 
-		null_type: _ => 'null',
 		empty_array: _ => seq('[', ']'),
 		empty_object: _ => seq('{', '}'),
 
@@ -559,7 +558,6 @@ export default grammar({
 			$.optional_type,
 			$._distinguishable_type,
 			$.union_type,
-			$.optional_type,
 		),
 
 		// builtin types
@@ -568,8 +566,8 @@ export default grammar({
 			$.string_type,
 			$._type_identifier,
 			$.sequence_type,
-			$.object_type,
-			$.symbol_type,
+			'object',
+			'symbol',
 			$.buffer_related_type,
 			$.frozen_array_type,
 			$.observable_array_type,
@@ -577,8 +575,6 @@ export default grammar({
 			$.undefined_type,
 		),
 
-		object_type: _ => 'object',
-		symbol_type: _ => 'symbol',
 		undefined_type: _ => 'undefined',
 
 		primitive_type: $ => choice(
@@ -677,8 +673,10 @@ export default grammar({
 			$.extended_attribute_named_arg_list,
 			$.extended_attribute_ident,
 			$.extended_attribute_ident_list,
-			$.extended_attribute_string,
 			$.extended_attribute_wildcard,
+			// Unofficial node, written for compatibility
+			// with Mozilla's WebIDL files
+			$.extended_attribute_string,
 		),
 
 		extended_attribute_no_args: $ => field('name', $.identifier),
@@ -689,22 +687,28 @@ export default grammar({
 		),
 
 		extended_attribute_named_arg_list: $ => seq(
-			field('lhs_name', $.identifier),
+			field('lhs', $.identifier),
 			'=',
-			field('rhs_name', $.identifier),
+			field('rhs', $.identifier),
 			field('arguments', $.argument_list),
 		),
 
 		extended_attribute_ident: $ => seq(
-			field('lhs_name', $.identifier),
+			field('lhs', $.identifier),
 			'=',
-			field('rhs_name', $.identifier),
+			field('rhs', $.identifier),
 		),
 
 		extended_attribute_ident_list: $ => seq(
 			field('name', $.identifier),
 			'=',
 			field('identifiers', $.identifier_list),
+		),
+
+		extended_attribute_wildcard: $ => seq(
+			field('name', $.identifier),
+			'=',
+			'*'
 		),
 
 		// This extended attribute node is not part of the official spec;
@@ -721,11 +725,6 @@ export default grammar({
 			field('string_literal', $.string),
 		),
 
-		extended_attribute_wildcard: $ => seq(
-			field('name', $.identifier),
-			'=',
-			'*'
-		),
 
 		// other identifier nodes
 		identifier_list: $ => seq(

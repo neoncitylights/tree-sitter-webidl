@@ -75,3 +75,34 @@ jobs:
           files: |-
             examples/webkit/Source/WebCore/**/*.idl
             examples/firefox/dom/webidl/**/*.webidl
+
+          # - `callback instructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
+          # - `legacycaller` found in HTMLAllCollection
+          # - Empty extended attributes list in TestDictionaryNoToNative
+          # - Conditional C-like directives found in Node, Window, and everything listed after it
+          invalid-files: |-
+            examples/firefox/dom/webidl/AudioWorkletGlobalScope.webidl
+            examples/firefox/dom/webidl/CustomElementRegistry.webidl
+            examples/firefox/dom/webidl/HTMLAllCollection.webidl
+            examples/webkit/Source/WebCore/bindings/scripts/test/TestDictionaryNoToNative.idl
+            examples/firefox/dom/webidl/Node.webidl
+            examples/firefox/dom/webidl/Window.webidl
+            examples/webkit/Source/WebCore/Modules/ShapeDetection/BarcodeDetector.idl
+            examples/webkit/Source/WebCore/Modules/ShapeDetection/FaceDetector.idl
+            examples/webkit/Source/WebCore/Modules/ShapeDetection/TextDetector.idl
+            examples/webkit/Source/WebCore/Modules/WebGPU/GPUExternalTextureDescriptor.idl
+            examples/webkit/Source/WebCore/Modules/WebGPU/GPUImageCopyExternalImage.idl
+            examples/webkit/Source/WebCore/Modules/applepay/ApplePayErrorCode.idl
+            examples/webkit/Source/WebCore/Modules/applepay/ApplePayFeature.idl
+            examples/webkit/Source/WebCore/Modules/applepay/ApplePayMerchantCapability.idl
+            examples/webkit/Source/WebCore/Modules/applepay/ApplePayPaymentTiming.idl
+            examples/webkit/Source/WebCore/Modules/mediasession/MediaSessionAction.idl
+            examples/webkit/Source/WebCore/Modules/webcodecs/WebCodecsVideoFrame.idl
+            examples/webkit/Source/WebCore/dom/DeviceOrientationEvent.idl
+            examples/webkit/Source/WebCore/dom/Document.idl
+            examples/webkit/Source/WebCore/html/HTMLCanvasElement.idl
+            examples/webkit/Source/WebCore/html/HTMLMediaElement.idl
+            examples/webkit/Source/WebCore/html/OffscreenCanvas.idl
+            examples/webkit/Source/WebCore/html/canvas/*.webidl
+            examples/webkit/Source/WebCore/page/WindowOrWorkerGlobalScope.idl
+            examples/webkit/Source/WebCore/testing/Internals.idl

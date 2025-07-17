@@ -1878,18 +1878,14 @@
           "name": "empty_object"
         },
         {
-          "type": "SYMBOL",
-          "name": "null_type"
+          "type": "STRING",
+          "value": "null"
         },
         {
-          "type": "SYMBOL",
-          "name": "undefined_type"
+          "type": "STRING",
+          "value": "undefined"
         }
       ]
-    },
-    "null_type": {
-      "type": "STRING",
-      "value": "null"
     },
     "empty_array": {
       "type": "SEQ",
@@ -2148,12 +2144,12 @@
           "name": "sequence_type"
         },
         {
-          "type": "SYMBOL",
-          "name": "object_type"
+          "type": "STRING",
+          "value": "object"
         },
         {
-          "type": "SYMBOL",
-          "name": "symbol_type"
+          "type": "STRING",
+          "value": "symbol"
         },
         {
           "type": "SYMBOL",
@@ -2176,14 +2172,6 @@
           "name": "undefined_type"
         }
       ]
-    },
-    "object_type": {
-      "type": "STRING",
-      "value": "object"
-    },
-    "symbol_type": {
-      "type": "STRING",
-      "value": "symbol"
     },
     "undefined_type": {
       "type": "STRING",
@@ -2577,11 +2565,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "extended_attribute_string"
+          "name": "extended_attribute_wildcard"
         },
         {
           "type": "SYMBOL",
-          "name": "extended_attribute_wildcard"
+          "name": "extended_attribute_string"
         }
       ]
     },
@@ -2697,6 +2685,27 @@
         }
       ]
     },
+    "extended_attribute_wildcard": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "STRING",
+          "value": "*"
+        }
+      ]
+    },
     "extended_attribute_string": {
       "type": "SEQ",
       "members": [
@@ -2719,27 +2728,6 @@
             "type": "SYMBOL",
             "name": "string"
           }
-        }
-      ]
-    },
-    "extended_attribute_wildcard": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "="
-        },
-        {
-          "type": "STRING",
-          "value": "*"
         }
       ]
     },

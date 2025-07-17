@@ -1911,11 +1911,15 @@
     "named": true,
     "fields": {
       "lhs_type": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "buffer_related_type",
+            "named": true
+          },
+          {
+            "type": "extended_attribute_list",
             "named": true
           },
           {
@@ -1979,11 +1983,15 @@
         ]
       },
       "rhs_type": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "buffer_related_type",
+            "named": true
+          },
+          {
+            "type": "extended_attribute_list",
             "named": true
           },
           {

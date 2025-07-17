@@ -13,11 +13,6 @@ import {
 	sepByComma1Trailing,
 } from './grammar.utils.js'
 
-const PREC = {
-	extended_attribute_ident: 1,
-	ident_expr_list: 4,
-}
-
 export default grammar({
 	name: "webidl",
 	extras: $ => [
@@ -576,9 +571,12 @@ export default grammar({
 		)),
 
 		_union_member_type: $ => choice(
-			$.optional_type,
-			$._distinguishable_type,
+			seq(
+				optional($.extended_attribute_list),
+				$._distinguishable_type
+			),
 			$.union_type,
+			$.optional_type,
 		),
 
 		// builtin types

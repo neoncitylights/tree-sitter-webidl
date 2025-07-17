@@ -79,6 +79,7 @@ jobs:
           # - `callback instructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
           # - `legacycaller` found in HTMLAllCollection
           # - Empty extended attributes list in TestDictionaryNoToNative
+          # - Invalid identifier in attribute members (double underscores at the start) in TestObj
           # - Invalid enum (no comma) in WebGLContextAttributes
           # - Conditional C-like directives found in Node, Window, and everything listed after it
           invalid-files: |-
@@ -86,6 +87,7 @@ jobs:
             examples/firefox/dom/webidl/CustomElementRegistry.webidl
             examples/firefox/dom/webidl/HTMLAllCollection.webidl
             examples/webkit/Source/WebCore/bindings/scripts/test/TestDictionaryNoToNative.idl
+            examples/webkit/Source/WebCore/bindings/scripts/test/TestObj.idl
             examples/webkit/Source/WebCore/html/canvas/WebGLContextAttributes.idl
             examples/firefox/dom/webidl/Node.webidl
             examples/firefox/dom/webidl/Window.webidl

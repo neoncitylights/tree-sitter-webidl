@@ -1812,7 +1812,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "_type_identifier"
+            "name": "identifier"
           }
         },
         {

@@ -338,7 +338,7 @@ export default grammar({
 			';',
 		),
 
-		stringifier_member: $ => seq(
+		stringifier_member: _ => seq(
 			'stringifier',
 			';',
 		),
@@ -491,7 +491,7 @@ export default grammar({
 		const_member: $ => seq(
 			'const',
 			field('type', $._const_type),
-			field('name', $._type_identifier),
+			field('name', $.identifier),
 			'=',
 			field('value', $._const_value),
 			';',

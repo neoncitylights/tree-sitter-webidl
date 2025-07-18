@@ -708,16 +708,16 @@ export default grammar({
 		),
 
 		extended_attribute_named_arg_list: $ => seq(
-			field('lhs', $.identifier),
+			field('name', $.identifier),
 			'=',
-			field('rhs', $.identifier),
+			field('arguments_name', $.identifier),
 			field('arguments', $.argument_list),
 		),
 
 		extended_attribute_ident: $ => seq(
-			field('lhs', $.identifier),
+			field('name', $.identifier),
 			'=',
-			field('rhs', $.identifier),
+			field('ident', $.identifier),
 		),
 
 		extended_attribute_ident_list: $ => seq(
@@ -729,7 +729,7 @@ export default grammar({
 		extended_attribute_wildcard: $ => seq(
 			field('name', $.identifier),
 			'=',
-			'*'
+			'*',
 		),
 
 		// These extended attribute nodes are not part of the official spec;

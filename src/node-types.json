@@ -881,7 +881,7 @@
     "type": "extended_attribute_ident",
     "named": true,
     "fields": {
-      "lhs": {
+      "ident": {
         "multiple": false,
         "required": true,
         "types": [
@@ -891,7 +891,7 @@
           }
         ]
       },
-      "rhs": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -984,7 +984,7 @@
           }
         ]
       },
-      "lhs": {
+      "arguments_name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -994,7 +994,7 @@
           }
         ]
       },
-      "rhs": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [

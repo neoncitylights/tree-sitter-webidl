@@ -2671,7 +2671,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "lhs",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -2683,7 +2683,7 @@
         },
         {
           "type": "FIELD",
-          "name": "rhs",
+          "name": "arguments_name",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -2704,7 +2704,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "lhs",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -2716,7 +2716,7 @@
         },
         {
           "type": "FIELD",
-          "name": "rhs",
+          "name": "ident",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"

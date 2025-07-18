@@ -67,8 +67,8 @@ interface Foo {};
 (source_file
 	(extended_attribute_list
 		(extended_attribute_named_arg_list
-			lhs: (identifier)
-			rhs: (identifier)
+			name: (identifier)
+			arguments_name: (identifier)
 			arguments: (argument_list
 				(argument
 					type: (string_type)
@@ -96,8 +96,8 @@ interface Foo {};
 (source_file
 	(extended_attribute_list
 		(extended_attribute_ident
-			lhs: (identifier)
-			rhs: (identifier)
+			name: (identifier)
+			ident: (identifier)
 		)
 	)
 	(interface_definition

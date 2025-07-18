@@ -14,8 +14,8 @@ Extended attributes: takes an identifier expression (non-compliant attribute)
 (source_file
 	(extended_attribute_list
 		(extended_attribute_ident
-			lhs: (identifier)
-			rhs: (identifier)
+			name: (identifier)
+			ident: (identifier)
 		)
 		(extended_attribute_ident_expr
 			name: (identifier)
@@ -59,8 +59,8 @@ namespace APZHitResultFlags {
 			string: (string)
 		)
 		(extended_attribute_ident
-			lhs: (identifier)
-			rhs: (identifier)
+			name: (identifier)
+			ident: (identifier)
 		)
 	)
 	(namespace_definition

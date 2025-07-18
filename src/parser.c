@@ -1800,9 +1800,6 @@ static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE
     [0] = alias_sym_type_identifier,
     [1] = alias_sym_partial_interface_mixin_body,
   },
-  [50] = {
-    [2] = alias_sym_type_identifier,
-  },
 };
 
 static const uint16_t ts_non_terminal_alias_map[] = {

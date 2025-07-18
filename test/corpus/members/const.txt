@@ -14,7 +14,7 @@ interface A {
 		body: (interface_body
 			(const_member
 				type: (primitive_type (integer_type))
-				name: (type_identifier)
+				name: (identifier)
 				value: (integer_literal)
 			)
 		)

@@ -20,7 +20,7 @@ The tree-sitter grammar has unit tests in [`test/corpus`](./test/corpus), and is
 - Bun runtime ([oven-sh/bun](https://github.com/oven-sh/bun))
 - Web Platform Tests suite ([web-platform-tests/wpt](https://github.com/web-platform-tests/wpt))
 
-The tree-sitter grammar aims to be quite spec-compliant, although also tries to be backwards-compatible and tolerant with some non-compliant syntax (where reasonable). At this time, this repository does not have a grammar that implements Blink IDL (the WebIDL dialect that Chromium uses).
+The tree-sitter grammar aims to be quite spec-compliant, although also tries to be backwards-compatible and tolerant with some non-compliant syntax (where reasonable). At this time, this repository does not have a grammar that implements [Blink IDL](https://www.chromium.org/blink/webidl/) (the WebIDL dialect that Chromium uses).
 
 The following non-compliant syntaxes are implemented:
 - Extended attribute that takes a string literal

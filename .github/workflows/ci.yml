@@ -69,12 +69,21 @@ jobs:
           git sparse-checkout set dom/webidl
           git checkout
 
+      - name: Setup examples (Node.js)
+        run: |-
+          git clone --single-branch --depth=1 --filter=blob:none --no-checkout https://github.com/nodejs/node/ examples/node/
+          cd examples/node
+          git sparse-checkout init --cone
+          git sparse-checkout set test/fixtures/wpt/interfaces
+          git checkout
+
       - name: Parse examples
         uses: tree-sitter/parse-action@v4
         with:
           files: |-
             examples/webkit/Source/WebCore/**/*.idl
             examples/firefox/dom/webidl/**/*.webidl
+            examples/node/**/*.idl
 
           # - `callback constructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
           # - `legacycaller` found in HTMLAllCollection

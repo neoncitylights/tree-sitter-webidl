@@ -12,7 +12,15 @@ An unofficial WebIDL grammar for tree-sitter.
 - [WebIDL Living Standard](https://webidl.spec.whatwg.org) (webidl.spec.whatwg.org)
 
 ## Compliance
-The tree-sitter grammar has unit tests in [`test/corpus`](./test/corpus), and is also tested against WebIDL files in the WebKit and Firefox repositories. It aims to be mostly spec-compliant, although also tries to be backwards-compatible and tolerant with some non-compliant syntax (where reasonable).
+The tree-sitter grammar has unit tests in [`test/corpus`](./test/corpus), and is also tested against some major browser engines and JS runtimes that contain WebIDL files:
+
+- Firefox browser ([mozilla-firefox/firefox](https://github.com/mozilla-firefox/firefox]))
+- WebKit engine ([WebKit/WebKit](https://github.com/WebKit/WebKit]))
+- Node.js runtime ([nodejs/node](https://github.com/nodejs/node]))
+- Bun runtime ([oven-sh/bun](https://github.com/oven-sh/bun))
+- Web Platform Tests suite ([web-platform-tests/wpt](https://github.com/web-platform-tests/wpt))
+
+The tree-sitter grammar aims to be quite spec-compliant, although also tries to be backwards-compatible and tolerant with some non-compliant syntax (where reasonable). At this time, this repository does not have a grammar that implements Blink IDL (the WebIDL dialect that Chromium uses).
 
 The following non-compliant syntaxes are implemented:
 - Extended attribute that takes a string literal

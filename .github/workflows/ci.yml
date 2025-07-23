@@ -77,6 +77,14 @@ jobs:
           git sparse-checkout set test/fixtures/wpt/interfaces
           git checkout
 
+      - name: Setup examples (Bun)
+        run: |-
+          git clone --single-branch --depth=1 --filter=blob:none --no-checkout https://github.com/oven-sh/bun/ examples/bun/
+          cd examples/bun
+          git sparse-checkout init --cone
+          git sparse-checkout set src/bun.js/bindings
+          git checkout
+
       - name: Parse examples
         uses: tree-sitter/parse-action@v4
         with:
@@ -84,6 +92,7 @@ jobs:
             examples/webkit/Source/WebCore/**/*.idl
             examples/firefox/dom/webidl/**/*.webidl
             examples/node/**/*.idl
+            examples/bun/**/*.idl
 
           # - `callback constructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
           # - `legacycaller` found in HTMLAllCollection

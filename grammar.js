@@ -119,7 +119,7 @@ export default grammar({
 		_interface_rest: $ => seq(
 			field('name', $._type_identifier),
 			optional($.inheritance),
-			optional(field('body', $.interface_body)),
+			field('body', $.interface_body),
 			';',
 		),
 

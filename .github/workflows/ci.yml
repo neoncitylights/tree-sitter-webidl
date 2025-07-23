@@ -135,3 +135,4 @@ jobs:
             examples/webkit/Source/WebCore/html/canvas/WebGLRenderingContextBase.idl
             examples/webkit/Source/WebCore/page/WindowOrWorkerGlobalScope.idl
             examples/webkit/Source/WebCore/testing/Internals.idl
+            examples/bun/src/bun.js/bindings/webcore/MessageEvent.idl

@@ -69,6 +69,14 @@ jobs:
           git sparse-checkout set dom/webidl
           git checkout
 
+      - name: Setup examples (Chromium)
+        run: |-
+          git clone --single-branch --depth=1 --filter=blob:none --no-checkout https://github.com/chromium/chromium/ examples/chromium/
+          cd examples/chromium
+          git sparse-checkout init --cone
+          git sparse-checkout set chrome/common extensions/common components/cronet
+          git checkout
+
       - name: Setup examples (Node.js)
         run: |-
           git clone --single-branch --depth=1 --filter=blob:none --no-checkout https://github.com/nodejs/node/ examples/node/
@@ -93,6 +101,7 @@ jobs:
             examples/firefox/dom/webidl/**/*.webidl
             examples/node/**/*.idl
             examples/bun/**/*.idl
+            examples/chromium/**/*.idl
 
           # - `callback constructor` are invalid callbacks, found in AudioWorkletGlobalScope + CustomElementRegistry
           # - `legacycaller` found in HTMLAllCollection

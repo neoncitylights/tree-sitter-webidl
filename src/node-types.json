@@ -240,6 +240,10 @@
         "named": false
       },
       {
+        "type": "async_sequence_type",
+        "named": true
+      },
+      {
         "type": "buffer_related_type",
         "named": true
       },
@@ -411,6 +415,26 @@
             "type": ",",
             "named": false
           },
+          {
+            "type": "extended_attribute_list",
+            "named": true
+          },
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "async_sequence_type",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": true,
+        "required": true,
+        "types": [
           {
             "type": "extended_attribute_list",
             "named": true
@@ -1599,6 +1623,10 @@
       "required": false,
       "types": [
         {
+          "type": "async_sequence_type",
+          "named": true
+        },
+        {
           "type": "buffer_related_type",
           "named": true
         },
@@ -1915,6 +1943,10 @@
         "required": true,
         "types": [
           {
+            "type": "async_sequence_type",
+            "named": true
+          },
+          {
             "type": "buffer_related_type",
             "named": true
           },
@@ -1986,6 +2018,10 @@
         "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "async_sequence_type",
+            "named": true
+          },
           {
             "type": "buffer_related_type",
             "named": true
@@ -2227,6 +2263,10 @@
   },
   {
     "type": "async_iterable",
+    "named": false
+  },
+  {
+    "type": "async_sequence",
     "named": false
   },
   {

@@ -1,0 +1,75 @@
+============================================
+Operation return types as sequence<T> and async_sequence<T>
+============================================
+
+interface SomeInterface {
+	sequence<DOMString> foo();
+	async_sequence<DOMString> bar();
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(operation_member
+				return_type: (sequence_type
+					type: (string_type)
+				)
+				name: (identifier)
+				arguments: (argument_list)
+			)
+			(operation_member
+				return_type: (async_sequence_type
+					type: (string_type)
+				)
+				name: (identifier)
+				arguments: (argument_list)
+			)
+		)
+	)
+)
+
+============================================
+Operation argument types as sequence<T> and async_sequence<T>
+============================================
+
+interface SomeInterface {
+	undefined foo(sequence<DOMString> arg1);
+	undefined bar(async_sequence<DOMString> arg2);
+};
+
+----
+
+(source_file
+	(interface_definition
+		name: (type_identifier)
+		body: (interface_body
+			(operation_member
+				return_type: (undefined_type)
+				name: (identifier)
+				arguments: (argument_list
+					(argument
+						type: (sequence_type
+							type: (string_type)
+						)
+						name: (identifier)
+					)
+				)
+			)
+			(operation_member
+				return_type: (undefined_type)
+				name: (identifier)
+				arguments: (argument_list
+					(argument
+						type: (async_sequence_type
+							type: (string_type)
+						)
+						name: (identifier)
+					)
+				)
+			)
+		)
+	)
+)

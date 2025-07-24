@@ -2183,6 +2183,10 @@
           "name": "sequence_type"
         },
         {
+          "type": "SYMBOL",
+          "name": "async_sequence_type"
+        },
+        {
           "type": "STRING",
           "value": "object"
         },
@@ -2476,6 +2480,31 @@
         {
           "type": "STRING",
           "value": "sequence"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_type_with_extended_attributes"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "async_sequence_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "async_sequence"
         },
         {
           "type": "STRING",

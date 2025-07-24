@@ -585,6 +585,7 @@ export default grammar({
 			$.string_type,
 			$._type_identifier,
 			$.sequence_type,
+			$.async_sequence_type,
 			'object',
 			'symbol',
 			$.buffer_related_type,
@@ -662,6 +663,13 @@ export default grammar({
 
 		sequence_type: $ => seq(
 			'sequence',
+			'<',
+			field('type', $._type_with_extended_attributes),
+			'>',
+		),
+
+		async_sequence_type: $ => seq(
+			'async_sequence',
 			'<',
 			field('type', $._type_with_extended_attributes),
 			'>',
